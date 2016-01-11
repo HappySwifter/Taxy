@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 import BTNavigationDropdownMenu
+import DrawerController
+
 
 class MyOrders: UITableViewController {
     
@@ -17,7 +19,7 @@ class MyOrders: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.lightGrayColor()
-
+        setupMenuButtons()
         
         
         if UserProfile.sharedInstance.type == .Passenger {
@@ -28,14 +30,14 @@ class MyOrders: UITableViewController {
             let menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: items.first!, items: items)
             self.navigationItem.titleView = menuView
             menuView.didSelectItemAtIndexHandler = { [weak self] indexPath in
-               self?.loadOrders(indexPath)
+                self?.loadOrders(indexPath + 1)
             }
         }
     }
     
-
+    
     func loadOrders(type: Int) {
-        Networking.instanse.getOrders(type + 1) { [weak self] result in
+        Networking.instanse.getOrders(type) { [weak self] result in
             switch result {
             case .Error(let error):
                 Popup.instanse.showError("", message: error)
@@ -47,7 +49,15 @@ class MyOrders: UITableViewController {
         }
     }
     
-
+    
+    func setupMenuButtons() {
+        let leftDrawerButton = DrawerBarButtonItem(target: self, action: "leftDrawerButtonPress:")
+        self.navigationItem.setLeftBarButtonItem(leftDrawerButton, animated: false)
+    }
+    
+    func leftDrawerButtonPress(sender: AnyObject?) {
+        self.evo_drawerController?.toggleDrawerSide(.Left, animated: true, completion: nil)
+    }
 }
 
 
@@ -71,7 +81,7 @@ extension MyOrders {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return orders.count
+        return orders.count
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -89,7 +99,7 @@ class driverOrderCell: UITableViewCell {
     @IBOutlet weak var fromPlaceLabel: UILabel!
     @IBOutlet weak var toPlaceLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
-
+    
 }
 
 class passengerOrderCell: UITableViewCell {
@@ -99,13 +109,13 @@ class passengerOrderCell: UITableViewCell {
     @IBOutlet weak var driverNameLabel: UILabel!
     @IBOutlet weak var statusView: UIView!
     @IBOutlet weak var orderDetailsLabel: UILabel!
-
+    
     func configureViewWithOrder(order: Order) {
         if let price = order.price {
             priceLabel.text = String(price) + "р"
         }
         driverNameLabel.text = order.driverInfo?.userID
-
+        
         statusView.layer.cornerRadius = 20
         if order.orderStatus == 1 {
             statusView.backgroundColor = UIColor.greenColor()

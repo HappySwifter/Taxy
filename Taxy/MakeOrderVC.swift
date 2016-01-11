@@ -77,9 +77,9 @@ class MakeOrderVC: FormViewController {
         }
         
         
-
-
-////////// from place /////////////
+        
+        
+        ////////// from place /////////////
         let fromRow = TextViewRowFormer<FormTextViewCell>() { [weak self] in
             $0.textView.textColor = .formerSubColor()
             $0.textView.font = .systemFontOfSize(15)
@@ -93,7 +93,7 @@ class MakeOrderVC: FormViewController {
         }
         
         let getGeoRow = LabelRowFormer<CenterLabelCell>() {
-                $0.textLabel?.text = "Отпределить автоматически"
+            $0.textLabel?.text = "Отпределить автоматически"
             }
             .onSelected { _ in
                 
@@ -103,31 +103,31 @@ class MakeOrderVC: FormViewController {
                     self.update()
                 }
                 
-//                do {
-//                    try SwiftLocation.shared.currentLocation(Accuracy.Neighborhood, timeout: 20, onSuccess: { (location) -> Void in
-//                        print(location)
-//                        
-//                        if let coord = location?.coordinate {
-//                            SwiftLocation.shared.reverseCoordinates(Service.GoogleMaps, coordinates: coord, onSuccess: { (place) -> Void in
-//                                guard let city = place?.locality, let street = place?.thoroughfare, let home = place?.subThoroughfare else {
-//                                    debugPrint("cant get city and street from place")
-//                                    return
-//                                }
-//                                self.orderInfo.fromPlace = city + ", " + street
-//                                if home.characters.count > 0 {
-//                                    self.orderInfo.fromPlace?.appendContentsOf(", \(home)")
-//                                }
-//
-//                                }) { (error) -> Void in
-//                                    debugPrint(error)
-//                            }
-//                        }
-//                        }) { (error) -> Void in
-//                            print(error)
-//                    }
-//                } catch {
-//                    print(error)
-//                }
+                //                do {
+                //                    try SwiftLocation.shared.currentLocation(Accuracy.Neighborhood, timeout: 20, onSuccess: { (location) -> Void in
+                //                        print(location)
+                //
+                //                        if let coord = location?.coordinate {
+                //                            SwiftLocation.shared.reverseCoordinates(Service.GoogleMaps, coordinates: coord, onSuccess: { (place) -> Void in
+                //                                guard let city = place?.locality, let street = place?.thoroughfare, let home = place?.subThoroughfare else {
+                //                                    debugPrint("cant get city and street from place")
+                //                                    return
+                //                                }
+                //                                self.orderInfo.fromPlace = city + ", " + street
+                //                                if home.characters.count > 0 {
+                //                                    self.orderInfo.fromPlace?.appendContentsOf(", \(home)")
+                //                                }
+                //
+                //                                }) { (error) -> Void in
+                //                                    debugPrint(error)
+                //                            }
+                //                        }
+                //                        }) { (error) -> Void in
+                //                            print(error)
+                //                    }
+                //                } catch {
+                //                    print(error)
+                //                }
         }
         
         let showOnMapRow = LabelRowFormer<CenterLabelCell>() {
@@ -147,10 +147,10 @@ class MakeOrderVC: FormViewController {
         
         
         self.fromRow = fromRow
-//////////////////////////////
+        //////////////////////////////
         
         
-////////// to place /////////////
+        ////////// to place /////////////
         let toRow = TextViewRowFormer<FormTextViewCell>() { [weak self] in
             $0.textView.textColor = .formerSubColor()
             $0.textView.font = .systemFontOfSize(15)
@@ -179,10 +179,10 @@ class MakeOrderVC: FormViewController {
         }
         
         self.toRow = toRow
-//////////////////////////////
+        //////////////////////////////
         
         
-///////////price//////////////
+        ///////////price//////////////
         let priceRow = TextFieldRowFormer<ProfileFieldCell>(instantiateType: .Nib(nibName: "ProfileFieldCell")) { [weak self] in
             $0.titleLabel.text = "Цена"
             $0.textField.keyboardType = .DecimalPad
@@ -192,10 +192,10 @@ class MakeOrderVC: FormViewController {
             }.onTextChanged {
                 self.orderInfo.price = Int($0)
         }
-//////////////////////////////
+        //////////////////////////////
         
         
-/////////// comment ////////////
+        /////////// comment ////////////
         let commentRow = TextViewRowFormer<FormTextViewCell>() { [weak self] in
             $0.textView.textColor = .formerSubColor()
             $0.textView.font = .systemFontOfSize(15)
@@ -205,7 +205,7 @@ class MakeOrderVC: FormViewController {
             }.onTextChanged {
                 self.orderInfo.comment = $0
         }
-////////////////////////////////
+        ////////////////////////////////
         
         
         let moreRow = SwitchRowFormer<FormSwitchCell>() {
@@ -218,11 +218,11 @@ class MakeOrderVC: FormViewController {
                 $0.switchWhenSelected = true
             }.onSwitchChanged { [weak self] in
                 self?.orderInfo.moreInformation = $0
-//                if !$0 {
-//                    self?.orderInfo.isChildChair = false
-//                }
+                //                if !$0 {
+                //                    self?.orderInfo.isChildChair = false
+                //                }
                 self?.switchInfomationSection()
-               
+                
         }
         
         
@@ -244,7 +244,7 @@ class MakeOrderVC: FormViewController {
         let priceSection = SectionFormer(rowFormer: priceRow)
         let commentSection = SectionFormer(rowFormer: commentRow)
         let moreSection = SectionFormer(rowFormer: moreRow)
-
+        
         
         former.append(sectionFormer: segmentSection, fromSection, toSection, priceSection, commentSection, moreSection)
             .onCellSelected { [weak self] _ in
@@ -284,5 +284,5 @@ class MakeOrderVC: FormViewController {
             former.removeUpdate(sectionFormer: informationSection, rowAnimation: .Top)
         }
     }
-
+    
 }

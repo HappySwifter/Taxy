@@ -27,7 +27,7 @@ import Former
 final class MyProfileVC: FormViewController, SegueHandlerType {
     
     internal var isRegistration = true
-//    var userInfo: UserProfile = UserProfile()
+    //    var userInfo: UserProfile = UserProfile()
     
     enum SegueIdentifier: String {
         case DriverRegistrationSegue
@@ -57,8 +57,8 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
     private lazy var imageRow: LabelRowFormer<ProfileImageCell> = {
         LabelRowFormer<ProfileImageCell>(instantiateType: .Nib(nibName: "ProfileImageCell")) {
             $0.iconView.image = UserProfile.sharedInstance.image
-        }
-        .configure {
+            }
+            .configure {
                 $0.text = "Выберите фотографию"
                 $0.rowHeight = 60
             }.onSelected { [weak self] _ in
@@ -66,7 +66,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
                 self?.presentImagePicker()
         }
     }()
-
+    
     
     private func configure() {
         title = "Мой профиль"
@@ -102,7 +102,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
             }.onTextChanged {
                 UserProfile.sharedInstance.name = $0
         }
-
+        
         let cityRow = InlinePickerRowFormer<ProfileLabelCell, String>(instantiateType: .Nib(nibName: "ProfileLabelCell")) {
             $0.titleLabel.text = "Город"
             }.configure {
@@ -113,16 +113,16 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
                 if let city = UserProfile.sharedInstance.city {
                     $0.selectedRow = city.code ?? 0
                 }
-//                else {
-//                    UserProfile.sharedInstance.city = 0
-//                }
+                //                else {
+                //                    UserProfile.sharedInstance.city = 0
+                //                }
             }
             .onValueChanged {
                 let name = $0.title
                 if let index = LocalData.instanse.cities.indexOf({$0.name == name}) {
                     UserProfile.sharedInstance.city = LocalData.instanse.cities[index]
                 }
-
+                
         }
         
         
@@ -131,10 +131,10 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
             }.configure {
                 $0.text = UserProfile.sharedInstance.phoneNumber
                 $0.enabled = false
-            }
-
+        }
         
-
+        
+        
         
         
         // Create Headers
@@ -148,7 +148,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
         }
         
         // Create SectionFormers
-
+        
         let userTypeSection = SectionFormer(rowFormer: userTypeRow)
             .set(headerViewFormer: createHeader("Кто вы?"))
         let imageSection = SectionFormer(rowFormer: imageRow)
@@ -168,6 +168,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
                     $0.text = "Выход"
                 }.onSelected { [weak self] _ in
                     LocalData().forgetUserProfile()
+                    LocalData().deleteUserID()
                     let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
                     let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.LoginSTID.rawValue)
                     let nav = NavigationContr(rootViewController: contr)
@@ -199,43 +200,50 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
             let leftDrawerButton = DrawerBarButtonItem(target: self, action: "leftDrawerButtonPress:")
             self.navigationItem.setLeftBarButtonItem(leftDrawerButton, animated: false)
         }
-
+        
     }
     
     
     func doneTouched() -> Void {
         
-        guard UserProfile.sharedInstance.city?.code != 0 else {
+        guard UserProfile.sharedInstance.city?.code != 0  else {
             Popup.instanse.showInfo("Внимание", message: "Выберите Ваш город")
             return
         }
+        
+        
+        guard UserProfile.sharedInstance.city != nil  else {
+            Popup.instanse.showInfo("Внимание", message: "Выберите Ваш город")
+            return
+        }
+        
         
         if isRegistration == true {
             
             
             
             let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-                switch UserProfile.sharedInstance.type {
-                case .Passenger:
-                    
-                    Networking().updateProfile(UserProfile.sharedInstance) { [weak self]  data in
-//                        LocalData().savePhone(data)
-                        
-                        
-                        let vc = MenuVC()
-                        let navC = UINavigationController(rootViewController: vc)
-                        self?.evo_drawerController?.leftDrawerViewController = navC
-                        
-                        let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MakeOrderSTID.rawValue)
-                        let nav = NavigationContr(rootViewController: contr)
-                        self?.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
-                    }
+            switch UserProfile.sharedInstance.type {
+            case .Passenger:
+                
+                Networking().updateProfile(UserProfile.sharedInstance) { [weak self]  data in
+                    //                        LocalData().savePhone(data)
                     
                     
-                case .Driver:
-                    performSegueWithIdentifier(.DriverRegistrationSegue, sender: self)
-//                    performSegueWithIdentifier("DriverRegistrationSegue", sender: nil)
+                    let vc = MenuVC()
+                    let navC = UINavigationController(rootViewController: vc)
+                    self?.evo_drawerController?.leftDrawerViewController = navC
+                    
+                    let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MakeOrderSTID.rawValue)
+                    let nav = NavigationContr(rootViewController: contr)
+                    self?.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
                 }
+                
+                
+            case .Driver:
+                performSegueWithIdentifier(.DriverRegistrationSegue, sender: self)
+                //                    performSegueWithIdentifier("DriverRegistrationSegue", sender: nil)
+            }
             
         } else {
             Networking().updateProfile(UserProfile.sharedInstance) { [weak self]  data in
@@ -249,13 +257,13 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
         self.evo_drawerController?.toggleDrawerSide(.Left, animated: true, completion: nil)
     }
     
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == "DriverRegistrationSegue" {
-//            if let contr = segue.destinationViewController as? DriverRegistrationVC {
-//                contr.userInfo = userInfo
-//            }
-//        }
-//    }
+    //    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    //        if segue.identifier == "DriverRegistrationSegue" {
+    //            if let contr = segue.destinationViewController as? DriverRegistrationVC {
+    //                contr.userInfo = userInfo
+    //            }
+    //        }
+    //    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifierForSegue(segue) {

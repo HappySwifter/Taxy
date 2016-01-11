@@ -37,7 +37,7 @@ final class LoginViewController: UIViewController {
         switchInfomationSection(.Phone)
         configure()
         updateView()
-//goAhead()
+        //goAhead()
         
     }
     
@@ -48,9 +48,9 @@ final class LoginViewController: UIViewController {
     private var getSmsButtonRow: LabelRowFormer<CenterLabelCell>?
     
     @IBOutlet private weak var tableView: UITableView!
-//    @IBOutlet private weak var dimmingView: UIControl!
+    //    @IBOutlet private weak var dimmingView: UIControl!
     
-   
+    
     private lazy var phoneSection: SectionFormer = {
         
         let descriptionHeader = LabelViewFormer<FormLabelHeaderView>() {
@@ -107,8 +107,8 @@ final class LoginViewController: UIViewController {
             $0.backgroundColor = .clearColor()
             $0.titleLabel.textColor = .whiteColor()
             $0.selectionStyle = .None
-        }.configure {
-            $0.text = "Не пришло СМС?"
+            }.configure {
+                $0.text = "Не пришло СМС?"
             }.onSelected { [weak self] _ in
                 if let phone = self?.loginInfo.phone {
                     Popup.instanse.showQuestion(phone, message: "Отправить СМС заново?", otherButtons: ["Отмена"]).handler { selectedIndex in
@@ -151,40 +151,40 @@ final class LoginViewController: UIViewController {
         let getSmsButtonRow = LabelRowFormer<CenterLabelCell>()
             .onSelected { [weak self] _ in
                 
-            if self?.former.firstSectionFormer === self?.phoneSection {
-                
-                if let phone = self?.loginInfo.phone {
-                    self?.view.endEditing(true)
-                    Popup.instanse.showQuestion(phone, message: "Отправить СМС на указанный номер?", otherButtons: ["Отмена"]).handler { selectedIndex in
-                        if selectedIndex == 0 {
-                            Networking().getSms(self?.loginInfo) { [weak self] result in
-                                
-                                switch result {
-                                case .Error(let error):
-                                    Popup.instanse.showError("", message: error)
-                                    // TODO hide loading
-                                case .Response(let data):
-                                    self?.loginInfo.id = data
-                                    self?.switchInfomationSection(.Pincode)
-                                    self?.updateView()
+                if self?.former.firstSectionFormer === self?.phoneSection {
+                    
+                    if let phone = self?.loginInfo.phone {
+                        self?.view.endEditing(true)
+                        Popup.instanse.showQuestion(phone, message: "Отправить СМС на указанный номер?", otherButtons: ["Отмена"]).handler { selectedIndex in
+                            if selectedIndex == 0 {
+                                Networking().getSms(self?.loginInfo) { [weak self] result in
+                                    
+                                    switch result {
+                                    case .Error(let error):
+                                        Popup.instanse.showError("", message: error)
+                                        // TODO hide loading
+                                    case .Response(let data):
+                                        self?.loginInfo.id = data
+                                        self?.switchInfomationSection(.Pincode)
+                                        self?.updateView()
+                                    }
                                 }
                             }
                         }
                     }
-                }
-            } else {
-                Networking().checkPincode(self?.loginInfo) { [weak self] result in
-                    
-                    switch result {
-                    case .Error(let error):
-                        Popup.instanse.showError("", message: error)
-                    case .Response(let data):
-                        LocalData.instanse.saveUserID(data)
-                        self?.goAhead()
+                } else {
+                    Networking().checkPincode(self?.loginInfo) { [weak self] result in
+                        
+                        switch result {
+                        case .Error(let error):
+                            Popup.instanse.showError("", message: error)
+                        case .Response(let data):
+                            LocalData.instanse.saveUserID(data)
+                            self?.goAhead()
+                        }
+                        
                     }
-                    
                 }
-            }
         }
         
         self.getSmsButtonRow = getSmsButtonRow
@@ -221,9 +221,9 @@ final class LoginViewController: UIViewController {
             getSmsButtonRow?.update()
         }
         
-//        if let pincodeRow = pincodeSection.firstRowFormer as? TextFieldRowFormer<ProfileFieldCell> {
-//            pincodeRow.update()
-//        }
+        //        if let pincodeRow = pincodeSection.firstRowFormer as? TextFieldRowFormer<ProfileFieldCell> {
+        //            pincodeRow.update()
+        //        }
     }
     
     
@@ -234,7 +234,7 @@ final class LoginViewController: UIViewController {
             former.insertUpdate(sectionFormer: phoneSection, toSection: 0, rowAnimation: .Top)
             former.removeUpdate(sectionFormer: pincodeSection)
             former.removeUpdate(sectionFormer: noSMSSection)
-        
+            
         case .Pincode:
             former.insertUpdate(sectionFormer: pincodeSection, toSection: 0, rowAnimation: .Top)
             former.insertUpdate(sectionFormer: noSMSSection, toSection: former.numberOfSections)
@@ -244,9 +244,9 @@ final class LoginViewController: UIViewController {
     
     
     private func goAhead() -> Void {
-//        let vc = MenuVC()
-//        let navC = UINavigationController(rootViewController: vc)
-//        self.evo_drawerController?.leftDrawerViewController = navC
+        //        let vc = MenuVC()
+        //        let navC = UINavigationController(rootViewController: vc)
+        //        self.evo_drawerController?.leftDrawerViewController = navC
         
         let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MySettingsSTID.rawValue)
