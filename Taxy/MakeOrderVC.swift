@@ -95,12 +95,12 @@ class MakeOrderVC: FormViewController {
         let getGeoRow = LabelRowFormer<CenterLabelCell>() {
             $0.textLabel?.text = "Отпределить автоматически"
             }
-            .onSelected { _ in
-                
+            .onSelected { [weak self] _ in
+                self?.former.deselect(true)
                 Helper().getAddres {
-                    self.orderInfo.fromPlace = $0.0
-                    self.orderInfo.coordinates = $0.1
-                    self.update()
+                    self?.orderInfo.fromPlace = $0.0
+                    self?.orderInfo.coordinates = $0.1
+                    self?.update()
                 }
                 
                 //                do {
@@ -133,15 +133,16 @@ class MakeOrderVC: FormViewController {
         let showOnMapRow = LabelRowFormer<CenterLabelCell>() {
             $0.textLabel?.text = "Указать на карте"
             }
-            .onSelected { data in
+            .onSelected { [weak self] data in
+                self?.former.deselect(true)
                 let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
                 if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MapSTID.rawValue) as? MapViewController {
-                    contr.initiator = NSStringFromClass(self.dynamicType)
+                    contr.initiator = NSStringFromClass((self?.dynamicType)!)
                     contr.onSelected = {
-                        self.orderInfo.toPlace = $0.address
-                        self.orderInfo.coordinates = $0.coords
+                        self?.orderInfo.toPlace = $0.address
+                        self?.orderInfo.coordinates = $0.coords
                     }
-                    self.navigationController?.pushViewController(contr, animated: true)
+                    self?.navigationController?.pushViewController(contr, animated: true)
                 }
         }
         
@@ -166,15 +167,15 @@ class MakeOrderVC: FormViewController {
         let findOnMapRow = LabelRowFormer<CenterLabelCell>() {
             $0.textLabel?.text = "Найти на карте"
             }
-            .onSelected { _ in
-                
+            .onSelected { [weak self] _ in
+                self?.former.deselect(true)
                 let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
                 if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MapSTID.rawValue) as? MapViewController {
-                    contr.initiator = NSStringFromClass(self.dynamicType)
+                    contr.initiator = NSStringFromClass((self?.dynamicType)!)
                     contr.onSelected = {
-                        self.orderInfo.toPlace = $0.address
+                        self?.orderInfo.toPlace = $0.address
                     }
-                    self.navigationController?.pushViewController(contr, animated: true)
+                    self?.navigationController?.pushViewController(contr, animated: true)
                 }
         }
         

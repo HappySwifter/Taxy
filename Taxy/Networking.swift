@@ -54,10 +54,8 @@ final class Networking {
             case .Error(let error):
                 completion(Result.Error(error))
                 
-            case .Response(let json):
-                if let data = json.string {
-                    completion(Result.Response(data))
-                }
+            case .Response(_):
+                completion(Result.Response(""))
             }
         }
     }
@@ -65,12 +63,12 @@ final class Networking {
     
     func checkPincode (loginInfo: Login?, completion: Result<String, String>  -> Void) {
         
-        guard let id = loginInfo?.id, pincode = loginInfo?.pincode else {
+        guard let phone = loginInfo?.phone, pincode = loginInfo?.pincode else {
             Popup.instanse.showError("", message: "\(__FUNCTION__)")
             return
         }
         let parameters = [
-            "id": id,
+            "phone": phone,
             "code" : pincode
         ]
         🙏(.POST, url: mainUrl + userString + ServerMethods.VerifyCode.rawValue, params: parameters) { result in
@@ -96,7 +94,7 @@ final class Networking {
             Popup.instanse.showError("", message: "\(__FUNCTION__)")
             return
         }
-        parameters[UserFields.id.rawValue] = id
+        parameters[UserFields.Id.rawValue] = id
         
         if let city = userProfile.city {
             parameters[UserFields.City.rawValue] = String(city.code)
@@ -339,7 +337,7 @@ final class Networking {
             Popup.instanse.showError("", message: "\(__FUNCTION__)")
             return
         }
-        let parameters = [ UserFields.id.rawValue : id ]
+        let parameters = [ UserFields.Id.rawValue : id ]
         🙏(.POST, url: mainUrl + orderString + ServerMethods.GetOnlyMyOrder.rawValue, params: parameters) { result in
             
         }

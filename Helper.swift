@@ -14,7 +14,7 @@ import SVProgressHUD
 struct Helper {
     
     
-    func showLoading(title: String) {
+    func showLoading(title: String? = "Загрузка") {
         SVProgressHUD.showWithStatus(title)
     }
     

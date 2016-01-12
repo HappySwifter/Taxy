@@ -117,8 +117,10 @@ final class LoginViewController: UIViewController {
                                 switch result {
                                 case .Error(let error):
                                     Popup.instanse.showError("", message: error)
-                                case .Response(let data):
-                                    self?.loginInfo.id = data
+//                                case .Response(let data):
+//                                    self?.loginInfo.id = data
+                                default:
+                                    break
                                 }
                                 
                             }
@@ -157,14 +159,15 @@ final class LoginViewController: UIViewController {
                         self?.view.endEditing(true)
                         Popup.instanse.showQuestion(phone, message: "Отправить СМС на указанный номер?", otherButtons: ["Отмена"]).handler { selectedIndex in
                             if selectedIndex == 0 {
+                                Helper().showLoading(nil)
                                 Networking().getSms(self?.loginInfo) { [weak self] result in
-                                    
+                                    Helper().hideLoading()
                                     switch result {
                                     case .Error(let error):
                                         Popup.instanse.showError("", message: error)
                                         // TODO hide loading
-                                    case .Response(let data):
-                                        self?.loginInfo.id = data
+                                    case .Response(_):
+//                                        self?.loginInfo.id = data
                                         self?.switchInfomationSection(.Pincode)
                                         self?.updateView()
                                     }
@@ -173,8 +176,10 @@ final class LoginViewController: UIViewController {
                         }
                     }
                 } else {
+                    Helper().showLoading()
                     Networking().checkPincode(self?.loginInfo) { [weak self] result in
-                        
+                        Helper().hideLoading()
+
                         switch result {
                         case .Error(let error):
                             Popup.instanse.showError("", message: error)

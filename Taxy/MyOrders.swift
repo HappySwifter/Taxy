@@ -20,11 +20,9 @@ class MyOrders: UITableViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.lightGrayColor()
         setupMenuButtons()
-        
-        
+        loadOrders(0)        
         if UserProfile.sharedInstance.type == .Passenger {
             self.title = "Заказы"
-            loadOrders(0)
         } else {
             let items = ["По городу", "Межгород", "Грузовое", "Услуги"]
             let menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: items.first!, items: items)

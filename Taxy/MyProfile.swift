@@ -92,12 +92,10 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
         let nameRow = TextFieldRowFormer<ProfileFieldCell>(instantiateType: .Nib(nibName: "ProfileFieldCell")) { [weak self] in
             $0.titleLabel.text = "Имя"
             $0.textField.inputAccessoryView = self?.formerInputAccessoryView
-            $0.textField.font = UIFont.systemFontOfSize(8)
             }.configure {
                 $0.placeholder = "Ваше имя"
-                if let name = UserProfile.sharedInstance.name, id = UserProfile.sharedInstance.userID
-                {
-                    $0.text = name + " " + id
+                if let name = UserProfile.sharedInstance.name {
+                    $0.text = name
                 }
             }.onTextChanged {
                 UserProfile.sharedInstance.name = $0
@@ -130,11 +128,30 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
             $0.titleLabel.text = "Телефон"
             }.configure {
                 $0.text = UserProfile.sharedInstance.phoneNumber
-                $0.enabled = false
+//                $0.enabled = false
+            }.onTextChanged {
+                UserProfile.sharedInstance.phoneNumber = $0
         }
         
+        let balanceRow = TextFieldRowFormer<ProfileFieldCell>(instantiateType: .Nib(nibName: "ProfileFieldCell")) {
+            $0.titleLabel.text = "Баланс"
+            }.configure {
+                if let balance = UserProfile.sharedInstance.balance {
+                    $0.text = String(balance)
+                }
+                $0.enabled = false
+        }
+
         
-        
+        let userIDRow = TextFieldRowFormer<ProfileFieldCell>(instantiateType: .Nib(nibName: "ProfileFieldCell")) {
+            $0.titleLabel.text = "user id"
+            $0.textField.font = UIFont.systemFontOfSize(8)
+            }.configure {
+                if let id = UserProfile.sharedInstance.userID {
+                    $0.text = id
+                }
+                $0.enabled = false
+        }
         
         
         // Create Headers
@@ -153,7 +170,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
             .set(headerViewFormer: createHeader("Кто вы?"))
         let imageSection = SectionFormer(rowFormer: imageRow)
             .set(headerViewFormer: createHeader("Фотография профиля"))
-        let aboutSection = SectionFormer(rowFormer: nameRow, cityRow, phoneRow)
+        let aboutSection = SectionFormer(rowFormer: nameRow, cityRow, phoneRow, balanceRow, userIDRow)
             .set(headerViewFormer: createHeader("Обо мне"))
         
         former.append(sectionFormer: userTypeSection, imageSection, aboutSection)
@@ -225,11 +242,9 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
             let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
             switch UserProfile.sharedInstance.type {
             case .Passenger:
-                
+                Helper().showLoading("Обновление профиля")
                 Networking().updateProfile(UserProfile.sharedInstance) { [weak self]  data in
-                    //                        LocalData().savePhone(data)
-                    
-                    
+                    Helper().hideLoading()
                     let vc = MenuVC()
                     let navC = UINavigationController(rootViewController: vc)
                     self?.evo_drawerController?.leftDrawerViewController = navC
@@ -242,7 +257,6 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
                 
             case .Driver:
                 performSegueWithIdentifier(.DriverRegistrationSegue, sender: self)
-                //                    performSegueWithIdentifier("DriverRegistrationSegue", sender: nil)
             }
             
         } else {

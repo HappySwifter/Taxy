@@ -28,6 +28,7 @@ class UserProfile {
     var city: City?
     var phoneNumber: String?
     var type: userType = .Passenger
+    var balance: Int?
     // Driver
     var pravaPhoto: UIImage?
     var carPhoto: UIImage?
@@ -55,11 +56,13 @@ class UserProfile {
         }
         UserProfile.sharedInstance.name = userInfo[UserFields.FirstName.rawValue]?.string
         UserProfile.sharedInstance.userID = userInfo[UserFields.Id.rawValue]?.string
+        UserProfile.sharedInstance.phoneNumber = userInfo[UserFields.PhoneNumber.rawValue]?.string
+        UserProfile.sharedInstance.balance = userInfo[UserFields.Balance.rawValue]?.int
 
     }
     
 }
 
 enum UserFields: String {
-    case id, FirstName, City, UserType, Image, Id
+    case Id, FirstName, City, UserType, Image, PhoneNumber, Balance
 }

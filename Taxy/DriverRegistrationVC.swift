@@ -32,8 +32,9 @@ final class DriverRegistrationVC: FormViewController {
     
     func doneTouched() {
         if let userInfo = userInfo {
+            Helper().showLoading("Обновление профиля")
             Networking().updateProfile(userInfo) { [weak self]  data in
-//                LocalData().savePhone(data)
+                Helper().hideLoading()
                 let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
                 let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MakeOrderSTID.rawValue)
                 let nav = NavigationContr(rootViewController: contr)

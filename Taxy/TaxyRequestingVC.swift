@@ -39,9 +39,9 @@ class TaxyRequestingVC: UIViewController {
     }
     
     func createOrder() {
+        Helper().showLoading("Создание заказа")
         Networking.instanse.createOrder(orderInfo!) { [weak self]  result in
-            
-
+            Helper().hideLoading()
             switch result {
             case .Error(let error):
                 Popup.instanse.showError("", message: error)
