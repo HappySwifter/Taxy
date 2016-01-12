@@ -138,8 +138,9 @@ final class Networking {
     
     func getUserInfo (completion: Result<String, String>  -> Void) {
         
-        guard let userId = LocalData.instanse.getUserID else {
+        guard let userId = LocalData().getUserID else {
             Popup.instanse.showError("", message: "Не обнружен id пользователя")
+            completion(Result.Error("Не обнружен id пользователя"))
             return
         }
         

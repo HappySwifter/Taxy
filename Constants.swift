@@ -92,6 +92,8 @@ struct errorDecription {
             return "Поле куда пустое"
         case 510:
             return "Не заполнено поле цены"
+        case 512:
+           return "Сообщение уже отправлено, запросите новое позже"
         default:
             return "Неопознанная ошибка"
         }

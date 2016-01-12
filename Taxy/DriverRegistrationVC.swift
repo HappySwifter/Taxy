@@ -79,7 +79,7 @@ final class DriverRegistrationVC: FormViewController {
             }.configure {
                 $0.viewHeight = 150
                 $0.text = "Почти готово! Загрузите фотографию своей машины и водительского удостоверения. После того, как наши диспетчеры их проверят, вам придет СМС о подтверждении регистрации"
-                $0.textAligment = .Center
+//                $0.textAligment = .Center
         }
 
         let section = SectionFormer(rowFormers: [pravaRow, carRow])

@@ -59,7 +59,7 @@ final class LoginViewController: UIViewController {
             }.configure {
                 $0.viewHeight = 40
                 $0.text = "Добро пожаловать!"
-                $0.textAligment = .Center
+//                $0.textAligment = .Center
         }
         
         let phoneRow = TextFieldRowFormer<FormTextFieldCell>() {

@@ -37,7 +37,6 @@
 		028F6F811C10B4E80052C4B9 /* ProfileLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 028F6F7B1C10B4E80052C4B9 /* ProfileLabelCell.xib */; };
 		028F6F831C10BBDC0052C4B9 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028F6F821C10BBDC0052C4B9 /* Networking.swift */; };
 		028F6F851C121F9C0052C4B9 /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028F6F841C121F9C0052C4B9 /* Popup.swift */; };
-		028F6F871C1352970052C4B9 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 028F6F861C1352970052C4B9 /* 1.jpg */; };
 		028F6F891C1355E60052C4B9 /* MakeOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028F6F881C1355E60052C4B9 /* MakeOrderVC.swift */; };
 		028F6F951C14BD630052C4B9 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028F6F941C14BD630052C4B9 /* UserProfile.swift */; };
 		028F6F971C14BDAA0052C4B9 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028F6F961C14BDAA0052C4B9 /* Login.swift */; };
@@ -114,7 +113,6 @@
 		028F6F7B1C10B4E80052C4B9 /* ProfileLabelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileLabelCell.xib; sourceTree = "<group>"; };
 		028F6F821C10BBDC0052C4B9 /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Networking.swift; path = Taxy/Networking.swift; sourceTree = "<group>"; };
 		028F6F841C121F9C0052C4B9 /* Popup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
-		028F6F861C1352970052C4B9 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 1.jpg; path = ../1.jpg; sourceTree = "<group>"; };
 		028F6F881C1355E60052C4B9 /* MakeOrderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeOrderVC.swift; sourceTree = "<group>"; };
 		028F6F941C14BD630052C4B9 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		028F6F961C14BDAA0052C4B9 /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
@@ -233,7 +231,6 @@
 		028F6F901C14BC080052C4B9 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				028F6F861C1352970052C4B9 /* 1.jpg */,
 				6A624B3A1C06E52C00404B2D /* Assets.xcassets */,
 				028F6F101C0B44430052C4B9 /* Images.xcassets */,
 			);
@@ -432,7 +429,6 @@
 				6A624B3B1C06E52C00404B2D /* Assets.xcassets in Resources */,
 				028F6F7F1C10B4E80052C4B9 /* ProfileFieldCell.xib in Resources */,
 				028F6F7E1C10B4E80052C4B9 /* LoginViewController.storyboard in Resources */,
-				028F6F871C1352970052C4B9 /* 1.jpg in Resources */,
 				6A624B361C06E52C00404B2D /* Main.storyboard in Resources */,
 				028F6F811C10B4E80052C4B9 /* ProfileLabelCell.xib in Resources */,
 				028F6F7C1C10B4E80052C4B9 /* ColorListCell.xib in Resources */,

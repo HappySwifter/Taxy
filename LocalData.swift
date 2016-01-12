@@ -22,11 +22,14 @@ class LocalData {
     }
     var getUserID: String? = {
         let def = NSUserDefaults.standardUserDefaults()
-        let phone = def.objectForKey("userID") as? String
-        return phone
+        let userId = def.objectForKey("userID") as? String
+        debugPrint("getting userID \(userId)")
+
+        return userId
     }()
     
     func deleteUserID() {
+        debugPrint("deleting userID")
         let def = NSUserDefaults.standardUserDefaults()
         def.removeObjectForKey(userID)
     }
