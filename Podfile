@@ -15,6 +15,6 @@ pod 'OpinionzAlertView'
 pod 'netfox'
 pod 'BTNavigationDropdownMenu'
 pod 'SVProgressHUD'
-pod 'MMPulseView'
+pod 'CCMRadarView'
 end
 

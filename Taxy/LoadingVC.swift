@@ -46,8 +46,10 @@ class LoadingVC: UIViewController, CLLocationManagerDelegate {
     
     private func makeRequests() {
         Helper().showLoading("Загрузка городов")
+        reloadButton.hidden = true
         Networking.instanse.getCities { [weak self] result in
             Helper().hideLoading()
+            self?.reloadButton.hidden = false
             switch result {
             case .Error(let error):
                 Popup.instanse.showError("", message: error)
@@ -58,7 +60,9 @@ class LoadingVC: UIViewController, CLLocationManagerDelegate {
                 let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
                 if let _ = LocalData().getUserID  {
                     Helper().showLoading("Загрузка профиля")
+                    self?.reloadButton.hidden = true
                     Networking.instanse.getUserInfo { [weak self] result in
+                        self?.reloadButton.hidden = false
                         Helper().hideLoading()
                         switch result {
                         case .Error(let error):

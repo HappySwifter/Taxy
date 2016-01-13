@@ -204,7 +204,6 @@ final class Networking {
         parameters[OrderFields.UserId.rawValue] = id
         parameters[OrderFields.FromAddress.rawValue] = fromPlace
         parameters[OrderFields.OrderType.rawValue] = order.orderType.rawValue
-//        parameters["isCab"] = String(order.isCab)
         parameters[OrderFields.WithChildChair.rawValue] = String(order.isChildChair)
 
         if let toPlace = order.toPlace {
@@ -216,7 +215,9 @@ final class Networking {
         if let comment = order.comment {
             parameters[OrderFields.Comment.rawValue] = comment
         }
-        
+        if let city = UserProfile.sharedInstance.city {
+            parameters[OrderFields.City.rawValue] = String(city.code)
+        }
         🙏(.POST, url: mainUrl + orderString + ServerMethods.CreateOrder.rawValue, params: parameters) { result in
             
             switch result {

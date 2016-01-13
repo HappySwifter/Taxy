@@ -190,6 +190,7 @@ class MakeOrderVC: FormViewController {
             $0.textField.inputAccessoryView = self?.formerInputAccessoryView
             }.configure {
                 $0.placeholder = "Введите цену"
+                $0.text = String(300)
             }.onTextChanged {
                 self.orderInfo.price = Int($0)
         }

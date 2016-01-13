@@ -9,5 +9,5 @@
 import Foundation
 
 class OrderInfoVC: UITableViewController {
-    
+    var orderId: String?
 }
