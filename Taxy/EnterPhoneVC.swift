@@ -157,7 +157,7 @@ final class LoginViewController: UIViewController {
                     
                     if let phone = self?.loginInfo.phone {
                         self?.view.endEditing(true)
-                        Popup.instanse.showQuestion(phone, message: "Отправить СМС на указанный номер?", otherButtons: ["Отмена"]).handler { selectedIndex in
+                        Popup.instanse.showQuestion(phone, message: "Отправить СМС на указанный номер?", otherButtons: ["Отмена"]).handler { [weak self] selectedIndex in
                             if selectedIndex == 0 {
                                 Helper().showLoading(nil)
                                 Networking().getSms(self?.loginInfo) { [weak self] result in

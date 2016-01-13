@@ -9,6 +9,7 @@ PODS:
     - DrawerController/Core
   - Former (1.1.0)
   - GoogleMaps (1.11.1)
+  - ImagePicker (1.1)
   - MMPulseView (1.0)
   - netfox (1.7.1)
   - OpinionzAlertView (0.3.0)
@@ -22,6 +23,7 @@ DEPENDENCIES:
   - DrawerController (~> 1.0)
   - Former
   - GoogleMaps
+  - ImagePicker
   - MMPulseView
   - netfox
   - OpinionzAlertView
@@ -44,6 +46,7 @@ SPEC CHECKSUMS:
   DrawerController: 8fd56e6238399a08c4af054fbea0ef8669cd81f3
   Former: 5b2ac5acdc8b059e1346d048c26a9d5dbd751c55
   GoogleMaps: c947160008f414c66707a5ea60f35e92055c7670
+  ImagePicker: 2a904341bbc47c96457de00558d2f8dd186eff7c
   MMPulseView: 98a050647f83ff7f6dcaccf1c7be638ab01abe60
   netfox: 946ee64919f0413b9e09ffcbf2ac41afb454feb5
   OpinionzAlertView: 772ed2922a4c1d6b8b9715f741829f663e823141

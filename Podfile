@@ -16,6 +16,5 @@ pod 'netfox'
 pod 'BTNavigationDropdownMenu'
 pod 'SVProgressHUD'
 pod 'MMPulseView'
-pod 'ImagePicker'
 end
 

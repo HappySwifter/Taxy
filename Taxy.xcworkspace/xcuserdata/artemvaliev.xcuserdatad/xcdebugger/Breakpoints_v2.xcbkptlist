@@ -149,5 +149,69 @@
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/Former/Former/Commons/Former.swift"
+            timestampString = "474318704.685853"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
+            landmarkName = "reload()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Taxy/MyProfile.swift"
+            timestampString = "474320357.529363"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
+            landmarkName = "configure()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Taxy.MyProfileVC.((configure in _25BFDC910A1F6033FB9A6A0EB3AEB037) (Taxy.MyProfileVC) -&gt; () -&gt; ()).(closure #17)"
+                  moduleName = "Taxy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemvaliev/Desktop/project1/Taxy/MyProfile.swift"
+                  timestampString = "474320357.545359"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "166"
+                  endingLineNumber = "166"
+                  offsetFromSymbolStart = "320">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Taxy.MyProfileVC.((configure in _25BFDC910A1F6033FB9A6A0EB3AEB037) (Taxy.MyProfileVC) -&gt; () -&gt; ()).(closure #17).(closure #1)"
+                  moduleName = "Taxy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemvaliev/Desktop/project1/Taxy/MyProfile.swift"
+                  timestampString = "474320357.545593"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "166"
+                  endingLineNumber = "166"
+                  offsetFromSymbolStart = "288">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

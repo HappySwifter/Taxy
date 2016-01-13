@@ -26,8 +26,7 @@ import Former
 
 final class MyProfileVC: FormViewController, SegueHandlerType {
     
-    internal var isRegistration = true
-    //    var userInfo: UserProfile = UserProfile()
+    internal var isRegistration = false
     
     enum SegueIdentifier: String {
         case DriverRegistrationSegue
@@ -38,7 +37,6 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
         super.viewDidLoad()
         loadProfile()
         setupMenuButtons()
-        configure()
     }
     
     
@@ -47,8 +45,9 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
     
     func loadProfile() {
         Helper().showLoading("Загрузка")
-        Networking.instanse.getUserInfo { result in
+        Networking.instanse.getUserInfo { [weak self] result in
             Helper().hideLoading()
+            self?.configure()
         }
     }
     
@@ -69,6 +68,8 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
     
     
     private func configure() {
+        
+        
         title = "Мой профиль"
         tableView.contentInset.top = 40
         tableView.contentInset.bottom = 40
@@ -126,20 +127,20 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
         
         let phoneRow = TextFieldRowFormer<ProfileFieldCell>(instantiateType: .Nib(nibName: "ProfileFieldCell")) {
             $0.titleLabel.text = "Телефон"
+            $0.textField.enabled = false
             }.configure {
                 $0.text = UserProfile.sharedInstance.phoneNumber
-//                $0.enabled = false
             }.onTextChanged {
                 UserProfile.sharedInstance.phoneNumber = $0
         }
         
         let balanceRow = TextFieldRowFormer<ProfileFieldCell>(instantiateType: .Nib(nibName: "ProfileFieldCell")) {
             $0.titleLabel.text = "Баланс"
+            $0.textField.enabled = false
             }.configure {
                 if let balance = UserProfile.sharedInstance.balance {
                     $0.text = String(balance)
                 }
-                $0.enabled = false
         }
 
         
@@ -151,6 +152,20 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
                     $0.text = id
                 }
                 $0.enabled = false
+        }
+        
+        
+        let moreRow = SwitchRowFormer<FormSwitchCell>() {
+            $0.titleLabel.text = "Дополнительная информация"
+            $0.titleLabel.textColor = .formerColor()
+            $0.titleLabel.font = .boldSystemFontOfSize(15)
+            $0.switchButton.onTintColor = .formerSubColor()
+            }.configure {
+                $0.switched = false
+                $0.switchWhenSelected = true
+            }.onSwitchChanged { [weak self] _ in
+                self?.switchDriverInfomationSection()
+                
         }
         
         
@@ -197,6 +212,17 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
         }
     }
     
+    
+    private func switchDriverInfomationSection() {
+        if orderInfo.moreInformation {
+            former.insertUpdate(sectionFormer: informationSection, toSection: former.numberOfSections, rowAnimation: .Top)
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: informationSection.numberOfRows - 1, inSection: former.numberOfSections - 1), atScrollPosition: .Bottom, animated: true)
+        } else {
+            former.removeUpdate(sectionFormer: informationSection, rowAnimation: .Top)
+        }
+    }
+
+    
     private func presentImagePicker() {
         let picker = UIImagePickerController()
         picker.delegate = self
@@ -222,7 +248,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
     
     
     func doneTouched() -> Void {
-        
+        view.endEditing(true)
         guard UserProfile.sharedInstance.city?.code != 0  else {
             Popup.instanse.showInfo("Внимание", message: "Выберите Ваш город")
             return
@@ -243,25 +269,38 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
             switch UserProfile.sharedInstance.type {
             case .Passenger:
                 Helper().showLoading("Обновление профиля")
-                Networking().updateProfile(UserProfile.sharedInstance) { [weak self]  data in
+                Networking().updateProfile(UserProfile.sharedInstance) { [weak self]  result in
                     Helper().hideLoading()
-                    let vc = MenuVC()
-                    let navC = UINavigationController(rootViewController: vc)
-                    self?.evo_drawerController?.leftDrawerViewController = navC
                     
-                    let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MakeOrderSTID.rawValue)
-                    let nav = NavigationContr(rootViewController: contr)
-                    self?.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
+                    switch result {
+                    case .Error(let error):
+                        Popup.instanse.showError("", message: error)
+                        
+                    case .Response(_):
+                        let vc = MenuVC()
+                        let navC = UINavigationController(rootViewController: vc)
+                        self?.evo_drawerController?.leftDrawerViewController = navC
+                        
+                        let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MakeOrderSTID.rawValue)
+                        let nav = NavigationContr(rootViewController: contr)
+                        self?.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
+                    }
                 }
-                
                 
             case .Driver:
                 performSegueWithIdentifier(.DriverRegistrationSegue, sender: self)
             }
             
         } else {
-            Networking().updateProfile(UserProfile.sharedInstance) { [weak self]  data in
-                
+            Helper().showLoading("Обновление профиля")
+            Networking().updateProfile(UserProfile.sharedInstance) { [weak self]  result in
+                Helper().hideLoading()
+                switch result {
+                case .Error(let error):
+                    Popup.instanse.showError("", message: error)
+                case .Response(_):
+                   debugPrint("profile updated")
+                }
             }
         }
     }
