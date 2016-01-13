@@ -293,3 +293,15 @@ var sortedRidesOfInterest = quicksort(ridesOfInterest)
 
 print(sortedRidesOfInterest)
 
+
+
+func shortTime(date: NSDate) -> String {
+    let dateFormatter = NSDateFormatter()
+    dateFormatter.locale = .currentLocale()
+    dateFormatter.timeStyle = .ShortStyle
+    return dateFormatter.stringFromDate(date)
+}
+
+let date = NSDate()
+
+print(shortTime(date))

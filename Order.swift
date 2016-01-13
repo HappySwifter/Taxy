@@ -23,10 +23,11 @@ class Order {
     var orderID: String?
     var driverInfo: UserProfile?
     var orderStatus: Int?
+    var createdAt: NSDate?
 }
 
 enum OrderFields: String {
-    case UserId, ServiceType, FromAddress, ToAddress, Longitude, Latitude, Price, Comment, WithChildChair, OrderType, Id, OrderStatus, Driver, City
+    case UserId, ServiceType, FromAddress, ToAddress, Longitude, Latitude, Price, Comment, WithChildChair, OrderType, Id, OrderStatus, Driver, City, CreatedAt
 }
 
 extension Order {
@@ -81,6 +82,11 @@ extension Order {
                 order.driverInfo?.name = "some driver infos"
             } else {
                 order.driverInfo?.name = "водитель еще не назначен"
+            }
+            if let createdAtString = orderInfo[OrderFields.CreatedAt.rawValue].string,
+            let date = Helper().dateFromString(createdAtString)
+            {
+                order.createdAt = date
             }
             orders.append(order)
         }

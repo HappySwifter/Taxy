@@ -3,3 +3,4 @@
 //
 
 #import <GoogleMaps/GoogleMaps.h>
+#import "NSDate+HumanizedTime.h"

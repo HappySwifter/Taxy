@@ -19,7 +19,6 @@
 		028F6F0D1C0B43670052C4B9 /* MarkerInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 028F6F0A1C0B43670052C4B9 /* MarkerInfoView.xib */; };
 		028F6F0E1C0B43670052C4B9 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028F6F0B1C0B43670052C4B9 /* UIViewExtension.swift */; };
 		028F6F111C0B44430052C4B9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 028F6F101C0B44430052C4B9 /* Images.xcassets */; };
-		028F6F5C1C10A6420052C4B9 /* String+FormerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028F6F5A1C10A6420052C4B9 /* String+FormerDemo.swift */; };
 		028F6F5D1C10A6420052C4B9 /* UIColor+TaxyColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028F6F5B1C10A6420052C4B9 /* UIColor+TaxyColors.swift */; };
 		028F6F691C10A6680052C4B9 /* CenterLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028F6F631C10A6680052C4B9 /* CenterLabelCell.swift */; };
 		028F6F6A1C10A6680052C4B9 /* ColorListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028F6F641C10A6680052C4B9 /* ColorListCell.swift */; };
@@ -50,6 +49,7 @@
 		6A0D5D2B1C195537007AF100 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D5D2A1C195537007AF100 /* Constants.swift */; };
 		6A0D5D2D1C19A6DB007AF100 /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D5D2C1C19A6DB007AF100 /* LocalData.swift */; };
 		6A3D4E2E1C29761F008AB2ED /* SegueHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3D4E2D1C29761F008AB2ED /* SegueHandler.swift */; };
+		6A570AC01C467E490054C82A /* NSDate+HumanizedTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A570ABF1C467E490054C82A /* NSDate+HumanizedTime.m */; };
 		6A624B311C06E52C00404B2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A624B301C06E52C00404B2D /* AppDelegate.swift */; };
 		6A624B361C06E52C00404B2D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A624B341C06E52C00404B2D /* Main.storyboard */; };
 		6A624B391C06E52C00404B2D /* Taxy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6A624B371C06E52C00404B2D /* Taxy.xcdatamodeld */; };
@@ -95,7 +95,6 @@
 		028F6F0A1C0B43670052C4B9 /* MarkerInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MarkerInfoView.xib; sourceTree = "<group>"; };
 		028F6F0B1C0B43670052C4B9 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		028F6F101C0B44430052C4B9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		028F6F5A1C10A6420052C4B9 /* String+FormerDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+FormerDemo.swift"; sourceTree = "<group>"; };
 		028F6F5B1C10A6420052C4B9 /* UIColor+TaxyColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+TaxyColors.swift"; sourceTree = "<group>"; };
 		028F6F631C10A6680052C4B9 /* CenterLabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterLabelCell.swift; sourceTree = "<group>"; };
 		028F6F641C10A6680052C4B9 /* ColorListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorListCell.swift; sourceTree = "<group>"; };
@@ -127,6 +126,8 @@
 		6A0D5D2A1C195537007AF100 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6A0D5D2C1C19A6DB007AF100 /* LocalData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalData.swift; sourceTree = "<group>"; };
 		6A3D4E2D1C29761F008AB2ED /* SegueHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueHandler.swift; sourceTree = "<group>"; };
+		6A570ABE1C467E490054C82A /* NSDate+HumanizedTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+HumanizedTime.h"; sourceTree = "<group>"; };
+		6A570ABF1C467E490054C82A /* NSDate+HumanizedTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+HumanizedTime.m"; sourceTree = "<group>"; };
 		6A624B2D1C06E52C00404B2D /* Taxy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Taxy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A624B301C06E52C00404B2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Taxy/AppDelegate.swift; sourceTree = "<group>"; };
 		6A624B351C06E52C00404B2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -255,7 +256,6 @@
 				028F6F9C1C1738040052C4B9 /* FormSegmentedCellNoTitle.swift */,
 				028F6F841C121F9C0052C4B9 /* Popup.swift */,
 				028F6F6F1C10A67C0052C4B9 /* FormerInputAccessoryView.swift */,
-				028F6F5A1C10A6420052C4B9 /* String+FormerDemo.swift */,
 				028F6F5B1C10A6420052C4B9 /* UIColor+TaxyColors.swift */,
 			);
 			name = Helpers;
@@ -286,6 +286,8 @@
 			isa = PBXGroup;
 			children = (
 				6A624B341C06E52C00404B2D /* Main.storyboard */,
+				6A570ABE1C467E490054C82A /* NSDate+HumanizedTime.h */,
+				6A570ABF1C467E490054C82A /* NSDate+HumanizedTime.m */,
 				6A624B301C06E52C00404B2D /* AppDelegate.swift */,
 				02450A0F1C418C4700C74F21 /* MyPlayground.playground */,
 				02F163A91C270F180065409B /* Bot.swift */,
@@ -496,6 +498,7 @@
 				028F6F9A1C14BDF60052C4B9 /* Order.swift in Sources */,
 				028F6F951C14BD630052C4B9 /* UserProfile.swift in Sources */,
 				02F163AA1C270F180065409B /* Bot.swift in Sources */,
+				6A570AC01C467E490054C82A /* NSDate+HumanizedTime.m in Sources */,
 				028F6F971C14BDAA0052C4B9 /* Login.swift in Sources */,
 				028F6F9F1C1881C70052C4B9 /* DriverRegistrationVC.swift in Sources */,
 				028F6F6A1C10A6680052C4B9 /* ColorListCell.swift in Sources */,
@@ -508,7 +511,6 @@
 				029101701C1DA0C80000BD23 /* TaxyRequestingVC.swift in Sources */,
 				6AC187EE1C0847E800489557 /* NavigationContr.swift in Sources */,
 				0203F6D81C1F15E100807C1D /* RulesVC.swift in Sources */,
-				028F6F5C1C10A6420052C4B9 /* String+FormerDemo.swift in Sources */,
 				6A624B7F1C06E7D700404B2D /* MyProfile.swift in Sources */,
 				028F6F851C121F9C0052C4B9 /* Popup.swift in Sources */,
 				028F6F031C0B43270052C4B9 /* GoogleDataProvider.swift in Sources */,

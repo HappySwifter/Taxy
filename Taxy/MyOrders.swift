@@ -103,7 +103,7 @@ extension MyOrders {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 180
+        return 210
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -134,6 +134,7 @@ class driverOrderCell: UITableViewCell {
     @IBOutlet weak var fromPlaceLabel: UILabel!
     @IBOutlet weak var toPlaceLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var createTimeLabel: UILabel!
     
     func configureViewWithOrder(order: Order) {
         if let price = order.price {
@@ -154,6 +155,9 @@ class driverOrderCell: UITableViewCell {
         
         if let orderId = order.orderID {
             idLabel.text = "order ID: " + orderId
+        }
+        if let createTime = order.createdAt {
+           createTimeLabel.text = createTime.stringWithHumanizedTimeDifference(.SuffixAgo, withFullString: false)
         }
     }
 }

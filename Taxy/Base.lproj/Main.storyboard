@@ -16,11 +16,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="driverOrderCell" rowHeight="182" id="F7H-ZN-jil" customClass="driverOrderCell" customModule="Taxy" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="600" height="182"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="driverOrderCell" rowHeight="211" id="F7H-ZN-jil" customClass="driverOrderCell" customModule="Taxy" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="600" height="211"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="F7H-ZN-jil" id="uQa-Ng-ful">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="181"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="210"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wR4-vH-fxx">
@@ -78,12 +78,24 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zEb-WK-ov3">
+                                            <rect key="frame" x="483" y="173" width="100" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="hNu-s0-cQE"/>
+                                                <constraint firstAttribute="width" constant="100" id="x3N-3d-F10"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="MyV-dN-cZu" firstAttribute="top" secondItem="IBm-VS-d7q" secondAttribute="bottom" constant="8" id="4Uo-uo-XpV"/>
+                                        <constraint firstItem="zEb-WK-ov3" firstAttribute="top" secondItem="qCu-yZ-Zkv" secondAttribute="bottom" constant="8" id="6VN-a6-guJ"/>
                                         <constraint firstItem="WIi-8L-O5C" firstAttribute="leading" secondItem="IBm-VS-d7q" secondAttribute="trailing" constant="8" id="6l7-fd-BIu"/>
                                         <constraint firstItem="MyV-dN-cZu" firstAttribute="leading" secondItem="uQa-Ng-ful" secondAttribute="leadingMargin" constant="23" id="ADL-QW-xV5"/>
                                         <constraint firstItem="wR4-vH-fxx" firstAttribute="leading" secondItem="uQa-Ng-ful" secondAttribute="leadingMargin" constant="23" id="BCf-fa-30O"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="zEb-WK-ov3" secondAttribute="trailing" constant="9" id="JK3-Ft-toI"/>
                                         <constraint firstAttribute="trailing" secondItem="Gx2-Co-4Vg" secondAttribute="trailing" id="UdJ-v2-E9s"/>
                                         <constraint firstItem="IBm-VS-d7q" firstAttribute="top" secondItem="uQa-Ng-ful" secondAttribute="topMargin" id="Wb5-sl-wjP"/>
                                         <constraint firstItem="Gx2-Co-4Vg" firstAttribute="top" secondItem="wR4-vH-fxx" secondAttribute="bottom" constant="8" id="WcX-TP-NmM"/>
@@ -100,6 +112,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="createTimeLabel" destination="zEb-WK-ov3" id="Et4-0w-wN8"/>
                                     <outlet property="fromPlaceLabel" destination="MyV-dN-cZu" id="emj-M4-Vgx"/>
                                     <outlet property="idLabel" destination="Gx2-Co-4Vg" id="N8V-c6-nwK"/>
                                     <outlet property="passengerIdLabel" destination="qCu-yZ-Zkv" id="aCP-ZL-of8"/>
@@ -109,7 +122,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="passengerOrderCell" rowHeight="178" id="glX-Cq-k30" customClass="passengerOrderCell" customModule="Taxy" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="210" width="600" height="178"/>
+                                <rect key="frame" x="0.0" y="239" width="600" height="178"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="glX-Cq-k30" id="Fow-jL-rUs">
                                     <rect key="frame" x="0.0" y="0.0" width="567" height="177"/>

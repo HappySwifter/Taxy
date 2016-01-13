@@ -13,6 +13,15 @@ import SVProgressHUD
 
 struct Helper {
     
+/////////// DATE ////////////
+    func dateFromString(dateStr: String) -> NSDate? {
+        let form = NSDateFormatter()
+        let gmt = NSTimeZone(forSecondsFromGMT: 0)
+        form.timeZone = gmt
+        form.dateFormat = "dd.MM.yyyy HH:mm:ss"
+        return form.dateFromString(dateStr)
+    }   
+////////////////////////////
     
     func showLoading(title: String? = "Загрузка") {
         SVProgressHUD.showWithStatus(title)
@@ -87,11 +96,18 @@ extension UIImage {
 //    }
 //}
 
+extension NSDate {
+    
+    func shortTime() -> String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.locale = .currentLocale()
+        dateFormatter.timeStyle = .ShortStyle
+        return dateFormatter.stringFromDate(self)
+    }
+    
+}
+
 
 extension String{
-    func toImage() -> UIImage? {
-        guard let decodedData = NSData(base64EncodedString: self, options: NSDataBase64DecodingOptions(rawValue: 0) ) else { return nil }
-        guard let decodedImage = UIImage(data: decodedData) else { return nil }
-        return decodedImage
-    }
+
 }
