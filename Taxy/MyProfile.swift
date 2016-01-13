@@ -164,8 +164,8 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
                 $0.switched = false
                 $0.switchWhenSelected = true
             }.onSwitchChanged { [weak self] _ in
-                self?.switchDriverInfomationSection()
-                
+
+                // TODO
         }
         
         
@@ -213,14 +213,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
     }
     
     
-    private func switchDriverInfomationSection() {
-        if orderInfo.moreInformation {
-            former.insertUpdate(sectionFormer: informationSection, toSection: former.numberOfSections, rowAnimation: .Top)
-            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: informationSection.numberOfRows - 1, inSection: former.numberOfSections - 1), atScrollPosition: .Bottom, animated: true)
-        } else {
-            former.removeUpdate(sectionFormer: informationSection, rowAnimation: .Top)
-        }
-    }
+
 
     
     private func presentImagePicker() {
