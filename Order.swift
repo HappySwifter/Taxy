@@ -54,10 +54,7 @@ extension Order {
         
         
         
-        // for
-        
-        for (_, orderInfo):(String, JSON) in json {
-
+        func parseDict(orderInfo: JSON) -> Order {
             let order = Order()
             
             if let fromPlace = orderInfo[OrderFields.FromAddress.rawValue].string {
@@ -82,7 +79,7 @@ extension Order {
                 order.orderStatus = orderStatus
             }
             if let createdAtString = orderInfo[OrderFields.CreatedAt.rawValue].string,
-            let date = Helper().dateFromString(createdAtString)
+                let date = Helper().dateFromString(createdAtString)
             {
                 order.createdAt = date
             }
@@ -91,19 +88,25 @@ extension Order {
                 order.passengerInfo = UserProfile().getModelFromDict(userDict, shared: false)
             }
             if let driverInfo = orderInfo[OrderFields.Driver.rawValue].dictionary {
-               order.driverInfo = UserProfile().getModelFromDict(driverInfo, shared: false)
+                order.driverInfo = UserProfile().getModelFromDict(driverInfo, shared: false)
             } else {
                 order.driverInfo.name = "водитель еще не назначен"
             }
-            
-            orders.append(order)
+            return order
         }
         
+        if let _ = json.array {
+            for (_, orderInfo):(String, JSON) in json {
+                orders.append(parseDict(orderInfo))
+            }
+            return orders
+        }
         
-        
-        
-        
-        return orders
+        if let _ = json.dictionary {
+            return [parseDict(json)]
+        }
+
+        return []
     }
     
 }

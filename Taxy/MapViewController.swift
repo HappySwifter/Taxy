@@ -163,23 +163,23 @@ extension MapViewController: GMSMapViewDelegate {
     }
     
     func mapView(mapView: GMSMapView!, markerInfoContents marker: GMSMarker!) -> UIView! {
-        guard let placeMarker = marker as? PlaceMarker else {
+//        guard let placeMarker = marker as? PlaceMarker else {
+//            return nil
+//        }
+//        
+//        if let infoView = UIView.viewFromNibName("MarkerInfoView") as? MarkerInfoView {
+//            infoView.nameLabel.text = placeMarker.place.name
+//            
+//            if let photo = placeMarker.place.photo {
+//                infoView.placePhoto.image = photo
+//            } else {
+//                infoView.placePhoto.image = UIImage(named: "generic")
+//            }
+//            
+//            return infoView
+//        } else {
             return nil
-        }
-        
-        if let infoView = UIView.viewFromNibName("MarkerInfoView") as? MarkerInfoView {
-            infoView.nameLabel.text = placeMarker.place.name
-            
-            if let photo = placeMarker.place.photo {
-                infoView.placePhoto.image = photo
-            } else {
-                infoView.placePhoto.image = UIImage(named: "generic")
-            }
-            
-            return infoView
-        } else {
-            return nil
-        }
+//        }
     }
     
     func mapView(mapView: GMSMapView!, didTapMarker marker: GMSMarker!) -> Bool {

@@ -18,13 +18,18 @@ class OrderInfoVC: UIViewController {
     @IBOutlet weak var toLabel: UILabel!
     @IBOutlet weak var mapView: GMSMapView!
 
+    private let locationManager = CLLocationManager()
+
     var order = Order()
     var timer: NSTimer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapView.delegate = self
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
         updateView()
-        timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "checkOrder", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: "checkOrder", userInfo: nil, repeats: true)
         timer!.fire()
     }
     
@@ -63,23 +68,26 @@ class OrderInfoVC: UIViewController {
         if let toPlace = order.toPlace {
             toLabel.text = toPlace
         }
+        
+        let marker = PlaceMarker(place: order)
+        marker.map = mapView
     }
     
 }
 
 extension OrderInfoVC: GMSMapViewDelegate {
-    func mapView(mapView: GMSMapView!, idleAtCameraPosition position: GMSCameraPosition!) {
+//    func mapView(mapView: GMSMapView!, idleAtCameraPosition position: GMSCameraPosition!) {
 //        reverseGeocodeCoordinate(position.target)
-    }
+//    }
     
-    func mapView(mapView: GMSMapView!, willMove gesture: Bool) {
+//    func mapView(mapView: GMSMapView!, willMove gesture: Bool) {
 //        addressLabel.lock()
 //        
 //        if (gesture) {
 //            mapCenterPinImage.fadeIn(0.25)
 //            mapView.selectedMarker = nil
 //        }
-    }
+//    }
     
     func mapView(mapView: GMSMapView!, markerInfoContents marker: GMSMarker!) -> UIView! {
         guard let placeMarker = marker as? PlaceMarker else {
@@ -87,9 +95,9 @@ extension OrderInfoVC: GMSMapViewDelegate {
         }
         
         if let infoView = UIView.viewFromNibName("MarkerInfoView") as? MarkerInfoView {
-            infoView.nameLabel.text = placeMarker.place.name
+            infoView.nameLabel.text = placeMarker.place.driverInfo.name
             
-            if let photo = placeMarker.place.photo {
+            if let photo = placeMarker.place.driverInfo.carPhoto {
                 infoView.placePhoto.image = photo
             } else {
                 infoView.placePhoto.image = UIImage(named: "generic")
@@ -101,15 +109,34 @@ extension OrderInfoVC: GMSMapViewDelegate {
         }
     }
     
+    
+    
     func mapView(mapView: GMSMapView!, didTapMarker marker: GMSMarker!) -> Bool {
-//        mapCenterPinImage.fadeOut(0.25)
-        return false
+        mapView.selectedMarker = marker;
+        return true
     }
     
-    func didTapMyLocationButtonForMapView(mapView: GMSMapView!) -> Bool {
-//        mapCenterPinImage.fadeIn(0.25)
-        mapView.selectedMarker = nil
-        return false
-    }
+//    func didTapMyLocationButtonForMapView(mapView: GMSMapView!) -> Bool {
+////        mapCenterPinImage.fadeIn(0.25)
+//        mapView.selectedMarker = nil
+//        return false
+//    }
 
+}
+
+extension OrderInfoVC: CLLocationManagerDelegate {
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if status == .AuthorizedWhenInUse {
+            locationManager.startUpdatingLocation()
+            mapView.myLocationEnabled = true
+            mapView.settings.myLocationButton = true
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+            locationManager.stopUpdatingLocation()
+        }
+    }
 }

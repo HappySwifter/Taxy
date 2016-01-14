@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -279,7 +279,8 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OnO-PU-RiV">
                                 <rect key="frame" x="504" y="78" width="76" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="q3S-sA-DdN"/>
+                                    <constraint firstAttribute="width" constant="76" id="8JP-pr-4vj"/>
+                                    <constraint firstAttribute="height" constant="30" id="cnC-wJ-Mcj"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="13"/>
                                 <state key="normal" title="ОТМЕНИТЬ">
@@ -307,25 +308,24 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="OnO-PU-RiV" firstAttribute="trailing" secondItem="kVE-QO-k6O" secondAttribute="trailingMargin" id="00A-Ix-j5C"/>
                             <constraint firstItem="hod-lq-AgL" firstAttribute="leading" secondItem="cXS-AX-j5p" secondAttribute="trailing" constant="8" id="6y4-9U-2tU"/>
                             <constraint firstItem="7t0-pK-xlk" firstAttribute="trailing" secondItem="kVE-QO-k6O" secondAttribute="trailingMargin" id="7o0-jF-bgi"/>
                             <constraint firstItem="kAD-Al-kZ4" firstAttribute="leading" secondItem="kVE-QO-k6O" secondAttribute="leadingMargin" id="81r-Q7-eIh"/>
                             <constraint firstItem="cXS-AX-j5p" firstAttribute="leading" secondItem="kVE-QO-k6O" secondAttribute="leadingMargin" id="93a-Vm-Erc"/>
                             <constraint firstItem="MyR-2Q-Y3Y" firstAttribute="leading" secondItem="kVE-QO-k6O" secondAttribute="leadingMargin" id="Cit-It-elX"/>
-                            <constraint firstItem="OnO-PU-RiV" firstAttribute="top" secondItem="kAD-Al-kZ4" secondAttribute="bottom" constant="8" id="ElV-T5-1UR"/>
                             <constraint firstItem="7t0-pK-xlk" firstAttribute="top" secondItem="yfh-LR-mJf" secondAttribute="bottom" id="Gja-Pc-4bo"/>
                             <constraint firstItem="q6W-OI-i23" firstAttribute="leading" secondItem="cXS-AX-j5p" secondAttribute="trailing" constant="8" id="MEz-LU-xeV"/>
                             <constraint firstItem="Ld1-vu-YX8" firstAttribute="top" secondItem="cXS-AX-j5p" secondAttribute="bottom" constant="20" id="Qbn-nO-NLW"/>
-                            <constraint firstItem="OnO-PU-RiV" firstAttribute="leading" secondItem="kVE-QO-k6O" secondAttribute="leadingMargin" constant="484" id="RBz-gk-zzV"/>
                             <constraint firstItem="q6W-OI-i23" firstAttribute="top" secondItem="hod-lq-AgL" secondAttribute="bottom" constant="8" id="T33-52-5vM"/>
                             <constraint firstAttribute="trailing" secondItem="LzS-ON-51n" secondAttribute="trailing" id="T7e-JL-tCr"/>
                             <constraint firstItem="LzS-ON-51n" firstAttribute="top" secondItem="kVE-QO-k6O" secondAttribute="top" id="UpK-dU-kCK"/>
                             <constraint firstItem="MyR-2Q-Y3Y" firstAttribute="top" secondItem="kAD-Al-kZ4" secondAttribute="bottom" constant="10" id="X7W-1V-unR"/>
                             <constraint firstItem="hod-lq-AgL" firstAttribute="trailing" secondItem="kVE-QO-k6O" secondAttribute="trailingMargin" id="Xgx-fz-HVp"/>
+                            <constraint firstItem="OnO-PU-RiV" firstAttribute="top" secondItem="kAD-Al-kZ4" secondAttribute="bottom" constant="8" id="YQp-t2-uUf"/>
                             <constraint firstItem="Ld1-vu-YX8" firstAttribute="top" secondItem="LzS-ON-51n" secondAttribute="bottom" id="df0-sI-8XH"/>
                             <constraint firstItem="Ld1-vu-YX8" firstAttribute="top" secondItem="q6W-OI-i23" secondAttribute="bottom" constant="20" id="ekm-MY-Kv8"/>
                             <constraint firstItem="7t0-pK-xlk" firstAttribute="leading" secondItem="kVE-QO-k6O" secondAttribute="leadingMargin" id="fF1-9v-za6"/>
-                            <constraint firstItem="OnO-PU-RiV" firstAttribute="trailing" secondItem="kVE-QO-k6O" secondAttribute="trailingMargin" id="j21-wl-St7"/>
                             <constraint firstItem="LzS-ON-51n" firstAttribute="leading" secondItem="kVE-QO-k6O" secondAttribute="leading" id="mmQ-lG-gxg"/>
                             <constraint firstItem="kAD-Al-kZ4" firstAttribute="top" secondItem="7t0-pK-xlk" secondAttribute="bottom" constant="8" id="rnx-o7-gRz"/>
                             <constraint firstItem="kAD-Al-kZ4" firstAttribute="trailing" secondItem="kVE-QO-k6O" secondAttribute="trailingMargin" id="sOd-GQ-Fb8"/>
@@ -525,9 +525,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <segue destination="QTG-wQ-rTl" kind="show" id="EcL-2b-GmM"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jA1-xb-Oct" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -668,7 +665,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YBo-75-y0e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1187" y="3054"/>
+            <point key="canvasLocation" x="1187" y="3037"/>
         </scene>
     </scenes>
     <resources>

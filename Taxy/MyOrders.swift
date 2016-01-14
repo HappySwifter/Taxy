@@ -156,7 +156,7 @@ extension MyOrders {
             } else if order.orderStatus == 0 {
                 guard let orderID = order.orderID else { return }
                 Helper().showLoading("Принимаю заказ")
-                Networking.instanse.acceptOrder(orderID) { result in
+                Networking.instanse.acceptOrder(orderID) { [weak self] result in
                     Helper().hideLoading()
                     switch result {
                     case .Error(let error):
@@ -164,6 +164,9 @@ extension MyOrders {
                         // TODO hide loading
                     case .Response(let data):
                         print(data)
+                        if data == 1 {
+                            self?.performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: order)
+                        }
                     }
                 }
             }
