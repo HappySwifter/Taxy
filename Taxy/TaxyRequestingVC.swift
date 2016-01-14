@@ -10,26 +10,24 @@ import Foundation
 import UIKit
 import CCMRadarView
 
-class TaxyRequestingVC: UIViewController, SegueHandlerType {
+class TaxyRequestingVC: UIViewController {
     
     @IBOutlet weak var radarView: CCMRadarView!
     @IBOutlet weak var cancelRequestButton: UIButton!
-    var orderInfo: Order?
+    var orderInfo = Order()
     var timer: NSTimer?
-    
-    enum SegueIdentifier: String {
-        case ShowOrderDetailsSegue
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.hidesBackButton = true
         title = "Поиск такси"
         cancelRequestButton.enabled = false
-        if orderInfo == nil { // fast order
+        if orderInfo.fromPlace == nil { // fast order
             Helper().getAddres {
-                self.orderInfo?.fromPlace = $0.0
-                self.orderInfo?.coordinates = $0.1
+                self.orderInfo.fromPlace = $0.0
+                self.orderInfo.coordinates = $0.1
+                self.orderInfo.toPlace = "Быстрый заказ"
+                self.orderInfo.price = 0
                 self.createOrder()
             }
         } else {
@@ -48,16 +46,15 @@ class TaxyRequestingVC: UIViewController, SegueHandlerType {
     
     func createOrder() {
         Helper().showLoading("Создание заказа")
-        Networking.instanse.createOrder(orderInfo!) { [weak self]  result in
+        Networking.instanse.createOrder(orderInfo) { [weak self]  result in
             Helper().hideLoading()
             switch result {
             case .Error(let error):
                 Popup.instanse.showError("", message: error)
                 self?.navigationController?.popViewControllerAnimated(true)
             case .Response(let orderID):
-                self?.orderInfo?.orderID = orderID
+                self?.orderInfo.orderID = orderID
                 self?.cancelRequestButton.enabled = true
-//                Helper().showLoading("Поиск водителя")
                 self?.radarView.startAnimation()
                 if ((self?.timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self!, selector: "monitorOrderStatus", userInfo: nil, repeats: true)) != nil) {
                     self?.timer!.fire()
@@ -68,7 +65,7 @@ class TaxyRequestingVC: UIViewController, SegueHandlerType {
     
     
     func monitorOrderStatus() {
-        Networking.instanse.monitorOrderStatus(orderInfo!) { [weak self] result in
+        Networking.instanse.monitorOrderStatus(orderInfo) { [weak self] result in
             switch result {
             case .Error(let error):
                 Popup.instanse.showError("", message: error)
@@ -82,11 +79,12 @@ class TaxyRequestingVC: UIViewController, SegueHandlerType {
                     guard let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MyOrdersSTID.rawValue) as? MyOrders else {
                         return
                     }
-                    contr.selectedOrderId = self?.orderInfo?.orderID
+                    contr.selectedOrderId = self?.orderInfo.orderID
                     let nav = NavigationContr(rootViewController: contr)
                     self?.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
-                    
-//                    self?.performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: self?.orderInfo!)
+                case 3:
+                    Popup.instanse.showInfo("Внимание", message: "Ваш заказ отменен")
+                    self?.navigationController?.popViewControllerAnimated(true)
                 default:
                     break
                 }
@@ -94,21 +92,13 @@ class TaxyRequestingVC: UIViewController, SegueHandlerType {
         }
     }
     
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        switch segueIdentifierForSegue(segue) {
-//        case .ShowOrderDetailsSegue:
-//            if let contr = segue.destinationViewController as? OrderInfoVC {
-//                
-//            }
-//        }
-//    }
-    
     @IBAction func cancelTouched() {
-        Networking.instanse.cancelOrder(orderInfo!) { [weak self] result in
+        Networking.instanse.cancelOrder(orderInfo) { [weak self] result in
             switch result {
             case .Error(let error):
                 Popup.instanse.showError("Внимание!", message: error)
             case .Response(_):
+                self?.timer?.invalidate()
                 self?.navigationController?.popViewControllerAnimated(true)
             }
         }

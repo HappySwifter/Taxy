@@ -191,13 +191,9 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate 
                     contr.isRegistration = false
                     let nav = NavigationContr(rootViewController: contr)
                     self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
-                } else {
-                    print("MySettingsSTID doesnt match MyProfileVC")
                 }
             case 1:
-                let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MyOrdersSTID.rawValue)
-                let nav = NavigationContr(rootViewController: contr)
-                self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
+                instantiateSTID(STID.MyOrdersSTID)
                 
             default:
                 break
@@ -206,29 +202,29 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate 
          
             
         case DrawerSection.Orders.rawValue:
-            switch indexPath.row {
-                
-            case 0:
-                 let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.TaxyRequestingSTID.rawValue)
-                 let nav = NavigationContr(rootViewController: contr)
-                 self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
-
-            default:
+//            switch indexPath.row {
+//                
+//            case 0:
+//                instantiateSTID(STID.TaxyRequestingSTID)
+//
+//            default:
                 let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MakeOrderSTID.rawValue) as! MakeOrderVC
-                contr.orderInfo.orderType = OrderType.value()[indexPath.row - 1]
+                if indexPath.row != 0 {
+                    contr.orderInfo.orderType = OrderType.value()[indexPath.row - 1]
+                } else {
+                    let _ = contr.fastOrder = true
+                }
                 let nav = NavigationContr(rootViewController: contr)
                 self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
                 
 //            default:
 //                break
-            }
+//            }
             
         case DrawerSection.Other.rawValue:
             switch indexPath.row {
             case 0:
-                let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.RulesSTID.rawValue)
-                let nav = NavigationContr(rootViewController: contr)
-                self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
+                instantiateSTID(STID.RulesSTID)
             default:
                 break
             }

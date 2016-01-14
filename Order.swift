@@ -21,13 +21,15 @@ class Order {
     var moreInformation = false
     var coordinates: CLLocationCoordinate2D?
     var orderID: String?
-    var driverInfo: UserProfile?
+    var driverInfo = UserProfile()
+    var passengerInfo = UserProfile()
+
     var orderStatus: Int?
     var createdAt: NSDate?
 }
 
 enum OrderFields: String {
-    case UserId, ServiceType, FromAddress, ToAddress, Longitude, Latitude, Price, Comment, WithChildChair, OrderType, Id, OrderStatus, Driver, City, CreatedAt
+    case UserId, ServiceType, FromAddress, ToAddress, Longitude, Latitude, Price, Comment, WithChildChair, OrderType, Id, OrderStatus, Driver, City, CreatedAt, User
 }
 
 extension Order {
@@ -49,6 +51,7 @@ extension Order {
     
     func getOrdersFomResponse(json: JSON) -> [Order] {
         var orders = [Order]()
+        
         
         
         // for
@@ -78,16 +81,21 @@ extension Order {
             if let orderStatus = orderInfo[OrderFields.OrderStatus.rawValue].int {
                 order.orderStatus = orderStatus
             }
-            if let driverInfo = orderInfo[OrderFields.Driver.rawValue].dictionary {
-                order.driverInfo?.name = "some driver infos"
-            } else {
-                order.driverInfo?.name = "водитель еще не назначен"
-            }
             if let createdAtString = orderInfo[OrderFields.CreatedAt.rawValue].string,
             let date = Helper().dateFromString(createdAtString)
             {
                 order.createdAt = date
             }
+            
+            if let userDict = orderInfo[OrderFields.User.rawValue].dictionary {
+                order.passengerInfo = UserProfile().getModelFromDict(userDict, shared: false)
+            }
+            if let driverInfo = orderInfo[OrderFields.Driver.rawValue].dictionary {
+               order.driverInfo = UserProfile().getModelFromDict(driverInfo, shared: false)
+            } else {
+                order.driverInfo.name = "водитель еще не назначен"
+            }
+            
             orders.append(order)
         }
         

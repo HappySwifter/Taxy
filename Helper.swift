@@ -13,6 +13,13 @@ import SVProgressHUD
 
 struct Helper {
     
+    
+
+    
+    
+    
+    
+    
 /////////// DATE ////////////
     func dateFromString(dateStr: String) -> NSDate? {
         let form = NSDateFormatter()
@@ -108,6 +115,11 @@ extension NSDate {
 }
 
 
-extension String{
-
+extension UIViewController {
+    func instantiateSTID(id: STID) {
+        let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let centerViewController = storyBoard.instantiateViewControllerWithIdentifier(id.rawValue)
+        let nav = NavigationContr(rootViewController: centerViewController)
+        self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
+    }
 }

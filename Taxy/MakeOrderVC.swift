@@ -27,6 +27,7 @@ class MakeOrderVC: FormViewController {
     var fromRow:TextViewRowFormer<FormTextViewCell>?
     var toRow:TextViewRowFormer<FormTextViewCell>?
     var orderInfo = Order()
+    var fastOrder = false
     
     private lazy var informationSection: SectionFormer = {
         let childChairRow = SwitchRowFormer<FormSwitchCell>() {
@@ -59,6 +60,11 @@ class MakeOrderVC: FormViewController {
         super.viewDidLoad()
         setupMenuButtons()
         configure()
+        if fastOrder == true {
+            let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+            let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.TaxyRequestingSTID.rawValue)
+            self.navigationController?.pushViewController(contr, animated: true)
+        }
     }
     
     deinit {

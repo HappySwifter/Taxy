@@ -249,13 +249,6 @@ final class LoginViewController: UIViewController {
     
     
     private func goAhead() -> Void {
-        //        let vc = MenuVC()
-        //        let navC = UINavigationController(rootViewController: vc)
-        //        self.evo_drawerController?.leftDrawerViewController = navC
-        
-        let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MySettingsSTID.rawValue)
-        let nav = NavigationContr(rootViewController: contr)
-        self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
+        instantiateSTID(STID.MySettingsSTID)
     }
 }

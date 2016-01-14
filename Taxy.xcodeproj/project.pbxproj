@@ -253,6 +253,8 @@
 		028F6F921C14BC700052C4B9 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				6A570ABE1C467E490054C82A /* NSDate+HumanizedTime.h */,
+				6A570ABF1C467E490054C82A /* NSDate+HumanizedTime.m */,
 				028F6F9C1C1738040052C4B9 /* FormSegmentedCellNoTitle.swift */,
 				028F6F841C121F9C0052C4B9 /* Popup.swift */,
 				028F6F6F1C10A67C0052C4B9 /* FormerInputAccessoryView.swift */,
@@ -286,8 +288,6 @@
 			isa = PBXGroup;
 			children = (
 				6A624B341C06E52C00404B2D /* Main.storyboard */,
-				6A570ABE1C467E490054C82A /* NSDate+HumanizedTime.h */,
-				6A570ABF1C467E490054C82A /* NSDate+HumanizedTime.m */,
 				6A624B301C06E52C00404B2D /* AppDelegate.swift */,
 				02450A0F1C418C4700C74F21 /* MyPlayground.playground */,
 				02F163A91C270F180065409B /* Bot.swift */,

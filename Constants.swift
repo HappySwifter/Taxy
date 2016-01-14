@@ -41,7 +41,7 @@ enum ServerMethods: String {
     case GetOnlyMyOrder // для водителя. Мониторит заказы для конкретного водителя, назначенные ему, как самому ближнему по расстоянию к пассажиру
     case СloseOrder
     case SendCoordinates
-
+    case AcceptOrder
 }
 
 enum OrderType {
@@ -103,6 +103,8 @@ struct errorDecription {
             return "Поле куда пустое"
         case 510:
             return "Не заполнено поле цены"
+        case 511:
+            return "Заказ уже принят"
         case 512:
            return "Сообщение уже отправлено, запросите новое позже"
         default:

@@ -57,7 +57,6 @@ class LoadingVC: UIViewController, CLLocationManagerDelegate {
             case .Response(let cities):
                 LocalData.instanse.saveCities(cities)
 
-                let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
                 if let _ = LocalData().getUserID  {
                     Helper().showLoading("Загрузка профиля")
                     self?.reloadButton.hidden = true
@@ -73,25 +72,23 @@ class LoadingVC: UIViewController, CLLocationManagerDelegate {
                             self?.makeRequests()
                             
                         case .Response(_):
-                            self?.activateMenu()
-                            let centerViewController = storyBoard.instantiateViewControllerWithIdentifier(STID.MakeOrderSTID.rawValue)
-                            let nav = NavigationContr(rootViewController: centerViewController)
-                            self?.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
+                            if UserProfile.sharedInstance.city?.code == 0 || UserProfile.sharedInstance.city == nil {
+                                self?.instantiateSTID(STID.MySettingsSTID)
+                            } else {
+                                self?.activateMenu()
+                                self?.instantiateSTID(STID.MakeOrderSTID)
+                            }
                         }
-                        
-                        
                     }
                 } else {
                     self?.activateMenu()
-                    let centerViewController = storyBoard.instantiateViewControllerWithIdentifier(STID.LoginSTID.rawValue)
-                    let nav = NavigationContr(rootViewController: centerViewController)
-                    self?.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
+                    self?.instantiateSTID(STID.LoginSTID)
                 }
             }
-            
-            
         }
     }
+    
+
     
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {

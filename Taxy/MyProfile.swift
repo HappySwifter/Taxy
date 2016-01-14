@@ -26,7 +26,7 @@ import Former
 
 final class MyProfileVC: FormViewController, SegueHandlerType {
     
-    internal var isRegistration = false
+    internal var isRegistration = true
     
     enum SegueIdentifier: String {
         case DriverRegistrationSegue
@@ -201,10 +201,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
                 }.onSelected { [weak self] _ in
                     LocalData().forgetUserProfile()
                     LocalData().deleteUserID()
-                    let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-                    let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.LoginSTID.rawValue)
-                    let nav = NavigationContr(rootViewController: contr)
-                    self?.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
+                    self?.instantiateSTID(STID.LoginSTID)
             }
             let exitSection = SectionFormer(rowFormer:exitRow)
                 .set(headerViewFormer: createHeader("Выйти из учетной записи"))
@@ -273,10 +270,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
                         let vc = MenuVC()
                         let navC = UINavigationController(rootViewController: vc)
                         self?.evo_drawerController?.leftDrawerViewController = navC
-                        
-                        let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MakeOrderSTID.rawValue)
-                        let nav = NavigationContr(rootViewController: contr)
-                        self?.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
+                        self?.instantiateSTID(STID.MakeOrderSTID)
                     }
                 }
                 

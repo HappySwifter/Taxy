@@ -35,10 +35,7 @@ final class DriverRegistrationVC: FormViewController {
             Helper().showLoading("Обновление профиля")
             Networking().updateProfile(userInfo) { [weak self]  data in
                 Helper().hideLoading()
-                let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-                let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MakeOrderSTID.rawValue)
-                let nav = NavigationContr(rootViewController: contr)
-                self?.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
+                self?.instantiateSTID(STID.MakeOrderSTID)
             }
         }
     }

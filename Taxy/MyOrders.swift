@@ -18,8 +18,8 @@ class MyOrders: UITableViewController, SegueHandlerType {
     
     var orders = [Order]()
     var selectedOrderId: String?
-    var selectedType: Int = 0
-    
+    var selectedType: Int = 1
+    var timer: NSTimer?
     enum SegueIdentifier: String {
         case ShowOrderDetailsSegue
     }
@@ -40,6 +40,11 @@ class MyOrders: UITableViewController, SegueHandlerType {
             }
             
         } else {
+            
+            timer?.invalidate()
+            timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "getOnlyMyOrder", userInfo: nil, repeats: true)
+            timer!.fire()
+            
             let items = OrderType.value().map { element in element.title() }
             let menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: items.first!, items: items)
             self.navigationItem.titleView = menuView
@@ -68,6 +73,12 @@ class MyOrders: UITableViewController, SegueHandlerType {
                 self?.orders = data
                 self?.tableView.reloadData()
             }
+        }
+    }
+    
+    func getOnlyMyOrder() {
+        Networking.instanse.getOnlyMyOrder { result in
+            
         }
     }
     
@@ -128,11 +139,22 @@ extension MyOrders {
                 performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: order.orderID)
             }
         case .Driver:
-            if order.orderStatus == 1 && order.driverInfo?.userID == UserProfile.sharedInstance.userID {
+            if order.orderStatus == 1 && order.driverInfo.userID == UserProfile.sharedInstance.userID {
                 // заказ принят и принят этим водителем
                 performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: order.orderID)
             } else if order.orderStatus == 0 {
-//                Networking.instanse.
+                guard let orderID = order.orderID else { return }
+                Helper().showLoading("Принимаю заказ")
+                Networking.instanse.acceptOrder(orderID) { result in
+                    Helper().hideLoading()
+                    switch result {
+                    case .Error(let error):
+                        Popup.instanse.showError("", message: error)
+                        // TODO hide loading
+                    case .Response(let data):
+                        print(data)
+                    }
+                }
             }
         }
     }
@@ -155,8 +177,10 @@ class driverOrderCell: UITableViewCell {
         if let price = order.price {
             priceLabel.text = String(price) + "р"
         }
-        passengerNameLabel.text = "имя пассажира"
-        
+        if let passName = order.passengerInfo.name {
+            passengerNameLabel.text = passName
+        }
+   
         if let fromPlace = order.fromPlace {
             fromPlaceLabel.text = fromPlace
         }
@@ -190,7 +214,7 @@ class passengerOrderCell: UITableViewCell {
         if let price = order.price {
             priceLabel.text = String(price) + "р"
         }
-        driverNameLabel.text = order.driverInfo?.userID
+        driverNameLabel.text = order.driverInfo.userID
         
         statusView.layer.cornerRadius = statusView.frame.size.width / 2
         if order.orderStatus == 1 {

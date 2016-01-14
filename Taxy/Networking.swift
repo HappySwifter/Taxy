@@ -126,7 +126,7 @@ final class Networking {
                 
             case .Response(let json):
                 if let userInfo = json.dictionary {
-                    UserProfile.sharedInstance.updateInstanseWithJSON(userInfo)
+                    UserProfile.sharedInstance.getModelFromDict(userInfo, shared: true)
                     completion(Result.Response(""))
                 }
             }
@@ -155,7 +155,7 @@ final class Networking {
                 
             case .Response(let json):
                 if let userInfo = json.dictionary {
-                    UserProfile.sharedInstance.updateInstanseWithJSON(userInfo)
+                    UserProfile.sharedInstance.getModelFromDict(userInfo, shared: true)
                     completion(Result.Response(""))
                 }
             }
@@ -333,14 +333,22 @@ final class Networking {
         }
     }
     
-    func getOnlyMyOrder(order: UserProfile, completion: Result<Int, String> -> Void) {
+    func getOnlyMyOrder(completion: Result<[Order], String> -> ()) {
         guard let id = LocalData().getUserID else {
             Popup.instanse.showError("", message: "\(__FUNCTION__)")
             return
         }
-        let parameters = [ UserFields.Id.rawValue : id ]
+        let parameters = [ "userId" : id ]
         🙏(.POST, url: mainUrl + orderString + ServerMethods.GetOnlyMyOrder.rawValue, params: parameters) { result in
-            
+            switch result {
+                
+            case .Error(let error):
+                completion(Result.Error(error))
+                
+            case .Response(let json):
+                 let orders = Order().getOrdersFomResponse(json)
+                 completion(Result.Response(orders))
+            }
         }
     }
     
@@ -348,6 +356,24 @@ final class Networking {
         guard let id = LocalData().getUserID else {
             Popup.instanse.showError("", message: "\(__FUNCTION__)")
             return
+        }
+        let parameters = [
+            "driverId" : id,
+            "orderId" : orderId
+        ]
+        🙏(.POST, url: mainUrl + orderString + ServerMethods.AcceptOrder.rawValue, params: parameters) { result in
+            switch result {
+                
+            case .Error(let error):
+                completion(Result.Error(error))
+                
+            case .Response(let json):
+                if let status = Order().getOrderStatusFromResponse(json) {
+                    completion(Result.Response(status))
+                } else {
+                    completion(Result.Error("Ошибка"))
+                }
+            }
         }
     }
     
