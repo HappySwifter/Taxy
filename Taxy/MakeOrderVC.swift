@@ -23,7 +23,6 @@ import SwiftLocation
 
 class MakeOrderVC: FormViewController {
     
-    let orderTypes = ["По городу", "Межгород", "Грузовые"]
     private lazy var formerInputAccessoryView: FormerInputAccessoryView = FormerInputAccessoryView(former: self.former)
     var fromRow:TextViewRowFormer<FormTextViewCell>?
     var toRow:TextViewRowFormer<FormTextViewCell>?
@@ -40,7 +39,19 @@ class MakeOrderVC: FormViewController {
             }.onSwitchChanged { [weak self] in
                 self?.orderInfo.isChildChair = $0
         }
-        return SectionFormer(rowFormer: childChairRow)
+        /////////// comment ////////////
+        let commentRow = TextViewRowFormer<FormTextViewCell>() { [weak self] in
+            $0.textView.textColor = .formerSubColor()
+            $0.textView.font = .systemFontOfSize(15)
+            $0.textView.inputAccessoryView = self?.formerInputAccessoryView
+            }.configure {
+                $0.placeholder = "Ваш комментарий к заказу"
+            }.onTextChanged {
+                self.orderInfo.comment = $0
+        }
+        ////////////////////////////////
+        
+        return SectionFormer(rowFormer:commentRow, childChairRow)
     }()
     
     
@@ -48,6 +59,10 @@ class MakeOrderVC: FormViewController {
         super.viewDidLoad()
         setupMenuButtons()
         configure()
+    }
+    
+    deinit {
+        print("\(__FUNCTION__)")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -67,16 +82,9 @@ class MakeOrderVC: FormViewController {
         self.evo_drawerController?.toggleDrawerSide(.Left, animated: true, completion: nil)
     }
     
-    func configure() -> Void {
+    func configure() {
         
-        
-        let taxyTypeRow = InlinePickerRowFormer<FormInlinePickerCell, Any>() {
-            $0.titleLabel.text = "Тип такси"
-            }.configure {
-                $0.pickerItems = orderTypes.map { InlinePickerItem(title: $0) }
-        }
-        
-        
+
         
         
         ////////// from place /////////////
@@ -84,6 +92,8 @@ class MakeOrderVC: FormViewController {
             $0.textView.textColor = .formerSubColor()
             $0.textView.font = .systemFontOfSize(15)
             $0.textView.inputAccessoryView = self?.formerInputAccessoryView
+            $0.textLabel?.font = UIFont(name: "Helvetica Light", size: 13)
+
             }.configure {
                 $0.placeholder = "Откуда?"
                 $0.text = orderInfo.fromPlace
@@ -94,6 +104,7 @@ class MakeOrderVC: FormViewController {
         
         let getGeoRow = LabelRowFormer<CenterLabelCell>() {
             $0.textLabel?.text = "Отпределить автоматически"
+            $0.textLabel?.font = UIFont(name: "Helvetica Light", size: 13)
             }
             .onSelected { [weak self] _ in
                 self?.former.deselect(true)
@@ -102,36 +113,11 @@ class MakeOrderVC: FormViewController {
                     self?.orderInfo.coordinates = $0.1
                     self?.update()
                 }
-                
-                //                do {
-                //                    try SwiftLocation.shared.currentLocation(Accuracy.Neighborhood, timeout: 20, onSuccess: { (location) -> Void in
-                //                        print(location)
-                //
-                //                        if let coord = location?.coordinate {
-                //                            SwiftLocation.shared.reverseCoordinates(Service.GoogleMaps, coordinates: coord, onSuccess: { (place) -> Void in
-                //                                guard let city = place?.locality, let street = place?.thoroughfare, let home = place?.subThoroughfare else {
-                //                                    debugPrint("cant get city and street from place")
-                //                                    return
-                //                                }
-                //                                self.orderInfo.fromPlace = city + ", " + street
-                //                                if home.characters.count > 0 {
-                //                                    self.orderInfo.fromPlace?.appendContentsOf(", \(home)")
-                //                                }
-                //
-                //                                }) { (error) -> Void in
-                //                                    debugPrint(error)
-                //                            }
-                //                        }
-                //                        }) { (error) -> Void in
-                //                            print(error)
-                //                    }
-                //                } catch {
-                //                    print(error)
-                //                }
-        }
+            }
         
         let showOnMapRow = LabelRowFormer<CenterLabelCell>() {
             $0.textLabel?.text = "Указать на карте"
+            $0.textLabel?.font = UIFont(name: "Helvetica Light", size: 13)
             }
             .onSelected { [weak self] data in
                 self?.former.deselect(true)
@@ -139,7 +125,7 @@ class MakeOrderVC: FormViewController {
                 if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MapSTID.rawValue) as? MapViewController {
                     contr.initiator = NSStringFromClass((self?.dynamicType)!)
                     contr.onSelected = {
-                        self?.orderInfo.toPlace = $0.address
+                        self?.orderInfo.fromPlace = $0.address
                         self?.orderInfo.coordinates = $0.coords
                     }
                     self?.navigationController?.pushViewController(contr, animated: true)
@@ -156,6 +142,7 @@ class MakeOrderVC: FormViewController {
             $0.textView.textColor = .formerSubColor()
             $0.textView.font = .systemFontOfSize(15)
             $0.textView.inputAccessoryView = self?.formerInputAccessoryView
+            $0.textLabel?.font = UIFont(name: "Helvetica Light", size: 13)
             }.configure {
                 $0.placeholder = "Куда?"
                 $0.text = orderInfo.toPlace
@@ -166,9 +153,10 @@ class MakeOrderVC: FormViewController {
         
         let findOnMapRow = LabelRowFormer<CenterLabelCell>() {
             $0.textLabel?.text = "Найти на карте"
+            $0.textLabel?.font = UIFont(name: "Helvetica Light", size: 13)
             }
             .onSelected { [weak self] _ in
-                self?.former.deselect(true)
+                self?.former.deselect(false)
                 let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
                 if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MapSTID.rawValue) as? MapViewController {
                     contr.initiator = NSStringFromClass((self?.dynamicType)!)
@@ -185,6 +173,7 @@ class MakeOrderVC: FormViewController {
         
         ///////////price//////////////
         let priceRow = TextFieldRowFormer<ProfileFieldCell>(instantiateType: .Nib(nibName: "ProfileFieldCell")) { [weak self] in
+            $0.textLabel?.font = UIFont(name: "Helvetica Light", size: 13)
             $0.titleLabel.text = "Цена"
             $0.textField.keyboardType = .DecimalPad
             $0.textField.inputAccessoryView = self?.formerInputAccessoryView
@@ -197,20 +186,11 @@ class MakeOrderVC: FormViewController {
         //////////////////////////////
         
         
-        /////////// comment ////////////
-        let commentRow = TextViewRowFormer<FormTextViewCell>() { [weak self] in
-            $0.textView.textColor = .formerSubColor()
-            $0.textView.font = .systemFontOfSize(15)
-            $0.textView.inputAccessoryView = self?.formerInputAccessoryView
-            }.configure {
-                $0.placeholder = "Ваш комментарий к заказу"
-            }.onTextChanged {
-                self.orderInfo.comment = $0
-        }
-        ////////////////////////////////
+      
         
         
         let moreRow = SwitchRowFormer<FormSwitchCell>() {
+            $0.textLabel?.font = UIFont(name: "Helvetica Light", size: 14)
             $0.titleLabel.text = "Дополнительная информация"
             $0.titleLabel.textColor = .formerColor()
             $0.titleLabel.font = .boldSystemFontOfSize(15)
@@ -229,26 +209,37 @@ class MakeOrderVC: FormViewController {
         
         
         
-        let createHeader: (String -> ViewFormer) = { text in
-            return LabelViewFormer<FormLabelHeaderView>()
-                .configure {
-                    $0.text = text
-                    $0.viewHeight = 44
+//        let createHeader: (String -> ViewFormer) = { text in
+//            return LabelViewFormer<FormLabelHeaderView>()
+//                .configure {
+//                    $0.text = text
+//                    $0.viewHeight = 44
+//            }
+//        }
+
+        let titleRow = LabelRowFormer<CenterLabelCell>() {
+            $0.textLabel?.text = "Создать заказ \(self.orderInfo.orderType.title())"
+            $0.textLabel?.textAlignment = .Center
+            $0.textLabel?.font = UIFont(name: "Helvetica Light", size: 18)
+            }.configure {
+                $0.rowHeight = 40
             }
+            .onSelected { [weak self] _ in
+                self?.former.deselect(false)
         }
+    
         
-        
-        let segmentSection = SectionFormer(rowFormer: taxyTypeRow)
-        let fromSection = SectionFormer(rowFormer: fromRow, getGeoRow, showOnMapRow)
-            .set(headerViewFormer: createHeader("Откуда"))
+//        let segmentSection = SectionFormer(rowFormer: taxyTypeRow)
+        let fromSection = SectionFormer(rowFormer:titleRow, fromRow, getGeoRow, showOnMapRow)
+//            .set(headerViewFormer: createHeader("Создать заказ \(orderInfo.orderType.title())"))
         let toSection = SectionFormer(rowFormer: toRow, findOnMapRow)
-            .set(headerViewFormer: createHeader("Куда"))
+//            .set(headerViewFormer: createHeader("Куда"))
         let priceSection = SectionFormer(rowFormer: priceRow)
-        let commentSection = SectionFormer(rowFormer: commentRow)
+//        let commentSection = SectionFormer(rowFormer: commentRow)
         let moreSection = SectionFormer(rowFormer: moreRow)
         
         
-        former.append(sectionFormer: segmentSection, fromSection, toSection, priceSection, commentSection, moreSection)
+        former.append(sectionFormer: fromSection, toSection, priceSection, moreSection)
             .onCellSelected { [weak self] _ in
                 self?.formerInputAccessoryView.update()
         }

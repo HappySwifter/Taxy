@@ -23,6 +23,7 @@ class TaxyRequestingVC: UIViewController, SegueHandlerType {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.hidesBackButton = true
         title = "Поиск такси"
         cancelRequestButton.enabled = false
         if orderInfo == nil { // fast order
@@ -52,6 +53,7 @@ class TaxyRequestingVC: UIViewController, SegueHandlerType {
             switch result {
             case .Error(let error):
                 Popup.instanse.showError("", message: error)
+                self?.navigationController?.popViewControllerAnimated(true)
             case .Response(let orderID):
                 self?.orderInfo?.orderID = orderID
                 self?.cancelRequestButton.enabled = true

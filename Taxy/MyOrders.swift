@@ -18,6 +18,8 @@ class MyOrders: UITableViewController, SegueHandlerType {
     
     var orders = [Order]()
     var selectedOrderId: String?
+    var selectedType: Int = 0
+    
     enum SegueIdentifier: String {
         case ShowOrderDetailsSegue
     }
@@ -25,8 +27,11 @@ class MyOrders: UITableViewController, SegueHandlerType {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.lightGrayColor()
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
+        tableView.addSubview(refresh)
         setupMenuButtons()
-        loadOrders(0)        
+        loadOrders(selectedType)
         if UserProfile.sharedInstance.type == .Passenger {
             self.title = "Заказы"
             
@@ -35,18 +40,26 @@ class MyOrders: UITableViewController, SegueHandlerType {
             }
             
         } else {
-            let items = ["По городу", "Межгород", "Грузовое", "Услуги"]
+            let items = OrderType.value().map { element in element.title() }
             let menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: items.first!, items: items)
             self.navigationItem.titleView = menuView
             menuView.didSelectItemAtIndexHandler = { [weak self] indexPath in
+                self?.selectedType = indexPath + 1
                 self?.loadOrders(indexPath + 1)
             }
         }
     }
     
+    func refresh(control: UIRefreshControl) {
+        control.endRefreshing()
+        loadOrders(selectedType)
+    }
+    
     
     func loadOrders(type: Int) {
+        Helper().showLoading("Загрузка заказов")
         Networking.instanse.getOrders(type) { [weak self] result in
+            Helper().hideLoading()
             switch result {
             case .Error(let error):
                 Popup.instanse.showError("", message: error)
@@ -118,6 +131,8 @@ extension MyOrders {
             if order.orderStatus == 1 && order.driverInfo?.userID == UserProfile.sharedInstance.userID {
                 // заказ принят и принят этим водителем
                 performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: order.orderID)
+            } else if order.orderStatus == 0 {
+//                Networking.instanse.
             }
         }
     }

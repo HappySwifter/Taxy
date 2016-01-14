@@ -13,7 +13,7 @@ import DrawerController
 enum DrawerSection: Int {
     case Avatar
     case Orders
-    case Menu
+    case Main
     case Other
 }
 
@@ -22,7 +22,9 @@ enum DrawerSection: Int {
 class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate {
     var tableView: UITableView!
     let drawerWidths: [CGFloat] = [160, 200, 240, 280, 320]
-    let ordersSection = ["Быстрый заказ", "Создать заказ", "Мои заказы"]
+
+    let profileSection = ["Профиль", "Мои заказы"]
+    let ordersSection = ["Быстрый заказ"]
     
     
     override func viewDidLoad() {
@@ -65,12 +67,12 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate 
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case DrawerSection.Menu.rawValue:
+        case DrawerSection.Main.rawValue:
             return 1
         case DrawerSection.Avatar.rawValue:
-            return 1
+            return profileSection.count
         case DrawerSection.Orders.rawValue:
-            return ordersSection.count
+            return ordersSection.count + OrderType.value().count
         case DrawerSection.Other.rawValue:
             return 1
         default:
@@ -93,22 +95,22 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate 
         switch indexPath.section {
             
             case DrawerSection.Avatar.rawValue:
-                cell.imageView?.image = UserProfile().image
-                cell.textLabel?.text = "Профиль"
-          
+                if indexPath.row == 0 {
+                    cell.textLabel?.text = UserProfile.sharedInstance.name ?? profileSection[indexPath.row]
+                } else {
+                    cell.textLabel?.text = profileSection[indexPath.row]
+ 
+                }
+
+
             case DrawerSection.Orders.rawValue:
-//                switch indexPath.row {
-//                case 0:
+                if indexPath.row == 0 {
                     cell.textLabel?.text = ordersSection[indexPath.row]
-//                case 1:
-//                    cell.textLabel?.text = ordersSection[1]
-//                case 2:
-//                    cell.textLabel?.text = ordersSection[2]
-//                default:
-//                    break
-//                }
-            
-            case DrawerSection.Menu.rawValue:
+                } else {
+                  cell.textLabel?.text = OrderType.value()[indexPath.row - 1].title()
+                }
+
+            case DrawerSection.Main.rawValue:
                 switch indexPath.row {
                 case 0:
                     cell.textLabel?.text = "Настройки"
@@ -128,7 +130,7 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate 
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case DrawerSection.Menu.rawValue:
+        case DrawerSection.Main.rawValue:
             return "Общее"
         case DrawerSection.Orders.rawValue:
             return "Заказы"
@@ -139,7 +141,12 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate 
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
-        case DrawerSection.Menu.rawValue, DrawerSection.Orders.rawValue:
+        case DrawerSection.Avatar.rawValue:
+            let headerView = SideDrawerSectionHeaderImageView(frame: CGRect(x: 0, y: 0, width: CGRectGetWidth(tableView.bounds), height: 60.0))
+            headerView.image = UserProfile.sharedInstance.image
+            return headerView
+            
+        case DrawerSection.Main.rawValue, DrawerSection.Orders.rawValue:
             let headerView = SideDrawerSectionHeaderView(frame: CGRect(x: 0, y: 0, width: CGRectGetWidth(tableView.bounds), height: 30.0))
             headerView.autoresizingMask = [ .FlexibleHeight, .FlexibleWidth ]
             headerView.title = tableView.dataSource?.tableView?(tableView, titleForHeaderInSection: section)
@@ -150,7 +157,16 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
+        switch section {
+        case DrawerSection.Avatar.rawValue:
+            return 60
+        case DrawerSection.Orders.rawValue:
+            return 30
+        case DrawerSection.Main.rawValue:
+            return 30
+        default:
+            return 0
+        }
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -166,29 +182,27 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         switch indexPath.section {
-//        case DrawerSection.Menu.rawValue:
-//            switch indexPath.row {
-//
-//            case 0:
-//                let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MapSTID.rawValue)
-//                let nav = NavigationContr(rootViewController: contr)
-//                self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
-//                
-//            default:
-//                break
-//        }
-        
+
             
         case DrawerSection.Avatar.rawValue:
-            if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MySettingsSTID.rawValue) as? MyProfileVC {
-                contr.isRegistration = false
+            switch indexPath.row {
+            case 0:
+                if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MySettingsSTID.rawValue) as? MyProfileVC {
+                    contr.isRegistration = false
+                    let nav = NavigationContr(rootViewController: contr)
+                    self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
+                } else {
+                    print("MySettingsSTID doesnt match MyProfileVC")
+                }
+            case 1:
+                let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MyOrdersSTID.rawValue)
                 let nav = NavigationContr(rootViewController: contr)
                 self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
-            } else {
-                print("MySettingsSTID doesnt match MyProfileVC")
+                
+            default:
+                break
             }
-            
-       
+        
          
             
         case DrawerSection.Orders.rawValue:
@@ -199,17 +213,14 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate 
                  let nav = NavigationContr(rootViewController: contr)
                  self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
 
-            case 1:
-                let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MakeOrderSTID.rawValue)
+            default:
+                let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MakeOrderSTID.rawValue) as! MakeOrderVC
+                contr.orderInfo.orderType = OrderType.value()[indexPath.row - 1]
                 let nav = NavigationContr(rootViewController: contr)
                 self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
                 
-            case 2:
-                let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MyOrdersSTID.rawValue)
-                let nav = NavigationContr(rootViewController: contr)
-                self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
-            default:
-                break
+//            default:
+//                break
             }
             
         case DrawerSection.Other.rawValue:

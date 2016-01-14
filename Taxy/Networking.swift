@@ -203,7 +203,7 @@ final class Networking {
         }
         parameters[OrderFields.UserId.rawValue] = id
         parameters[OrderFields.FromAddress.rawValue] = fromPlace
-        parameters[OrderFields.OrderType.rawValue] = order.orderType.rawValue
+        parameters[OrderFields.OrderType.rawValue] = String(order.orderType.hashValue + 1)
         parameters[OrderFields.WithChildChair.rawValue] = String(order.isChildChair)
 
         if let toPlace = order.toPlace {
@@ -343,6 +343,16 @@ final class Networking {
             
         }
     }
+    
+    func acceptOrder(orderId: String, completion: Result<Int, String> -> Void) {
+        guard let id = LocalData().getUserID else {
+            Popup.instanse.showError("", message: "\(__FUNCTION__)")
+            return
+        }
+    }
+    
+//////////////////////////////////////////////////////////////////////
+    
     
     
     

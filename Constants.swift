@@ -44,12 +44,23 @@ enum ServerMethods: String {
 
 }
 
-enum OrderType: String {
-    case City
-    case Intercity
-    case Freight
-    case Service
+enum OrderType {
+    case City, Intercity, Freight, Service
+    func title() -> String {
+        switch self {
+        case City: return "По городу"
+        case Intercity: return "Межгород"
+        case Freight: return "Грузовое"
+        case Service: return "Услуги"
+        }
+    }
+    static func value() -> [OrderType] {
+        return [City, Intercity, Freight, Service]
+    }
 }
+
+
+
 
 enum ServiceType: String {
     case Economic
@@ -106,21 +117,4 @@ enum Result<T, U> {
 }
 
 
-private enum Alert {
-    case None, AtTime, Five, Thirty, Hour, Day, Week
-    func title() -> String {
-        switch self {
-        case None: return "None"
-        case AtTime: return "At time of event"
-        case Five: return "5 minutes before"
-        case Thirty: return "30 minutes before"
-        case Hour: return "1 hour before"
-        case Day: return "1 day before"
-        case Week: return "1 week before"
-        }
-    }
-    static func values() -> [Alert] {
-        return [AtTime, Five, Thirty, Hour, Day, Week]
-    }
-}
 
