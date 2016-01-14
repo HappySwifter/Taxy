@@ -97,6 +97,16 @@ extension UIImage {
     }
 }
 
+extension String {
+    func toImage() -> UIImage? {
+        if let imageData = NSData(base64EncodedString: self, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters),
+        let image = UIImage(data: imageData) {
+            return image
+        }
+        return .None
+    }
+}
+
 //extension NSError {
 //    convenience init!(name: String) {
 //        self.init(domain: name, code: 0, userInfo: nil)

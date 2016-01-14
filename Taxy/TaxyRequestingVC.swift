@@ -65,12 +65,13 @@ class TaxyRequestingVC: UIViewController {
     
     
     func monitorOrderStatus() {
-        Networking.instanse.monitorOrderStatus(orderInfo) { [weak self] result in
+        Networking.instanse.checkOrder(orderInfo) { [weak self] result in
             switch result {
             case .Error(let error):
                 Popup.instanse.showError("", message: error)
-            case .Response(let orderStatus):
-                debugPrint(orderStatus)
+            case .Response(let orders):
+//                debugPrint(orderStatus)
+                guard let orderStatus = orders.first?.orderStatus else { return }
                 switch orderStatus {
                 case 1:
                     self?.timer?.invalidate()
@@ -79,7 +80,7 @@ class TaxyRequestingVC: UIViewController {
                     guard let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MyOrdersSTID.rawValue) as? MyOrders else {
                         return
                     }
-                    contr.selectedOrderId = self?.orderInfo.orderID
+                    contr.selectedOrder = self?.orderInfo
                     let nav = NavigationContr(rootViewController: contr)
                     self?.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
                 case 3:

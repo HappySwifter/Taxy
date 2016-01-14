@@ -222,9 +222,9 @@
 				028F6F881C1355E60052C4B9 /* MakeOrderVC.swift */,
 				0291016F1C1DA0C80000BD23 /* TaxyRequestingVC.swift */,
 				028F6EFA1C0B424D0052C4B9 /* MapViewController.swift */,
+				6A624B8B1C073FBC00404B2D /* MyOrders.swift */,
 				6A6DF16B1C2D5E5F00561DA4 /* OrderInfoVC.swift */,
 				0203F6D71C1F15E100807C1D /* RulesVC.swift */,
-				6A624B8B1C073FBC00404B2D /* MyOrders.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";

@@ -287,7 +287,7 @@ final class Networking {
         
     }
     
-    func monitorOrderStatus(order: Order, completion: Result<Int, String> -> Void) {
+    func checkOrder(order: Order, completion: Result<[Order], String> -> Void) {
         guard let id = LocalData().getUserID, orderID = order.orderID  else {
             Popup.instanse.showError("", message: "\(__FUNCTION__)")
             return
@@ -304,11 +304,8 @@ final class Networking {
                 completion(Result.Error(error))
  
             case .Response(let json):
-                if let orderStatus = Order().getOrderStatusFromResponse(json) {
-                    completion(Result.Response(orderStatus))
-                } else {
-                    completion(Result.Error(LoadingError.UnexpectedError.rawValue))
-                }
+                let orders = Order().getOrdersFomResponse(json)
+                completion(Result.Response(orders))
             }
         }
     }

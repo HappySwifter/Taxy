@@ -17,7 +17,7 @@ import DrawerController
 class MyOrders: UITableViewController, SegueHandlerType {
     
     var orders = [Order]()
-    var selectedOrderId: String?
+    var selectedOrder: Order?
     var selectedType: Int = 1
     var timer: NSTimer?
     enum SegueIdentifier: String {
@@ -35,15 +35,13 @@ class MyOrders: UITableViewController, SegueHandlerType {
         if UserProfile.sharedInstance.type == .Passenger {
             self.title = "Заказы"
             
-            if let selectedOrder = selectedOrderId {
+            if let selectedOrder = selectedOrder {
                 performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: selectedOrder)
             }
             
         } else {
             
-            timer?.invalidate()
-            timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "getOnlyMyOrder", userInfo: nil, repeats: true)
-            timer!.fire()
+            
             
             let items = OrderType.value().map { element in element.title() }
             let menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: items.first!, items: items)
@@ -53,6 +51,20 @@ class MyOrders: UITableViewController, SegueHandlerType {
                 self?.loadOrders(indexPath + 1)
             }
         }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if UserProfile.sharedInstance.type == .Driver {
+            timer?.invalidate()
+            timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "getOnlyMyOrder", userInfo: nil, repeats: true)
+            timer!.fire()
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        timer?.invalidate()
     }
     
     func refresh(control: UIRefreshControl) {
@@ -68,7 +80,6 @@ class MyOrders: UITableViewController, SegueHandlerType {
             switch result {
             case .Error(let error):
                 Popup.instanse.showError("", message: error)
-                // TODO hide loading
             case .Response(let data):
                 self?.orders = data
                 self?.tableView.reloadData()
@@ -95,8 +106,8 @@ class MyOrders: UITableViewController, SegueHandlerType {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifierForSegue(segue) {
         case .ShowOrderDetailsSegue:
-            if let contr = segue.destinationViewController as? OrderInfoVC, orderId = sender as? String {
-                contr.orderId = orderId
+            if let contr = segue.destinationViewController as? OrderInfoVC, order = sender as? Order {
+                contr.order = order
             }
         }
     }
@@ -136,12 +147,12 @@ extension MyOrders {
         switch UserProfile.sharedInstance.type {
         case .Passenger:
             if order.orderStatus == 1 {
-                performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: order.orderID)
+                performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: order)
             }
         case .Driver:
             if order.orderStatus == 1 && order.driverInfo.userID == UserProfile.sharedInstance.userID {
                 // заказ принят и принят этим водителем
-                performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: order.orderID)
+                performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: order)
             } else if order.orderStatus == 0 {
                 guard let orderID = order.orderID else { return }
                 Helper().showLoading("Принимаю заказ")
