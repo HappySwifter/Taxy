@@ -12,15 +12,6 @@ import Former
 import DrawerController
 import SwiftLocation
 
-//enum orderType: Int {
-//    case Город
-//    case Межгород
-//    case Грузовое
-//}
-
-//{ City, Intercity, Freight, Service }
-
-
 class MakeOrderVC: FormViewController {
     
     private lazy var formerInputAccessoryView: FormerInputAccessoryView = FormerInputAccessoryView(former: self.former)
@@ -33,7 +24,7 @@ class MakeOrderVC: FormViewController {
         let childChairRow = SwitchRowFormer<FormSwitchCell>() {
             $0.titleLabel.text = "Детское кресло?"
             $0.titleLabel.textColor = .formerColor()
-            $0.titleLabel.font = .boldSystemFontOfSize(15)
+            $0.titleLabel.font = UIFont.bold_Med()
             $0.switchButton.onTintColor = .formerSubColor()
             }.configure {
                 $0.switchWhenSelected = true
@@ -43,7 +34,7 @@ class MakeOrderVC: FormViewController {
         /////////// comment ////////////
         let commentRow = TextViewRowFormer<FormTextViewCell>() { [weak self] in
             $0.textView.textColor = .formerSubColor()
-            $0.textView.font = .systemFontOfSize(15)
+            $0.textView.font = UIFont.light_Small()
             $0.textView.inputAccessoryView = self?.formerInputAccessoryView
             }.configure {
                 $0.placeholder = "Ваш комментарий к заказу"
@@ -96,9 +87,9 @@ class MakeOrderVC: FormViewController {
         ////////// from place /////////////
         let fromRow = TextViewRowFormer<FormTextViewCell>() { [weak self] in
             $0.textView.textColor = .formerSubColor()
-            $0.textView.font = .systemFontOfSize(15)
+            $0.textView.font = UIFont.light_Med()
             $0.textView.inputAccessoryView = self?.formerInputAccessoryView
-            $0.textLabel?.font = UIFont(name: "Helvetica Light", size: 13)
+            $0.textLabel?.font = UIFont.light_Small()
 
             }.configure {
                 $0.placeholder = "Откуда?"
@@ -138,7 +129,6 @@ class MakeOrderVC: FormViewController {
         }
         
         
-
         
         self.fromRow = fromRow
         //////////////////////////////
@@ -147,9 +137,9 @@ class MakeOrderVC: FormViewController {
         ////////// to place /////////////
         let toRow = TextViewRowFormer<FormTextViewCell>() { [weak self] in
             $0.textView.textColor = .formerSubColor()
-            $0.textView.font = .systemFontOfSize(15)
+            $0.textView.font = UIFont.light_Med()
             $0.textView.inputAccessoryView = self?.formerInputAccessoryView
-            $0.textLabel?.font = UIFont(name: "Helvetica Light", size: 13)
+            $0.textLabel?.font = UIFont.light_Small()
             }.configure {
                 $0.placeholder = "Куда?"
                 $0.text = orderInfo.toPlace
@@ -160,7 +150,11 @@ class MakeOrderVC: FormViewController {
         
         let findOnMapRow = LabelRowFormer<CenterLabelCell>() {
             $0.textLabel?.text = "Найти на карте"
-            $0.textLabel?.font = UIFont(name: "Helvetica Light", size: 13)
+            $0.textLabel?.font = UIFont.light_Small()
+            $0.textLabel?.textAlignment = .Center
+            $0.textLabel?.textColor = .formerSubColor()
+            }.configure {
+                $0.rowHeight = 30
             }
             .onSelected { [weak self] _ in
                 self?.former.deselect(false)
@@ -180,13 +174,12 @@ class MakeOrderVC: FormViewController {
         
         ///////////price//////////////
         let priceRow = TextFieldRowFormer<ProfileFieldCell>(instantiateType: .Nib(nibName: "ProfileFieldCell")) { [weak self] in
-            $0.textLabel?.font = UIFont(name: "Helvetica Light", size: 13)
+            $0.textLabel?.font = UIFont.light_Small()
             $0.titleLabel.text = "Цена"
             $0.textField.keyboardType = .DecimalPad
             $0.textField.inputAccessoryView = self?.formerInputAccessoryView
             }.configure {
                 $0.placeholder = "Введите цену"
-                $0.text = String(300)
             }.onTextChanged {
                 self.orderInfo.price = Int($0)
         }
@@ -197,7 +190,7 @@ class MakeOrderVC: FormViewController {
         
         
         let moreRow = SwitchRowFormer<FormSwitchCell>() {
-            $0.textLabel?.font = UIFont(name: "Helvetica Light", size: 14)
+            $0.textLabel?.font = UIFont.light_Small()
             $0.titleLabel.text = "Дополнительная информация"
             $0.titleLabel.textColor = .formerColor()
             $0.titleLabel.font = .boldSystemFontOfSize(15)
@@ -227,7 +220,7 @@ class MakeOrderVC: FormViewController {
         let titleRow = LabelRowFormer<CenterLabelCell>() {
             $0.textLabel?.text = "Создать заказ \(self.orderInfo.orderType.title())"
             $0.textLabel?.textAlignment = .Center
-            $0.textLabel?.font = UIFont(name: "Helvetica Light", size: 18)
+            $0.textLabel?.font = UIFont.light_Lar()
             }.configure {
                 $0.rowHeight = 40
             }

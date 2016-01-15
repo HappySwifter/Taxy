@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        let centerViewController = storyBoard.instantiateViewControllerWithIdentifier(STID.RateSTID.rawValue)
+        let centerViewController = storyBoard.instantiateViewControllerWithIdentifier(STID.LoadingSTID.rawValue)
         let nav = NavigationContr(rootViewController: centerViewController)
         
         let leftMenu = MenuVC()
@@ -70,9 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         let tintColor = UIColor.whiteColor()
         self.window?.tintColor = tintColor
-        
         self.window?.rootViewController = self.drawerController
-        // Override point for customization after application launch.
         
         GMSServices.provideAPIKey(googleMapsApiKey)
         return true

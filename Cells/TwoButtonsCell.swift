@@ -20,20 +20,15 @@ final class TwoButtonsCell: UITableViewCell, ButtonsFormableRow {
         button2.tag = 1
         button1.tintColor = .formerSubColor()
         button2.tintColor = .formerSubColor()
-        
-        button1.titleLabel?.font = UIFont(name: "Helvetica Light", size: 13)
-        button2.titleLabel?.font = UIFont(name: "Helvetica Light", size: 13)
-
+        button1.titleLabel?.font = UIFont.light_Small()
+        button2.titleLabel?.font = UIFont.light_Small()
     }
-    
     
     func formButton1() -> UIButton {
         return button1
     }
-    
     func formButton2() -> UIButton {
         return button2
     }
-    
     func updateWithRowFormer(rowFormer: RowFormer) {}
 }

@@ -66,6 +66,21 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
         }
     }()
     
+    
+    private lazy var moreRow: LabelRowFormer<CenterLabelCell> = {
+        LabelRowFormer<CenterLabelCell>() {
+            $0.titleLabel.font = UIFont.light_Med()
+            }
+            .configure {
+                $0.text = "Дополнительная информация"
+            }.onSelected { [weak self] _ in
+                self?.former.deselect(true)
+                self?.performSegueWithIdentifier(.DriverRegistrationSegue, sender: self)
+        }
+    }()
+    
+    
+
 
     private func configure() {
         
@@ -154,23 +169,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
                 $0.enabled = false
         }
         
-        
-        let moreRow = SwitchRowFormer<FormSwitchCell>() {
-            $0.titleLabel.text = "Дополнительная информация"
-            $0.titleLabel.textColor = .formerColor()
-            $0.titleLabel.font = .boldSystemFontOfSize(15)
-            $0.switchButton.onTintColor = .formerSubColor()
-            }.configure {
-                $0.switched = false
-                $0.switchWhenSelected = true
-            }.onSwitchChanged { [weak self] _ in
-
-                // TODO
-        }
-        
-        
-        // Create Headers
-        
+  
         let createHeader: (String -> ViewFormer) = { text in
             return LabelViewFormer<FormLabelHeaderView>()
                 .configure {
@@ -192,6 +191,13 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
             .onCellSelected { [weak self] _ in
                 self?.formerInputAccessoryView.update()
         }
+        
+        
+
+
+        
+        
+        
         
         if !isRegistration {
             let exitRow = LabelRowFormer<CenterLabelCell>() {
@@ -222,9 +228,8 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
     }
     
     
+    
     func setupMenuButtons() {
-        
-        
         
         let doneButton = UIBarButtonItem(title: "Готово", style: .Plain, target: self, action: "doneTouched")
         self.navigationItem.setRightBarButtonItem(doneButton, animated: false)
@@ -243,19 +248,13 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
             Popup.instanse.showInfo("Внимание", message: "Выберите Ваш город")
             return
         }
-        
-        
         guard UserProfile.sharedInstance.city != nil  else {
             Popup.instanse.showInfo("Внимание", message: "Выберите Ваш город")
             return
         }
         
-        
         if isRegistration == true {
             
-            
-            
-            let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
             switch UserProfile.sharedInstance.type {
             case .Passenger:
                 Helper().showLoading("Обновление профиля")
@@ -296,14 +295,6 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
     func leftDrawerButtonPress(sender: AnyObject?) {
         self.evo_drawerController?.toggleDrawerSide(.Left, animated: true, completion: nil)
     }
-    
-    //    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    //        if segue.identifier == "DriverRegistrationSegue" {
-    //            if let contr = segue.destinationViewController as? DriverRegistrationVC {
-    //                contr.userInfo = userInfo
-    //            }
-    //        }
-    //    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifierForSegue(segue) {

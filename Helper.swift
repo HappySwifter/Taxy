@@ -124,6 +124,33 @@ extension NSDate {
     
 }
 
+extension UIFont {
+    
+//    convenience init!() {
+//        self.init(name: "Helvetica Light", size: 13)!
+//    }
+    
+    class func light_Small() -> UIFont {
+        return UIFont(name: "Helvetica Light", size: 13)!
+    }
+    class func light_Med() -> UIFont {
+        return UIFont(name: "Helvetica Light", size: 15)!
+    }
+    class func light_Lar() -> UIFont {
+        return UIFont(name: "Helvetica Light", size: 19)!
+    }
+    
+    class func bold_Small() -> UIFont {
+        return UIFont(name: "Helvetica Medium", size: 13)!
+    }
+    class func bold_Med() -> UIFont {
+        return UIFont(name: "Helvetica Medium", size: 15)!
+    }
+    class func bold_Lar() -> UIFont {
+        return UIFont(name: "Helvetica Medium", size: 19)!
+    }
+
+}
 
 extension UIViewController {
     func instantiateSTID(id: STID) {
