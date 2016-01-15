@@ -667,6 +667,24 @@
             </objects>
             <point key="canvasLocation" x="1187" y="3037"/>
         </scene>
+        <!--RateVC-->
+        <scene sceneID="I9U-KD-P4C">
+            <objects>
+                <viewController storyboardIdentifier="RateSTID" id="r9Q-0Z-3mW" customClass="RateVC" customModule="Taxy" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="egZ-xX-QJv"/>
+                        <viewControllerLayoutGuide type="bottom" id="Caf-3K-k7R"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UKZ-KS-plj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cJ7-6c-BVx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1229" y="3809"/>
+        </scene>
     </scenes>
     <resources>
         <image name="icon_me" width="30" height="55"/>

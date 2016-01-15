@@ -18,8 +18,8 @@ final class TwoButtonsCell: UITableViewCell, ButtonsFormableRow {
         super.awakeFromNib()
         button1.tag = 0
         button2.tag = 1
-        button1.tintColor = UIColor.mainOrangeColor()
-        button2.tintColor = UIColor.mainOrangeColor()
+        button1.tintColor = .formerSubColor()
+        button2.tintColor = .formerSubColor()
         
         button1.titleLabel?.font = UIFont(name: "Helvetica Light", size: 13)
         button2.titleLabel?.font = UIFont(name: "Helvetica Light", size: 13)

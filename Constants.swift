@@ -23,6 +23,7 @@ enum STID: String {
     case MakeOrderSTID
     case TaxyRequestingSTID
     case RulesSTID
+    case RateSTID
 }
 
 

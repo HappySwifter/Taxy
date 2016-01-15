@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        let centerViewController = storyBoard.instantiateViewControllerWithIdentifier(STID.LoadingSTID.rawValue)
+        let centerViewController = storyBoard.instantiateViewControllerWithIdentifier(STID.RateSTID.rawValue)
         let nav = NavigationContr(rootViewController: centerViewController)
         
         let leftMenu = MenuVC()

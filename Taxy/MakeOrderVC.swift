@@ -112,7 +112,7 @@ class MakeOrderVC: FormViewController {
         
         let buttons2Row = ButtonsRowFormer<TwoButtonsCell>(instantiateType: .Nib(nibName: "TwoButtonsCell"))
             .configure {
-                $0.rowHeight = 40
+                $0.rowHeight = 30
             }
             .onButtonPressed { [weak self] index in
                 switch index {

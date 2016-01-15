@@ -16,5 +16,7 @@ pod 'netfox'
 pod 'BTNavigationDropdownMenu'
 pod 'SVProgressHUD'
 pod 'CCMRadarView'
+pod 'CNPPopupController'
+pod 'HCSStarRatingView', '~> 1.4.3'
 end
 
