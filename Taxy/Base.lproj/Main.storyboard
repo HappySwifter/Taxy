@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -121,11 +121,11 @@
                                     <outlet property="toPlaceLabel" destination="wR4-vH-fxx" id="gyf-Jt-EQ4"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="passengerOrderCell" rowHeight="178" id="glX-Cq-k30" customClass="passengerOrderCell" customModule="Taxy" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="239" width="600" height="178"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="passengerOrderCell" rowHeight="207" id="glX-Cq-k30" customClass="passengerOrderCell" customModule="Taxy" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="239" width="600" height="207"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="glX-Cq-k30" id="Fow-jL-rUs">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="177"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="206"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="order ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XkP-qB-JOn">
@@ -182,6 +182,16 @@
                                             <color key="textColor" red="0.95815348756906082" green="0.58194634324574601" blue="0.38528627088061973" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zOK-Kk-TGL">
+                                            <rect key="frame" x="467" y="177" width="100" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="YfH-am-o4U"/>
+                                                <constraint firstAttribute="height" constant="21" id="fGD-9Y-mw7"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="2rk-e0-bv4" firstAttribute="leading" secondItem="Fow-jL-rUs" secondAttribute="leadingMargin" id="1WI-3a-tUy"/>
@@ -192,17 +202,20 @@
                                         <constraint firstItem="2rk-e0-bv4" firstAttribute="top" secondItem="tr7-ud-rP6" secondAttribute="bottom" constant="11" id="RlF-Ic-qG8"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="XkP-qB-JOn" secondAttribute="trailing" constant="8" id="SHY-57-wfU"/>
                                         <constraint firstItem="XkP-qB-JOn" firstAttribute="top" secondItem="YVj-rt-9eL" secondAttribute="bottom" constant="8" id="TsK-5H-P9b"/>
+                                        <constraint firstAttribute="bottom" secondItem="zOK-Kk-TGL" secondAttribute="bottom" constant="8" id="Vvp-oh-Ptz"/>
                                         <constraint firstItem="YVj-rt-9eL" firstAttribute="top" secondItem="2rk-e0-bv4" secondAttribute="bottom" constant="8" id="dTF-Ya-3jt"/>
                                         <constraint firstItem="58z-HS-A6G" firstAttribute="top" secondItem="Fow-jL-rUs" secondAttribute="topMargin" constant="3" id="hdO-9G-hwq"/>
                                         <constraint firstItem="lgy-Gt-OFi" firstAttribute="leading" secondItem="tr7-ud-rP6" secondAttribute="trailing" constant="15" id="jWc-RR-iPo"/>
                                         <constraint firstItem="58z-HS-A6G" firstAttribute="leading" secondItem="lgy-Gt-OFi" secondAttribute="trailing" constant="8" id="l0s-kj-5y7"/>
                                         <constraint firstItem="YVj-rt-9eL" firstAttribute="leading" secondItem="Fow-jL-rUs" secondAttribute="leadingMargin" id="nht-OW-EX7"/>
+                                        <constraint firstAttribute="trailing" secondItem="zOK-Kk-TGL" secondAttribute="trailing" id="oC6-no-Dgn"/>
                                         <constraint firstItem="58z-HS-A6G" firstAttribute="trailing" secondItem="Fow-jL-rUs" secondAttribute="trailingMargin" id="q63-lB-b9e"/>
                                         <constraint firstItem="lgy-Gt-OFi" firstAttribute="top" secondItem="Fow-jL-rUs" secondAttribute="topMargin" constant="3" id="rsq-u9-d5W"/>
                                         <constraint firstItem="tr7-ud-rP6" firstAttribute="leading" secondItem="Fow-jL-rUs" secondAttribute="leadingMargin" id="zEz-H3-5F0"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="createTimeLabel" destination="zOK-Kk-TGL" id="hI5-2S-KMq"/>
                                     <outlet property="driverNameLabel" destination="58z-HS-A6G" id="HQv-YJ-bR1"/>
                                     <outlet property="idLabel" destination="XkP-qB-JOn" id="abZ-Ot-XFn"/>
                                     <outlet property="orderDetailsLabel" destination="2rk-e0-bv4" id="rRt-uK-Od9"/>

@@ -159,4 +159,14 @@ extension UIViewController {
         let nav = NavigationContr(rootViewController: centerViewController)
         self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
     }
+    
+    func enableMenu() {
+        let vc = MenuVC()
+        let navC = NavigationContr(rootViewController: vc)
+        evo_drawerController?.leftDrawerViewController = navC
+    }
+    
+    func disableMenu() {
+        evo_drawerController?.leftDrawerViewController = .None
+    }
 }

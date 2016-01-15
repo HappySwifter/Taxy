@@ -19,6 +19,7 @@ class TaxyRequestingVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        disableMenu()
         navigationItem.hidesBackButton = true
         title = "Поиск такси"
         cancelRequestButton.enabled = false
@@ -81,10 +82,12 @@ class TaxyRequestingVC: UIViewController {
                         return
                     }
                     contr.selectedOrder = self?.orderInfo
+                    self?.enableMenu()
                     let nav = NavigationContr(rootViewController: contr)
                     self?.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
                 case 3:
                     Popup.instanse.showInfo("Внимание", message: "Ваш заказ отменен")
+                    self?.enableMenu()
                     self?.navigationController?.popViewControllerAnimated(true)
                 default:
                     break
@@ -100,6 +103,7 @@ class TaxyRequestingVC: UIViewController {
                 Popup.instanse.showError("Внимание!", message: error)
             case .Response(_):
                 self?.timer?.invalidate()
+                self?.enableMenu()
                 self?.navigationController?.popViewControllerAnimated(true)
             }
         }

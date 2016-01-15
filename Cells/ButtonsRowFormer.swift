@@ -11,9 +11,11 @@ import Former
 
 public protocol ButtonsFormableRow: FormableRow {
     
-    func formButton1() -> UIButton
-    func formButton2() -> UIButton
-//    func formTitleLabel() -> UILabel?
+//    func formButton1() -> UIButton
+//    func formButton2() -> UIButton
+    func formButtons() -> [UIButton]
+
+    //    func formTitleLabel() -> UILabel?
 }
 
 public final class ButtonsRowFormer<T: UITableViewCell where T: ButtonsFormableRow>
@@ -33,8 +35,9 @@ public final class ButtonsRowFormer<T: UITableViewCell where T: ButtonsFormableR
     
     public override func cellInitialized(cell: T) {
         super.cellInitialized(cell)
-        cell.formButton1().addTarget(self, action: "buttonPressed:", forControlEvents: .TouchUpInside)
-        cell.formButton2().addTarget(self, action: "buttonPressed:", forControlEvents: .TouchUpInside)
+        for button in cell.formButtons() {
+            button.addTarget(self, action: "buttonPressed:", forControlEvents: .TouchUpInside)
+        }
 
     }
     

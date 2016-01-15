@@ -223,7 +223,8 @@ class passengerOrderCell: UITableViewCell {
     @IBOutlet weak var driverNameLabel: UILabel!
     @IBOutlet weak var statusView: UIView!
     @IBOutlet weak var orderDetailsLabel: UILabel!
-    
+    @IBOutlet weak var createTimeLabel: UILabel!
+
     func configureViewWithOrder(order: Order) {
         if let price = order.price {
             priceLabel.text = String(price) + "р"
@@ -255,7 +256,9 @@ class passengerOrderCell: UITableViewCell {
         if let orderId = order.orderID {
             idLabel.text = "order ID: " + orderId
         }
-        
+        if let createTime = order.createdAt {
+            createTimeLabel.text = createTime.stringWithHumanizedTimeDifference(.SuffixAgo, withFullString: false)
+        }
     }
     
 }

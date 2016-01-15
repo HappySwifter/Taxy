@@ -33,7 +33,7 @@ final class LoginViewController: UIViewController {
         super.viewDidLoad()
         title = "Добро пожаловать!"
         tableView.separatorStyle = .None
-        self.evo_drawerController?.leftDrawerViewController = nil
+        disableMenu()
         switchInfomationSection(.Phone)
         configure()
         updateView()

@@ -15,7 +15,7 @@ class LoadingVC: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var reloadButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.evo_drawerController?.leftDrawerViewController = nil
+        disableMenu()
     }
     
     deinit {
@@ -75,13 +75,13 @@ class LoadingVC: UIViewController, CLLocationManagerDelegate {
                             if UserProfile.sharedInstance.city?.code == 0 || UserProfile.sharedInstance.city == nil {
                                 self?.instantiateSTID(STID.MySettingsSTID)
                             } else {
-                                self?.activateMenu()
+                                self?.enableMenu()
                                 self?.instantiateSTID(STID.MakeOrderSTID)
                             }
                         }
                     }
                 } else {
-                    self?.activateMenu()
+                    self?.enableMenu()
                     self?.instantiateSTID(STID.LoginSTID)
                 }
             }
@@ -104,10 +104,7 @@ class LoadingVC: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    private func activateMenu() {
-        self.evo_drawerController?.leftDrawerViewController =  NavigationContr(rootViewController: MenuVC())
-    }
-    
+
     @IBAction func reloadTouched(control: UIControl) {
         checkStatus()
     }

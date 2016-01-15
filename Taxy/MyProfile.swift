@@ -216,7 +216,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
         let aboutSection = SectionFormer(rowFormer: nameRow, cityRow, phoneRow, balanceRow, userIDRow)
             .set(headerViewFormer: createHeader("Обо мне"))
         
-        former.append(sectionFormer: userTypeSection, imageSection, aboutSection)
+        former.append(sectionFormer: userTypeSection, imageSection, aboutSection, moreSection)
             .onCellSelected { [weak self] _ in
                 self?.formerInputAccessoryView.update()
         }
@@ -248,9 +248,16 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
     func changeMoreInfoSection() {
         switch UserProfile.sharedInstance.type {
         case .Passenger:
-            former.removeUpdate(sectionFormer: moreSection)
+            moreSection.rowFormers.first?.enabled = false
+            moreSection.rowFormers.first?.update()
+            
+//            former.remove(sectionFormer: moreSection)
         case .Driver:
-            former.insertUpdate(sectionFormer: moreSection, above: exitSection)
+//            former.append(sectionFormer: moreSection)
+//            former.insert(sectionFormer: moreSection, toSection: former.numberOfSections)
+            moreSection.rowFormers.first?.enabled = true
+            moreSection.rowFormers.first?.update()
+            
         }
     }
     
@@ -292,9 +299,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
                         Popup.instanse.showError("", message: error)
                         
                     case .Response(_):
-                        let vc = MenuVC()
-                        let navC = UINavigationController(rootViewController: vc)
-                        self?.evo_drawerController?.leftDrawerViewController = navC
+                        self?.enableMenu()
                         self?.instantiateSTID(STID.MakeOrderSTID)
                     }
                 }

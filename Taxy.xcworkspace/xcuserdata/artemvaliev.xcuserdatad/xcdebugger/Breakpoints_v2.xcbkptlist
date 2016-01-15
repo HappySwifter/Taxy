@@ -156,11 +156,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Taxy/TaxyRequestingVC.swift"
-            timestampString = "474487159.713842"
+            timestampString = "474578558.944005"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
             landmarkName = "monitorOrderStatus()"
             landmarkType = "5">
          </BreakpointContent>
@@ -172,11 +172,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Taxy/TaxyRequestingVC.swift"
-            timestampString = "474487305.777085"
+            timestampString = "474578558.944005"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
             landmarkName = "monitorOrderStatus()"
             landmarkType = "5">
             <Locations>
@@ -300,11 +300,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Taxy/TaxyRequestingVC.swift"
-            timestampString = "474487278.749716"
+            timestampString = "474578558.944005"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
             landmarkName = "monitorOrderStatus()"
             landmarkType = "5">
          </BreakpointContent>
@@ -315,60 +315,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Taxy/OrderInfoVC.swift"
-            timestampString = "474489601.652026"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "checkOrder()"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Taxy.OrderInfoVC.checkOrder (Taxy.OrderInfoVC)() -&gt; ()"
-                  moduleName = "Taxy"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/artemvaliev/Desktop/project1/Taxy/OrderInfoVC.swift"
-                  timestampString = "474488096.299318"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "16">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Taxy.OrderInfoVC.(checkOrder (Taxy.OrderInfoVC) -&gt; () -&gt; ()).(closure #1)"
-                  moduleName = "Taxy"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/artemvaliev/Desktop/project1/Taxy/OrderInfoVC.swift"
-                  timestampString = "474488096.299469"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "34"
-                  endingLineNumber = "34"
-                  offsetFromSymbolStart = "56">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Taxy/TaxyRequestingVC.swift"
-            timestampString = "474487404.972738"
+            timestampString = "474578558.944005"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "createOrder()"
             landmarkType = "5">
          </BreakpointContent>
@@ -395,29 +347,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Order.swift"
-            timestampString = "474488096.10193"
+            filePath = "UserProfile.swift"
+            timestampString = "474574678.323125"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "getOrdersFomResponse(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Order.swift"
-            timestampString = "474488098.396746"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
-            landmarkName = "getOrdersFomResponse(_:)"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "getModelFromDict(_:shared:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

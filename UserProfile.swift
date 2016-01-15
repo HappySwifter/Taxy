@@ -34,33 +34,22 @@ class UserProfile {
     var carPhoto: UIImage?
     var userID: String?
     var withChildChair = false
-    
+    var coordinates: CLLocationCoordinate2D?
+
     func getModelFromDict(userInfo: [String: JSON], shared: Bool) -> UserProfile {
-        
-//        if shared {
-//            
-//        } else {
         let profile = shared ? UserProfile.sharedInstance : UserProfile()
-//        }
         
         if let imageString = userInfo[UserFields.Image.rawValue]?.string {
             profile.image = imageString.toImage()
         }
-        
         if let carImageString = userInfo[UserFields.CarPhoto.rawValue]?.string {
-//            if let imageData = NSData(base64EncodedString: carImageString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters) {
-//                profile.image = UIImage(data: imageData)
-//            }
             profile.carPhoto = carImageString.toImage()
-
         }
-        
         if let cities = LocalData.instanse.getCities() {
             let cityID = userInfo[UserFields.City.rawValue]?.int
             let city = cities.filter{ $0.code == cityID }.first
             profile.city = city
         }
-        
         if let type = userInfo[UserFields.UserType.rawValue]?.int {
             if let type1 = userType(rawValue: type) {
                 profile.type = type1
@@ -70,11 +59,17 @@ class UserProfile {
         profile.userID = userInfo[UserFields.Id.rawValue]?.string
         profile.phoneNumber = userInfo[UserFields.PhoneNumber.rawValue]?.string
         profile.balance = userInfo[UserFields.Balance.rawValue]?.int
+        
+        if let lat = userInfo[UserFields.Latitude.rawValue]?.double,
+        let lon = userInfo[UserFields.Longitude.rawValue]?.double
+        {
+            profile.coordinates = CLLocationCoordinate2DMake(lat, lon)
+        }
         return profile
     }
     
 }
 
 enum UserFields: String {
-    case Id, FirstName, City, UserType, Image, PhoneNumber, Balance, CarPhoto, WithChildChair
+    case Id, FirstName, City, UserType, Image, PhoneNumber, Balance, CarPhoto, WithChildChair, Longitude, Latitude
 }
