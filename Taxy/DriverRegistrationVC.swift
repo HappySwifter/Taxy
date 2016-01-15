@@ -12,7 +12,7 @@ import Former
 final class DriverRegistrationVC: FormViewController {
     
     private var selectedRow = 0
-    var userInfo: UserProfile?
+//    var userInfo: UserProfile?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,12 +31,10 @@ final class DriverRegistrationVC: FormViewController {
     }
     
     func doneTouched() {
-        if let userInfo = userInfo {
-            Helper().showLoading("Обновление профиля")
-            Networking().updateProfile(userInfo) { [weak self]  data in
-                Helper().hideLoading()
-                self?.instantiateSTID(STID.MakeOrderSTID)
-            }
+        Helper().showLoading("Обновление профиля")
+        Networking().updateProfile(UserProfile.sharedInstance) { [weak self]  data in
+            Helper().hideLoading()
+            self?.instantiateSTID(STID.MakeOrderSTID)
         }
     }
     
@@ -66,9 +64,28 @@ final class DriverRegistrationVC: FormViewController {
                 self?.presentImagePicker()
         }
     }()
+    
+    
+//    private lazy var informationSection: SectionFormer = {
+//        let childChairRow = SwitchRowFormer<FormSwitchCell>() {
+//            $0.titleLabel.text = "Детское кресло?"
+//            $0.titleLabel.textColor = .formerColor()
+//            $0.titleLabel.font = UIFont.bold_Med()
+//            $0.switchButton.onTintColor = .formerSubColor()
+//            }.configure {
+//                $0.switchWhenSelected = true
+//            }.onSwitchChanged {
+//                UserProfile.sharedInstance.withChildChair = $0
+//        }
+//        return SectionFormer(rowFormer: childChairRow)
+//    }()
 
     
     private func configure() {
+        
+        
+        
+        
         
         let descriptionHeader = LabelViewFormer<FormLabelHeaderView>() {
             $0.contentView.backgroundColor = .clearColor()
@@ -79,11 +96,26 @@ final class DriverRegistrationVC: FormViewController {
                 $0.text = "Почти готово! Загрузите фотографию своей машины и водительского удостоверения. После того, как наши диспетчеры их проверят, вам придет СМС о подтверждении регистрации"
 //                $0.textAligment = .Center
         }
+        
+        
+        let childChairRow = SwitchRowFormer<FormSwitchCell>() {
+            $0.titleLabel.text = "Детское кресло?"
+            $0.titleLabel.textColor = .formerColor()
+            $0.titleLabel.font = UIFont.bold_Med()
+            $0.switchButton.onTintColor = .formerSubColor()
+            }.configure {
+                $0.switchWhenSelected = true
+                $0.switched = UserProfile.sharedInstance.withChildChair
+            }.onSwitchChanged {
+                UserProfile.sharedInstance.withChildChair = $0
+        }
+        
+        let rows = [pravaRow, carRow, childChairRow]
 
-        let section = SectionFormer(rowFormers: [pravaRow, carRow])
+        let section = SectionFormer(rowFormers: rows)
         .set(headerViewFormer: descriptionHeader)
         former.add(sectionFormers: [section])
-        
+        print("dddd")
     }
 
     
@@ -107,13 +139,13 @@ extension DriverRegistrationVC: UIImagePickerControllerDelegate, UINavigationCon
         switch selectedRow {
         case 0:
             pravaRow.cellUpdate {
-                userInfo?.pravaPhoto = image
+                UserProfile.sharedInstance.pravaPhoto = image
                 $0.iconView.image = image
             }
             
         case 1:
             carRow.cellUpdate {
-                userInfo?.carPhoto = image
+                UserProfile.sharedInstance.carPhoto = image
                 $0.iconView.image = image
             }
             

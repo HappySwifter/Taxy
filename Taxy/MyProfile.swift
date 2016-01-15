@@ -48,6 +48,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
         Networking.instanse.getUserInfo { [weak self] result in
             Helper().hideLoading()
             self?.configure()
+            self?.changeMoreInfoSection()
         }
     }
     
@@ -66,9 +67,8 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
         }
     }()
     
-    
-    private lazy var moreRow: LabelRowFormer<CenterLabelCell> = {
-        LabelRowFormer<CenterLabelCell>() {
+    private lazy var moreSection: SectionFormer = {
+      let moreRow = LabelRowFormer<CenterLabelCell> {
             $0.titleLabel.font = UIFont.light_Med()
             }
             .configure {
@@ -77,9 +77,37 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
                 self?.former.deselect(true)
                 self?.performSegueWithIdentifier(.DriverRegistrationSegue, sender: self)
         }
+        return SectionFormer(rowFormer: moreRow)
     }()
+
     
-    
+    private lazy var exitSection: SectionFormer = {
+        let exitRow = LabelRowFormer<CenterLabelCell>() {
+            $0.titleLabel.textColor = .redColor()
+            }.configure {
+                $0.text = "Выход"
+            }.onSelected { [weak self] _ in
+                LocalData().forgetUserProfile()
+                LocalData().deleteUserID()
+                self?.instantiateSTID(STID.LoginSTID)
+        }
+        
+        let createHeader: (String -> ViewFormer) = { text in
+            return LabelViewFormer<FormLabelHeaderView>()
+                .configure {
+                    $0.viewHeight = 40
+                    $0.text = text
+            }
+        }
+        
+        let exitSection = SectionFormer(rowFormer:exitRow)
+            .set(headerViewFormer:
+                LabelViewFormer<FormLabelHeaderView>().configure {
+                    $0.viewHeight = 40
+                    $0.text = "Выйти из учетной записи"
+                })
+        return exitSection
+    }()
 
 
     private func configure() {
@@ -96,12 +124,13 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
             .configure {
                 $0.segmentTitles = ["Пассажир", "Водитель"]
                 $0.selectedIndex = UserProfile.sharedInstance.type.rawValue - 1
-            }.onSegmentSelected {  index, _  in
+            }.onSegmentSelected { [weak self]  index, _  in
                 if index == 0 {
                     UserProfile.sharedInstance.type = .Passenger
                 } else {
                     UserProfile.sharedInstance.type = .Driver
                 }
+                self?.changeMoreInfoSection()
         }
         
         
@@ -200,17 +229,6 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
         
         
         if !isRegistration {
-            let exitRow = LabelRowFormer<CenterLabelCell>() {
-                $0.titleLabel.textColor = .redColor()
-                }.configure {
-                    $0.text = "Выход"
-                }.onSelected { [weak self] _ in
-                    LocalData().forgetUserProfile()
-                    LocalData().deleteUserID()
-                    self?.instantiateSTID(STID.LoginSTID)
-            }
-            let exitSection = SectionFormer(rowFormer:exitRow)
-                .set(headerViewFormer: createHeader("Выйти из учетной записи"))
             former.append(sectionFormer: exitSection)
         }
     }
@@ -227,6 +245,14 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
         presentViewController(picker, animated: true, completion: nil)
     }
     
+    func changeMoreInfoSection() {
+        switch UserProfile.sharedInstance.type {
+        case .Passenger:
+            former.removeUpdate(sectionFormer: moreSection)
+        case .Driver:
+            former.insertUpdate(sectionFormer: moreSection, above: exitSection)
+        }
+    }
     
     
     func setupMenuButtons() {
@@ -300,7 +326,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
         switch segueIdentifierForSegue(segue) {
         case .DriverRegistrationSegue:
             if let contr = segue.destinationViewController as? DriverRegistrationVC {
-                contr.userInfo = UserProfile.sharedInstance
+//                contr.userInfo = UserProfile.sharedInstance
             }
         }
     }

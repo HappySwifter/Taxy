@@ -33,7 +33,7 @@ class UserProfile {
     var pravaPhoto: UIImage?
     var carPhoto: UIImage?
     var userID: String?
-    
+    var withChildChair = false
     
     func getModelFromDict(userInfo: [String: JSON], shared: Bool) -> UserProfile {
         
@@ -76,5 +76,5 @@ class UserProfile {
 }
 
 enum UserFields: String {
-    case Id, FirstName, City, UserType, Image, PhoneNumber, Balance, CarPhoto
+    case Id, FirstName, City, UserType, Image, PhoneNumber, Balance, CarPhoto, WithChildChair
 }

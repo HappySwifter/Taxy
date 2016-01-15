@@ -141,13 +141,13 @@ extension UIFont {
     }
     
     class func bold_Small() -> UIFont {
-        return UIFont(name: "Helvetica Medium", size: 13)!
+        return UIFont(name: "Helvetica Bold", size: 13)!
     }
     class func bold_Med() -> UIFont {
-        return UIFont(name: "Helvetica Medium", size: 15)!
+        return UIFont(name: "Helvetica Bold", size: 15)!
     }
     class func bold_Lar() -> UIFont {
-        return UIFont(name: "Helvetica Medium", size: 19)!
+        return UIFont(name: "Helvetica Bold", size: 19)!
     }
 
 }
