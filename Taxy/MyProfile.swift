@@ -66,7 +66,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
         }
     }()
     
-    
+
     private func configure() {
         
         

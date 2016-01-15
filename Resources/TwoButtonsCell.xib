@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="o0r-ec-JOl" customClass="TwoButtonsCell" customModule="Taxy" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o0r-ec-JOl" id="PDn-Nk-GCp">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fXu-xR-4Fx">
+                        <rect key="frame" x="164" y="0.0" width="156" height="45"/>
+                        <state key="normal" title="На карте"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="svR-e7-kDy">
+                        <rect key="frame" x="0.0" y="3" width="156" height="40"/>
+                        <state key="normal" title="Авто"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="fXu-xR-4Fx" secondAttribute="bottom" constant="-10" id="3KS-HR-1bp"/>
+                    <constraint firstItem="svR-e7-kDy" firstAttribute="top" secondItem="PDn-Nk-GCp" secondAttribute="topMargin" constant="-5" id="Iw4-Ez-6tK"/>
+                    <constraint firstItem="fXu-xR-4Fx" firstAttribute="leading" secondItem="svR-e7-kDy" secondAttribute="trailing" constant="8" id="UVz-CZ-Ueh"/>
+                    <constraint firstItem="fXu-xR-4Fx" firstAttribute="width" secondItem="svR-e7-kDy" secondAttribute="width" id="WuS-DB-lOQ"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="svR-e7-kDy" secondAttribute="bottom" constant="-8" id="lNN-uO-jZg"/>
+                    <constraint firstItem="svR-e7-kDy" firstAttribute="leading" secondItem="PDn-Nk-GCp" secondAttribute="leadingMargin" constant="-8" id="o0a-Ys-BZc"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="fXu-xR-4Fx" secondAttribute="trailing" constant="-8" id="v2r-Gs-54e"/>
+                    <constraint firstItem="fXu-xR-4Fx" firstAttribute="top" secondItem="PDn-Nk-GCp" secondAttribute="topMargin" constant="-8" id="vTp-Vs-h2E"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="button1" destination="svR-e7-kDy" id="3C8-it-vpG"/>
+                <outlet property="button2" destination="fXu-xR-4Fx" id="F9I-2H-OOz"/>
+            </connections>
+            <point key="canvasLocation" x="228" y="244"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -108,36 +108,37 @@ class MakeOrderVC: FormViewController {
                 self.orderInfo.fromPlace = $0
         }
         
-        let getGeoRow = LabelRowFormer<CenterLabelCell>() {
-            $0.textLabel?.text = "Отпределить автоматически"
-            $0.textLabel?.font = UIFont(name: "Helvetica Light", size: 13)
+
+        
+        let buttons2Row = ButtonsRowFormer<TwoButtonsCell>(instantiateType: .Nib(nibName: "TwoButtonsCell"))
+            .configure {
+                $0.rowHeight = 40
             }
-            .onSelected { [weak self] _ in
-                self?.former.deselect(true)
+            .onButtonPressed { [weak self] index in
+                switch index {
+                case 0:
                 Helper().getAddres {
                     self?.orderInfo.fromPlace = $0.0
                     self?.orderInfo.coordinates = $0.1
                     self?.update()
-                }
-            }
-        
-        let showOnMapRow = LabelRowFormer<CenterLabelCell>() {
-            $0.textLabel?.text = "Указать на карте"
-            $0.textLabel?.font = UIFont(name: "Helvetica Light", size: 13)
-            }
-            .onSelected { [weak self] data in
-                self?.former.deselect(true)
-                let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-                if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MapSTID.rawValue) as? MapViewController {
-                    contr.initiator = NSStringFromClass((self?.dynamicType)!)
-                    contr.onSelected = {
-                        self?.orderInfo.fromPlace = $0.address
-                        self?.orderInfo.coordinates = $0.coords
                     }
-                    self?.navigationController?.pushViewController(contr, animated: true)
+                case 1:
+                    let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+                    if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MapSTID.rawValue) as? MapViewController {
+                        contr.initiator = NSStringFromClass((self?.dynamicType)!)
+                        contr.onSelected = {
+                            self?.orderInfo.fromPlace = $0.address
+                            self?.orderInfo.coordinates = $0.coords
+                        }
+                        self?.navigationController?.pushViewController(contr, animated: true)
+                    }
+                default:
+                    break
                 }
         }
         
+        
+
         
         self.fromRow = fromRow
         //////////////////////////////
@@ -236,7 +237,7 @@ class MakeOrderVC: FormViewController {
     
         
 //        let segmentSection = SectionFormer(rowFormer: taxyTypeRow)
-        let fromSection = SectionFormer(rowFormer:titleRow, fromRow, getGeoRow, showOnMapRow)
+        let fromSection = SectionFormer(rowFormer:titleRow, fromRow, buttons2Row)
 //            .set(headerViewFormer: createHeader("Создать заказ \(orderInfo.orderType.title())"))
         let toSection = SectionFormer(rowFormer: toRow, findOnMapRow)
 //            .set(headerViewFormer: createHeader("Куда"))
