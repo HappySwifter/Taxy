@@ -110,7 +110,7 @@ class MakeOrderVC: FormViewController {
                 case 0:
                 Helper().getAddres {
                     self?.orderInfo.fromPlace = $0.0
-                    self?.orderInfo.coordinates = $0.1
+                    self?.orderInfo.fromPlaceCoordinates = $0.1
                     self?.update()
                     }
                 case 1:
@@ -119,7 +119,7 @@ class MakeOrderVC: FormViewController {
                         contr.initiator = NSStringFromClass((self?.dynamicType)!)
                         contr.onSelected = {
                             self?.orderInfo.fromPlace = $0.address
-                            self?.orderInfo.coordinates = $0.coords
+                            self?.orderInfo.fromPlaceCoordinates = $0.coords
                         }
                         self?.navigationController?.pushViewController(contr, animated: true)
                     }

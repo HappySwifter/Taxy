@@ -26,7 +26,7 @@ class TaxyRequestingVC: UIViewController {
         if orderInfo.fromPlace == nil { // fast order
             Helper().getAddres {
                 self.orderInfo.fromPlace = $0.0
-                self.orderInfo.coordinates = $0.1
+                self.orderInfo.fromPlaceCoordinates = $0.1
                 self.orderInfo.toPlace = "Быстрый заказ"
                 self.orderInfo.price = 0
                 self.createOrder()
@@ -102,11 +102,13 @@ class TaxyRequestingVC: UIViewController {
             switch result {
             case .Error(let error):
                 Popup.instanse.showError("Внимание!", message: error)
-            case .Response(_):
-                self?.timer?.invalidate()
-                self?.enableMenu()
-                self?.navigationController?.popViewControllerAnimated(true)
+            default:
+                break
             }
+            
+            self?.timer?.invalidate()
+            self?.enableMenu()
+            self?.navigationController?.popViewControllerAnimated(true)
         }
     }
 

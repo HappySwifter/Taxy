@@ -201,6 +201,10 @@ final class Networking {
             Popup.instanse.showError("", message: "\(__FUNCTION__)")
             return
         }
+        if let lon = order.fromPlaceCoordinates?.longitude, let lat = order.fromPlaceCoordinates?.latitude {
+            parameters[OrderFields.FromLongitude.rawValue] = String(lon)
+            parameters[OrderFields.FromLatitude.rawValue] = String(lat)
+        }
         parameters[OrderFields.UserId.rawValue] = id
         parameters[OrderFields.FromAddress.rawValue] = fromPlace
         parameters[OrderFields.OrderType.rawValue] = String(order.orderType.hashValue + 1)
@@ -288,7 +292,26 @@ final class Networking {
     }
 
     
-    
+    func rejectOrder(orderId: String) {
+        guard let id = LocalData().getUserID  else {
+            Popup.instanse.showError("", message: "\(__FUNCTION__)")
+            return
+        }
+        let parameters = [
+            "id" : id,
+            "UserId" : orderId
+        ]
+        🙏(.POST, url: mainUrl + orderString + ServerMethods.RejectOrder.rawValue, params: parameters) { result in
+            
+            switch result {
+            case .Error(let error):
+                Popup.instanse.showError("", message: "\(error) \(__FUNCTION__)")
+                
+            case .Response(let json):
+                print("REJECTED")
+            }
+        }
+    }
     
     
     

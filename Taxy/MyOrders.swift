@@ -18,7 +18,6 @@ class MyOrders: UITableViewController, SegueHandlerType {
     var orders = [Order]()
     var selectedOrder: Order?
     var selectedType: Int = 1
-    var timer: NSTimer?
     enum SegueIdentifier: String {
         case ShowOrderDetailsSegue
     }
@@ -32,27 +31,12 @@ class MyOrders: UITableViewController, SegueHandlerType {
         setupMenuButtons()
         loadOrders(selectedType)
         self.title = "Заказы"
-            
         if let selectedOrder = selectedOrder {
             performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: selectedOrder)
         }
-            
+    }
+    
 
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        if UserProfile.sharedInstance.type == .Driver {
-            timer?.invalidate()
-            timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "getOnlyMyOrder", userInfo: nil, repeats: true)
-            timer!.fire()
-        }
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        timer?.invalidate()
-    }
     
     func refresh(control: UIRefreshControl) {
         control.endRefreshing()
@@ -74,12 +58,23 @@ class MyOrders: UITableViewController, SegueHandlerType {
         }
     }
     
-    func getOnlyMyOrder() {
-        Networking.instanse.getOnlyMyOrder { result in
-            
+    func acceptOrder(order: Order) {
+        guard let orderID = order.orderID else { return }
+        Helper().showLoading("Принимаю заказ")
+        Networking.instanse.acceptOrder(orderID) { [weak self] result in
+            Helper().hideLoading()
+            switch result {
+            case .Error(let error):
+                Popup.instanse.showError("", message: error)
+                Helper().hideLoading()
+            case .Response(let data):
+                print(data)
+                if data == 1 {
+                    self?.performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: order)
+                }
+            }
         }
     }
-    
     
     func setupMenuButtons() {
         let leftDrawerButton = DrawerBarButtonItem(target: self, action: "leftDrawerButtonPress:")
@@ -141,25 +136,10 @@ extension MyOrders {
                 // заказ принят и принят этим водителем
                 performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: order)
             } else if order.orderStatus == 0 {
-                guard let orderID = order.orderID else { return }
-                Helper().showLoading("Принимаю заказ")
-                Networking.instanse.acceptOrder(orderID) { [weak self] result in
-                    Helper().hideLoading()
-                    switch result {
-                    case .Error(let error):
-                        Popup.instanse.showError("", message: error)
-                        // TODO hide loading
-                    case .Response(let data):
-                        print(data)
-                        if data == 1 {
-                            self?.performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: order)
-                        }
-                    }
-                }
+                acceptOrder(order)
             }
         }
     }
-    
     
 }
 

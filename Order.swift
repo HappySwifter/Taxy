@@ -28,7 +28,7 @@ class Order {
 }
 
 enum OrderFields: String {
-    case UserId, ServiceType, FromAddress, ToAddress, Longitude, Latitude, Price, Comment, WithChildChair, OrderType, Id, OrderStatus, Driver, City, CreatedAt, User
+    case UserId, ServiceType, FromAddress, ToAddress, Longitude, Latitude, Price, Comment, WithChildChair, OrderType, Id, OrderStatus, Driver, City, CreatedAt, User, FromLatitude, FromLongitude
 }
 
 extension Order {

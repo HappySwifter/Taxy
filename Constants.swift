@@ -45,6 +45,7 @@ enum ServerMethods: String {
     case СloseOrder
     case SendCoordinates
     case AcceptOrder
+    case RejectOrder // для отмены водителем автоназначаемого заказа
 }
 
 enum OrderType {
