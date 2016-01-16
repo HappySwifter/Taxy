@@ -104,7 +104,7 @@ final class Networking {
         }
         
         parameters[UserFields.UserType.rawValue] = userProfile.type.rawValue
-
+        parameters[UserFields.DriverState.rawValue] = userProfile.driverState.rawValue + 1
         
 //        switch userProfile.type {
 //        case .Driver:
@@ -141,7 +141,7 @@ final class Networking {
         }
         let parameters = [
             "id": userId,
-            "State": String(state)
+            "State": String(state + 1)
         ]
         🙏(.POST, url: mainUrl + userString + ServerMethods.SetDriverState.rawValue, params: parameters) { result in
             switch result {
@@ -150,7 +150,7 @@ final class Networking {
                 
             case .Response(let json):
                 if let state = json.int {
-                    completion(Result.Response(state))
+                    completion(Result.Response(state - 1))
                 } else {
                     completion(Result.Error("Ошибка сервера"))
                 }

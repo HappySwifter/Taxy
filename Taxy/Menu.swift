@@ -29,31 +29,22 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        title = "Дорожное такси"
 
-//        self.tableView = UITableView(frame: self.view.bounds, style: .Grouped)
         self.tableView.delegate = self
         self.tableView.dataSource = self
- //       self.view.addSubview(self.tableView)
- //       self.tableView.autoresizingMask = [ .FlexibleWidth, .FlexibleHeight ]
-        
         self.tableView.backgroundColor = UIColor(red: 110 / 255, green: 113 / 255, blue: 115 / 255, alpha: 1.0)
-        self.tableView.separatorStyle = .None
-        
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 161 / 255, green: 164 / 255, blue: 166 / 255, alpha: 1.0)
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 55 / 255, green: 70 / 255, blue: 77 / 255, alpha: 1.0)]
-        
-        self.view.backgroundColor = UIColor.clearColor()
+
+//        self.navigationController?.navigationBar.barTintColor = UIColor(red: 161 / 255, green: 164 / 255, blue: 166 / 255, alpha: 1.0)
+//        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 55 / 255, green: 70 / 255, blue: 77 / 255, alpha: 1.0)]
     }
     
     func switchChanged(index: Int) {
-        Networking.instanse.changeUserState(index + 1) { result in
+        Networking.instanse.changeUserState(index) { result in
             switch result {
             case .Response(let index):
-                if index == 2 {
-                    UserProfile.sharedInstance.driverState = .Busy
-                } else {
-                    UserProfile.sharedInstance.driverState = .Free
+                if let state = DriverState(rawValue: index) {
+                    UserProfile.sharedInstance.driverState = state
                 }
             case .Error(let error):
                 debugPrint(error)
@@ -68,7 +59,7 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate,
         // See https://github.com/sascha/DrawerController/issues/12
         self.navigationController?.view.setNeedsLayout()
         
-        self.tableView.reloadSections(NSIndexSet(indexesInRange: NSRange(location: 0, length: self.tableView.numberOfSections - 1)), withRowAnimation: .None)
+        self.tableView.reloadData()
         
     }
     
@@ -90,7 +81,7 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate,
             if UserProfile.sharedInstance.type == .Passenger {
                 return profileSection.count
             } else {
-                return profileSection.count + 1
+                return profileSection.count
             }
         case DrawerSection.Orders.rawValue:
             if UserProfile.sharedInstance.type == .Passenger {
@@ -121,27 +112,21 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate,
             
             case DrawerSection.Avatar.rawValue:
                 if indexPath.row == 0 {
-                    
                     if let cell = tableView.dequeueReusableCellWithIdentifier("profileCell", forIndexPath: indexPath) as? ProfileCell {
-
+                        cell.configure()
                         return cell
-                        
                     }
-                    
-                    cell.textLabel?.text = UserProfile.sharedInstance.name ?? profileSection[indexPath.row]
                 } else if indexPath.row == 1 {
                     cell.textLabel?.text = profileSection[indexPath.row]
                 }
-                
-               else if indexPath.row == 2 {
-                    if let cell = tableView.dequeueReusableCellWithIdentifier("switchCell", forIndexPath: indexPath) as? SwitchCell {
-                        cell.configure()
-                        cell.delegate = self
-                        return cell
-
-                    }
-                }
-                
+//                else if indexPath.row == 2 {
+//                    if let cell = tableView.dequeueReusableCellWithIdentifier("switchCell", forIndexPath: indexPath) as? SwitchCell {
+//                        cell.configure()
+//                        cell.delegate = self
+//                        return cell
+//                    }
+//                }
+            
             
 
 
@@ -192,8 +177,8 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate,
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
         case DrawerSection.Avatar.rawValue:
-            let headerView = SideDrawerSectionHeaderImageView(frame: CGRect(x: 0, y: 0, width: CGRectGetWidth(tableView.bounds), height: 60.0))
-            headerView.image = UserProfile.sharedInstance.image
+            let headerView = SwitchHeaderView(frame: CGRect(x: 0, y: 0, width: CGRectGetWidth(tableView.bounds), height: 40.0))
+            headerView.delegate = self
             return headerView
             
         case DrawerSection.Main.rawValue, DrawerSection.Orders.rawValue:
@@ -209,7 +194,11 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate,
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case DrawerSection.Avatar.rawValue:
-            return 60
+            if isPassenger() {
+                return 0
+            } else {
+                return 60
+            }
         case DrawerSection.Orders.rawValue:
             return 30
         case DrawerSection.Main.rawValue:
@@ -220,6 +209,9 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate,
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.section == DrawerSection.Avatar.rawValue && indexPath.row == 0 {
+            return 100
+        }
         return 40
     }
     
@@ -282,5 +274,9 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate,
         
         tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .None)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    func isPassenger() -> Bool {
+        return UserProfile.sharedInstance.type == .Passenger
     }
 }

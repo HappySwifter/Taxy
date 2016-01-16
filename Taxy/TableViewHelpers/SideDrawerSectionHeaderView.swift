@@ -19,6 +19,7 @@
 // THE SOFTWARE.
 
 import UIKit
+import DGRunkeeperSwitch
 
 class SideDrawerSectionHeaderView: UIView {
     var title: String? {
@@ -61,14 +62,14 @@ class SideDrawerSectionHeaderView: UIView {
 }
 
 
-class SideDrawerSectionHeaderImageView: UIView {
-    var image: UIImage? {
-        didSet {
-            self.imageView.image = self.image
-        }
-    }
-    private var imageView: UIImageView!
-    
+protocol SwitchDelegate: class {
+    func switchChanged(index: Int)
+}
+
+class SwitchHeaderView: UIView {
+
+    weak var delegate: SwitchDelegate?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.commonSetup()
@@ -81,13 +82,25 @@ class SideDrawerSectionHeaderImageView: UIView {
     
     func commonSetup() {
         self.backgroundColor = UIColor(red: 110 / 255, green: 113 / 255, blue: 115 / 255, alpha: 1.0)
-        self.imageView = UIImageView(frame: CGRect(x: 15, y: 0, width: CGRectGetHeight(self.bounds), height: CGRectGetHeight(self.bounds)))
-//        self.imageView.autoresizingMask = [ .FlexibleWidth ,.FlexibleTopMargin ]
-        self.imageView.contentMode = .ScaleAspectFit
-        self.imageView.layer.cornerRadius = self.imageView.frame.size.width / 2
-//        self.imageView.backgroundColor = UIColor.redColor()
-        self.addSubview(self.imageView)
+
+        let runkeeperSwitch = DGRunkeeperSwitch(leftTitle: "Свободен", rightTitle: "Занят")
+        runkeeperSwitch.backgroundColor = .whiteColor()
+        runkeeperSwitch.selectedBackgroundColor = .mainOrangeColor()
+        runkeeperSwitch.titleColor = .mainOrangeColor()
+        runkeeperSwitch.selectedTitleColor = .whiteColor()
+        runkeeperSwitch.titleFont = UIFont.bold_Med()
+        runkeeperSwitch.frame = CGRect(x: 15.0, y: 15, width: 200.0, height: 30.0)
+//        runkeeperSwitch.center = center
+        runkeeperSwitch.addTarget(self, action: Selector("switchValueDidChange:"), forControlEvents: .ValueChanged)
+        runkeeperSwitch.setSelectedIndex(UserProfile.sharedInstance.driverState.rawValue, animated: false)
+        addSubview(runkeeperSwitch)
         self.clipsToBounds = false
+
+    }
+    
+    func switchValueDidChange(sender: DGRunkeeperSwitch!) {
+        print("valueChanged: \(sender.selectedIndex)")
+        delegate?.switchChanged(sender.selectedIndex)
     }
     
     override func drawRect(rect: CGRect) {
@@ -100,3 +113,43 @@ class SideDrawerSectionHeaderImageView: UIView {
         CGContextStrokePath(context)
     }
 }
+
+//class SideDrawerSectionHeaderImageView: UIView {
+//    var image: UIImage? {
+//        didSet {
+//            self.imageView.image = self.image
+//        }
+//    }
+//    private var imageView: UIImageView!
+//    
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//        self.commonSetup()
+//    }
+//    
+//    required init?(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//        self.commonSetup()
+//    }
+//    
+//    func commonSetup() {
+//        self.backgroundColor = UIColor(red: 110 / 255, green: 113 / 255, blue: 115 / 255, alpha: 1.0)
+//        self.imageView = UIImageView(frame: CGRect(x: 15, y: 0, width: CGRectGetHeight(self.bounds), height: CGRectGetHeight(self.bounds)))
+////        self.imageView.autoresizingMask = [ .FlexibleWidth ,.FlexibleTopMargin ]
+//        self.imageView.contentMode = .ScaleAspectFit
+//        self.imageView.layer.cornerRadius = self.imageView.frame.size.width / 2
+////        self.imageView.backgroundColor = UIColor.redColor()
+//        self.addSubview(self.imageView)
+//        self.clipsToBounds = false
+//    }
+//    
+//    override func drawRect(rect: CGRect) {
+//        let context = UIGraphicsGetCurrentContext()
+//        let lineColor = UIColor(red: 94 / 255, green: 97 / 255, blue: 99 / 255, alpha: 1.0)
+//        CGContextSetStrokeColorWithColor(context, lineColor.CGColor)
+//        CGContextSetLineWidth(context, 1.0)
+//        CGContextMoveToPoint(context, CGRectGetMinX(self.bounds), CGRectGetMaxY(self.bounds) - 0.5)
+//        CGContextAddLineToPoint(context, CGRectGetMaxX(self.bounds), CGRectGetMaxY(self.bounds) - 0.5)
+//        CGContextStrokePath(context)
+//    }
+//}

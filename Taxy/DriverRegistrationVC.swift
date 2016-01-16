@@ -136,17 +136,18 @@ extension DriverRegistrationVC: UIImagePickerControllerDelegate, UINavigationCon
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         picker.dismissViewControllerAnimated(true, completion: nil)
 
+        let resizedImage = image.resizeToWidth(300)
         switch selectedRow {
         case 0:
             pravaRow.cellUpdate {
-                UserProfile.sharedInstance.pravaPhoto = image
-                $0.iconView.image = image
+                UserProfile.sharedInstance.pravaPhoto = resizedImage
+                $0.iconView.image = resizedImage
             }
             
         case 1:
             carRow.cellUpdate {
-                UserProfile.sharedInstance.carPhoto = image
-                $0.iconView.image = image
+                UserProfile.sharedInstance.carPhoto = resizedImage
+                $0.iconView.image = resizedImage
             }
             
         default:

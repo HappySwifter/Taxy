@@ -16,8 +16,11 @@ enum userType: Int {
 }
 
 enum DriverState: Int {
-    case Free = 1
+    case Free
     case Busy
+//    static func value() -> [DriverState] {
+//        return [Free, Busy]
+//    }
 }
 
 
@@ -60,8 +63,8 @@ class UserProfile {
                 profile.type = type1
             }
         }
-        if let driverState = userInfo[UserFields.DriverState.rawValue]?.int, let state = userType(rawValue: driverState) {
-            profile.type = state
+        if let driverState = userInfo[UserFields.DriverState.rawValue]?.int, let state = DriverState(rawValue: driverState) {
+            profile.driverState = state
         }
         
         

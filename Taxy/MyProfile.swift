@@ -327,14 +327,14 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
         self.evo_drawerController?.toggleDrawerSide(.Left, animated: true, completion: nil)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        switch segueIdentifierForSegue(segue) {
-        case .DriverRegistrationSegue:
-            if let contr = segue.destinationViewController as? DriverRegistrationVC {
-//                contr.userInfo = UserProfile.sharedInstance
-            }
-        }
-    }
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        switch segueIdentifierForSegue(segue) {
+//        case .DriverRegistrationSegue:
+//            if let contr = segue.destinationViewController as? DriverRegistrationVC {
+////                contr.userInfo = UserProfile.sharedInstance
+//            }
+//        }
+//    }
     
 }
 
@@ -344,9 +344,10 @@ extension MyProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDe
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         picker.dismissViewControllerAnimated(true, completion: nil)
-        UserProfile.sharedInstance.image = image
+        let resizedImage = image.resizeToWidth(300)
+        UserProfile.sharedInstance.image = resizedImage
         imageRow.cellUpdate {
-            $0.iconView.image = image
+            $0.iconView.image = resizedImage
         }
     }
 }
