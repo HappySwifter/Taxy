@@ -24,8 +24,8 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate 
     let drawerWidths: [CGFloat] = [160, 200, 240, 280, 320]
 
     let profileSection = ["Профиль", "Мои заказы"]
-    let ordersSection = ["Быстрый заказ"]
-    
+    let driverOrdersSection = ["Поиск заказов"]
+    let passOrdersSection = ["Быстрый заказ"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,7 +72,11 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate 
         case DrawerSection.Avatar.rawValue:
             return profileSection.count
         case DrawerSection.Orders.rawValue:
-            return ordersSection.count + OrderType.value().count
+            if UserProfile.sharedInstance.type == .Passenger {
+                return passOrdersSection.count + OrderType.value().count
+            } else {
+                return driverOrdersSection.count
+            }
         case DrawerSection.Other.rawValue:
             return 1
         default:
@@ -104,11 +108,17 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate 
 
 
             case DrawerSection.Orders.rawValue:
-                if indexPath.row == 0 {
-                    cell.textLabel?.text = ordersSection[indexPath.row]
+                if UserProfile.sharedInstance.type == .Passenger {
+                    if indexPath.row == 0 {
+                        cell.textLabel?.text = passOrdersSection[indexPath.row]
+                    } else {
+                        cell.textLabel?.text = OrderType.value()[indexPath.row - 1].title()
+                    }
                 } else {
-                  cell.textLabel?.text = OrderType.value()[indexPath.row - 1].title()
-                }
+                    cell.textLabel?.text = driverOrdersSection[indexPath.row]
+            }
+                
+            
 
             case DrawerSection.Main.rawValue:
                 switch indexPath.row {
@@ -202,12 +212,8 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate 
          
             
         case DrawerSection.Orders.rawValue:
-//            switch indexPath.row {
-//                
-//            case 0:
-//                instantiateSTID(STID.TaxyRequestingSTID)
-//
-//            default:
+
+            if UserProfile.sharedInstance.type == .Passenger {
                 let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MakeOrderSTID.rawValue) as! MakeOrderVC
                 if indexPath.row != 0 {
                     contr.orderInfo.orderType = OrderType.value()[indexPath.row - 1]
@@ -215,11 +221,12 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate 
                     let _ = contr.fastOrder = true
                 }
                 let nav = NavigationContr(rootViewController: contr)
-                self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
-                
-//            default:
-//                break
-//            }
+                evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
+            } else {
+                instantiateVC(FindOrders())
+            }
+            
+
             
         case DrawerSection.Other.rawValue:
             switch indexPath.row {

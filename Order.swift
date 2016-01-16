@@ -9,7 +9,6 @@ import SwiftyJSON
 
 
 class Order {
-//    static let instanse = Order()
     var userID: String?
     var fromPlace: String?
     var toPlace: String?
@@ -19,7 +18,7 @@ class Order {
     var isCab = false
     var isChildChair = false
     var moreInformation = false
-    var coordinates: CLLocationCoordinate2D?
+    var fromPlaceCoordinates: CLLocationCoordinate2D?
     var orderID: String?
     var driverInfo = UserProfile()
     var passengerInfo = UserProfile()
@@ -79,7 +78,7 @@ extension Order {
                 order.orderStatus = orderStatus
             }
             if let createdAtString = orderInfo[OrderFields.CreatedAt.rawValue].string,
-                let date = Helper().dateFromString(createdAtString)
+                let date = createdAtString.dateFromString()// Helper().dateFromString(createdAtString)
             {
                 order.createdAt = date
             }

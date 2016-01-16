@@ -258,7 +258,7 @@ final class Networking {
         }
     }
     
-    func getOrders(orderType: Int, completion: Result<[Order], String> -> Void) {
+    func getOrders(orderType: Int, find: Bool = false, completion: Result<[Order], String> -> Void) {
         
         guard let id = LocalData().getUserID  else {
             Popup.instanse.showError("", message: "\(__FUNCTION__)")
@@ -270,7 +270,8 @@ final class Networking {
             "OrderType" : String(orderType)
         ]
         
-        🙏(.POST, url: mainUrl + orderString + ServerMethods.GetOrders.rawValue, params: parameters) { result in
+        let method = find ? ServerMethods.FindOrders.rawValue : ServerMethods.GetOrders.rawValue
+        🙏(.POST, url: mainUrl + orderString + method, params: parameters) { result in
             
             switch result {
                 
@@ -284,8 +285,12 @@ final class Networking {
                 
             }
         }
-        
     }
+
+    
+    
+    
+    
     
     func checkOrder(order: Order, completion: Result<[Order], String> -> Void) {
         guard let id = LocalData().getUserID, orderID = order.orderID  else {

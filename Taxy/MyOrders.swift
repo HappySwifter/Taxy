@@ -10,7 +10,6 @@
 // TODO  отображать у заказа значок, если заказ принят текущим водителем и сделать контроллер с только моими заказами
 import Foundation
 import UIKit
-import BTNavigationDropdownMenu
 import DrawerController
 
 
@@ -32,25 +31,13 @@ class MyOrders: UITableViewController, SegueHandlerType {
         tableView.addSubview(refresh)
         setupMenuButtons()
         loadOrders(selectedType)
-        if UserProfile.sharedInstance.type == .Passenger {
-            self.title = "Заказы"
+        self.title = "Заказы"
             
-            if let selectedOrder = selectedOrder {
-                performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: selectedOrder)
-            }
-            
-        } else {
-            
-            
-            
-            let items = OrderType.value().map { element in element.title() }
-            let menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: items.first!, items: items)
-            self.navigationItem.titleView = menuView
-            menuView.didSelectItemAtIndexHandler = { [weak self] indexPath in
-                self?.selectedType = indexPath + 1
-                self?.loadOrders(indexPath + 1)
-            }
+        if let selectedOrder = selectedOrder {
+            performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: selectedOrder)
         }
+            
+
     }
     
     override func viewWillAppear(animated: Bool) {

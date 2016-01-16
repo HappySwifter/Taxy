@@ -19,6 +19,7 @@ enum STID: String {
     case LoginSTID
     case MySettingsSTID
     case MyOrdersSTID
+    case FindOrdersSTID
     case MapSTID
     case MakeOrderSTID
     case TaxyRequestingSTID
@@ -37,6 +38,7 @@ enum ServerMethods: String {
     // orders
     case CreateOrder
     case GetOrders
+    case FindOrders
     case CancelOrder
     case CheckOrder // инфа по определенному заказу (для мониторинга)
     case GetOnlyMyOrder // для водителя. Мониторит заказы для конкретного водителя, назначенные ему, как самому ближнему по расстоянию к пассажиру

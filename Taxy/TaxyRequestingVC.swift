@@ -52,6 +52,7 @@ class TaxyRequestingVC: UIViewController {
             switch result {
             case .Error(let error):
                 Popup.instanse.showError("", message: error)
+                self?.enableMenu()
                 self?.navigationController?.popViewControllerAnimated(true)
             case .Response(let orderID):
                 self?.orderInfo.orderID = orderID

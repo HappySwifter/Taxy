@@ -76,7 +76,11 @@ class LoadingVC: UIViewController, CLLocationManagerDelegate {
                                 self?.instantiateSTID(STID.MySettingsSTID)
                             } else {
                                 self?.enableMenu()
-                                self?.instantiateSTID(STID.MakeOrderSTID)
+                                if UserProfile.sharedInstance.type == .Passenger {
+                                    self?.instantiateSTID(STID.MakeOrderSTID)
+                                } else {
+                                    self?.instantiateVC(FindOrders())
+                                }
                             }
                         }
                     }

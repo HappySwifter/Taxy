@@ -34,7 +34,7 @@ class UserProfile {
     var carPhoto: UIImage?
     var userID: String?
     var withChildChair = false
-    var coordinates: CLLocationCoordinate2D?
+    var location: Location?
 
     func getModelFromDict(userInfo: [String: JSON], shared: Bool) -> UserProfile {
         let profile = shared ? UserProfile.sharedInstance : UserProfile()
@@ -61,15 +61,18 @@ class UserProfile {
         profile.balance = userInfo[UserFields.Balance.rawValue]?.int
         
         if let lat = userInfo[UserFields.Latitude.rawValue]?.double,
-        let lon = userInfo[UserFields.Longitude.rawValue]?.double
+        let lon = userInfo[UserFields.Longitude.rawValue]?.double,
+        let timeStr = userInfo[UserFields.LocationUpdatedAt.rawValue]?.string,
+        let time = timeStr.dateFromString()
         {
-            profile.coordinates = CLLocationCoordinate2DMake(lat, lon)
-        }
+            profile.location = Location(coordinates:CLLocationCoordinate2DMake(lat, lon), updatedAt: time)
+//            profile.location = CLLocationCoordinate2DMake(lat, lon)
+        } else { debugPrint("cant parse location/time") }
         return profile
     }
     
 }
 
 enum UserFields: String {
-    case Id, FirstName, City, UserType, Image, PhoneNumber, Balance, CarPhoto, WithChildChair, Longitude, Latitude
+    case Id, FirstName, City, UserType, Image, PhoneNumber, Balance, CarPhoto, WithChildChair, Longitude, Latitude, LocationUpdatedAt
 }

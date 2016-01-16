@@ -21,13 +21,13 @@ struct Helper {
     
     
 /////////// DATE ////////////
-    func dateFromString(dateStr: String) -> NSDate? {
-        let form = NSDateFormatter()
-        let gmt = NSTimeZone(forSecondsFromGMT: 0)
-        form.timeZone = gmt
-        form.dateFormat = "dd.MM.yyyy HH:mm:ss"
-        return form.dateFromString(dateStr)
-    }   
+//    func dateFromString(dateStr: String) -> NSDate? {
+//        let form = NSDateFormatter()
+//        let gmt = NSTimeZone(forSecondsFromGMT: 0)
+//        form.timeZone = gmt
+//        form.dateFormat = "dd.MM.yyyy HH:mm:ss"
+//        return form.dateFromString(dateStr)
+//    }   
 ////////////////////////////
     
     func showLoading(title: String? = "Загрузка") {
@@ -105,6 +105,14 @@ extension String {
         }
         return .None
     }
+    
+    func dateFromString() -> NSDate? {
+        let form = NSDateFormatter()
+        let gmt = NSTimeZone(forSecondsFromGMT: 0)
+        form.timeZone = gmt
+        form.dateFormat = "dd.MM.yyyy HH:mm:ss"
+        return form.dateFromString(self)
+    }
 }
 
 //extension NSError {
@@ -121,6 +129,7 @@ extension NSDate {
         dateFormatter.timeStyle = .ShortStyle
         return dateFormatter.stringFromDate(self)
     }
+    
     
 }
 
@@ -157,6 +166,11 @@ extension UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         let centerViewController = storyBoard.instantiateViewControllerWithIdentifier(id.rawValue)
         let nav = NavigationContr(rootViewController: centerViewController)
+        self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
+    }
+
+    func instantiateVC(contr: UIViewController) {
+        let nav = NavigationContr(rootViewController: contr)
         self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
     }
     

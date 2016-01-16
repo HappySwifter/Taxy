@@ -18,7 +18,6 @@ final class DriverRegistrationVC: FormViewController {
         super.viewDidLoad()
         setupMenuButtons()
         configure()
-        
     }
     
 
@@ -34,7 +33,8 @@ final class DriverRegistrationVC: FormViewController {
         Helper().showLoading("Обновление профиля")
         Networking().updateProfile(UserProfile.sharedInstance) { [weak self]  data in
             Helper().hideLoading()
-            self?.instantiateSTID(STID.MakeOrderSTID)
+            self?.enableMenu()
+            self?.instantiateVC(FindOrders())
         }
     }
     
