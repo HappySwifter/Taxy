@@ -34,7 +34,7 @@ final class DriverRegistrationVC: FormViewController {
         Networking().updateProfile(UserProfile.sharedInstance) { [weak self]  data in
             Helper().hideLoading()
             self?.enableMenu()
-            self?.instantiateVC(FindOrders())
+            self?.instantiateSTID(STID.FindOrdersSTID)
         }
     }
     

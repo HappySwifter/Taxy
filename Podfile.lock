@@ -3,6 +3,7 @@ PODS:
   - BTNavigationDropdownMenu (0.2.1)
   - CCMRadarView (1.0.2)
   - CNPPopupController (0.3.1)
+  - DGRunkeeperSwitch (1.1.1)
   - DrawerController (1.1.0):
     - DrawerController/Core (= 1.1.0)
     - DrawerController/DrawerVisualStates (= 1.1.0)
@@ -23,6 +24,7 @@ DEPENDENCIES:
   - BTNavigationDropdownMenu
   - CCMRadarView
   - CNPPopupController
+  - DGRunkeeperSwitch (~> 1.1)
   - DrawerController (~> 1.0)
   - Former
   - GoogleMaps
@@ -47,6 +49,7 @@ SPEC CHECKSUMS:
   BTNavigationDropdownMenu: 9cf4060162c96510ee27c388412e28678320cdc0
   CCMRadarView: 6bff4c5c3d05d627664a4b398a508d051a4a94be
   CNPPopupController: 67dc2ca5a3f88cd49a27bb1b0aeb78a24d423d79
+  DGRunkeeperSwitch: da12f199532a99958a1e87ec0a5af61efdba11ec
   DrawerController: 8fd56e6238399a08c4af054fbea0ef8669cd81f3
   Former: 5b2ac5acdc8b059e1346d048c26a9d5dbd751c55
   GoogleMaps: c947160008f414c66707a5ea60f35e92055c7670

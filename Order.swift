@@ -88,8 +88,6 @@ extension Order {
             }
             if let driverInfo = orderInfo[OrderFields.Driver.rawValue].dictionary {
                 order.driverInfo = UserProfile().getModelFromDict(driverInfo, shared: false)
-            } else {
-                order.driverInfo.name = "водитель еще не назначен"
             }
             return order
         }

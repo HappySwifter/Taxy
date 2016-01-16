@@ -19,9 +19,9 @@ enum DrawerSection: Int {
 
 
 
-class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate {
-    var tableView: UITableView!
-    let drawerWidths: [CGFloat] = [160, 200, 240, 280, 320]
+class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate, SwitchDelegate {
+    @IBOutlet weak var tableView: UITableView!
+//    let drawerWidths: [CGFloat] = [160, 200, 240, 280, 320]
 
     let profileSection = ["Профиль", "Мои заказы"]
     let driverOrdersSection = ["Поиск заказов"]
@@ -30,11 +30,12 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView = UITableView(frame: self.view.bounds, style: .Grouped)
+
+//        self.tableView = UITableView(frame: self.view.bounds, style: .Grouped)
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.view.addSubview(self.tableView)
-        self.tableView.autoresizingMask = [ .FlexibleWidth, .FlexibleHeight ]
+ //       self.view.addSubview(self.tableView)
+ //       self.tableView.autoresizingMask = [ .FlexibleWidth, .FlexibleHeight ]
         
         self.tableView.backgroundColor = UIColor(red: 110 / 255, green: 113 / 255, blue: 115 / 255, alpha: 1.0)
         self.tableView.separatorStyle = .None
@@ -43,6 +44,22 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate 
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 55 / 255, green: 70 / 255, blue: 77 / 255, alpha: 1.0)]
         
         self.view.backgroundColor = UIColor.clearColor()
+    }
+    
+    func switchChanged(index: Int) {
+        Networking.instanse.changeUserState(index + 1) { result in
+            switch result {
+            case .Response(let index):
+                if index == 2 {
+                    UserProfile.sharedInstance.driverState = .Busy
+                } else {
+                    UserProfile.sharedInstance.driverState = .Free
+                }
+            case .Error(let error):
+                debugPrint(error)
+          
+            }
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -70,7 +87,11 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate 
         case DrawerSection.Main.rawValue:
             return 1
         case DrawerSection.Avatar.rawValue:
-            return profileSection.count
+            if UserProfile.sharedInstance.type == .Passenger {
+                return profileSection.count
+            } else {
+                return profileSection.count + 1
+            }
         case DrawerSection.Orders.rawValue:
             if UserProfile.sharedInstance.type == .Passenger {
                 return passOrdersSection.count + OrderType.value().count
@@ -100,11 +121,28 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate 
             
             case DrawerSection.Avatar.rawValue:
                 if indexPath.row == 0 {
+                    
+                    if let cell = tableView.dequeueReusableCellWithIdentifier("profileCell", forIndexPath: indexPath) as? ProfileCell {
+
+                        return cell
+                        
+                    }
+                    
                     cell.textLabel?.text = UserProfile.sharedInstance.name ?? profileSection[indexPath.row]
-                } else {
+                } else if indexPath.row == 1 {
                     cell.textLabel?.text = profileSection[indexPath.row]
- 
                 }
+                
+               else if indexPath.row == 2 {
+                    if let cell = tableView.dequeueReusableCellWithIdentifier("switchCell", forIndexPath: indexPath) as? SwitchCell {
+                        cell.configure()
+                        cell.delegate = self
+                        return cell
+
+                    }
+                }
+                
+            
 
 
             case DrawerSection.Orders.rawValue:
@@ -137,6 +175,8 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate 
         }
         return cell
     }
+    
+    
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {

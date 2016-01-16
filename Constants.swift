@@ -15,6 +15,7 @@ let mainUrl = "http://yakuttaxi.azurewebsites.net/"
 
 
 enum STID: String {
+    case MenuSTID
     case LoadingSTID
     case LoginSTID
     case MySettingsSTID
@@ -34,7 +35,7 @@ enum ServerMethods: String {
     case VerifyCode
     case GetUserInfo
     case UpdateProfile
-    
+    case SetDriverState // 1 - свободен, 2 - занят
     // orders
     case CreateOrder
     case GetOrders

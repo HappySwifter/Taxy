@@ -55,7 +55,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let centerViewController = storyBoard.instantiateViewControllerWithIdentifier(STID.LoadingSTID.rawValue)
         let nav = NavigationContr(rootViewController: centerViewController)
         
-        let leftMenu = MenuVC()
+        
+        let leftMenu = storyBoard.instantiateViewControllerWithIdentifier(STID.MenuSTID.rawValue)
+
         let menu = UINavigationController(rootViewController: leftMenu)
         
         self.drawerController = DrawerController(centerViewController: nav, leftDrawerViewController: menu)

@@ -69,7 +69,7 @@ class LoadingVC: UIViewController, CLLocationManagerDelegate {
                             if error == errorDecription().getErrorName(404) { // handle if user not found
                                 LocalData.instanse.deleteUserID()
                             }
-                            self?.makeRequests()
+//                            self?.makeRequests()
                             
                         case .Response(_):
                             if UserProfile.sharedInstance.city?.code == 0 || UserProfile.sharedInstance.city == nil {
@@ -79,7 +79,7 @@ class LoadingVC: UIViewController, CLLocationManagerDelegate {
                                 if UserProfile.sharedInstance.type == .Passenger {
                                     self?.instantiateSTID(STID.MakeOrderSTID)
                                 } else {
-                                    self?.instantiateVC(FindOrders())
+                                    self?.instantiateSTID(STID.FindOrdersSTID)
                                 }
                             }
                         }

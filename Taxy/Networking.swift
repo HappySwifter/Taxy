@@ -133,6 +133,31 @@ final class Networking {
         }
     }
     
+    func changeUserState (state: Int, completion: Result<Int, String>  -> Void) {
+        guard let userId = LocalData().getUserID else {
+            Popup.instanse.showError("", message: "Не обнружен id пользователя")
+            completion(Result.Error("Не обнружен id пользователя"))
+            return
+        }
+        let parameters = [
+            "id": userId,
+            "State": String(state)
+        ]
+        🙏(.POST, url: mainUrl + userString + ServerMethods.SetDriverState.rawValue, params: parameters) { result in
+            switch result {
+            case .Error(let error):
+                completion(Result.Error(error))
+                
+            case .Response(let json):
+                if let state = json.int {
+                    completion(Result.Response(state))
+                } else {
+                    completion(Result.Error("Ошибка сервера"))
+                }
+            }
+        }
+    }
+    
     
     func getUserInfo (completion: Result<String, String>  -> Void) {
         

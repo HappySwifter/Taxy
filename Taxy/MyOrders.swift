@@ -17,7 +17,6 @@ class MyOrders: UITableViewController, SegueHandlerType {
     
     var orders = [Order]()
     var selectedOrder: Order?
-    var selectedType: Int = 1
     enum SegueIdentifier: String {
         case ShowOrderDetailsSegue
     }
@@ -29,7 +28,7 @@ class MyOrders: UITableViewController, SegueHandlerType {
         refresh.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
         tableView.addSubview(refresh)
         setupMenuButtons()
-        loadOrders(selectedType)
+        loadOrders(0)
         self.title = "Заказы"
         if let selectedOrder = selectedOrder {
             performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: selectedOrder)
@@ -40,7 +39,7 @@ class MyOrders: UITableViewController, SegueHandlerType {
     
     func refresh(control: UIRefreshControl) {
         control.endRefreshing()
-        loadOrders(selectedType)
+        loadOrders(0)
     }
     
     
@@ -101,18 +100,9 @@ extension MyOrders {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let order = orders[indexPath.row]
 
-        if UserProfile.sharedInstance.type == .Passenger {
             let cell = self.tableView.dequeueReusableCellWithIdentifier("passengerOrderCell", forIndexPath: indexPath) as! passengerOrderCell
             cell.configureViewWithOrder(order)
-            
             return cell
-        } else {
-            let cell = self.tableView.dequeueReusableCellWithIdentifier("driverOrderCell", forIndexPath: indexPath) as! driverOrderCell
-            cell.configureViewWithOrder(order)
-            return cell
-            
-        }
-        
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -135,52 +125,17 @@ extension MyOrders {
             if order.orderStatus == 1 && order.driverInfo.userID == UserProfile.sharedInstance.userID {
                 // заказ принят и принят этим водителем
                 performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: order)
-            } else if order.orderStatus == 0 {
-                acceptOrder(order)
             }
+//            else if order.orderStatus == 0 {
+//                acceptOrder(order)
+//            }
         }
     }
     
 }
 
 
-class driverOrderCell: UITableViewCell {
-    @IBOutlet weak var idLabel: UILabel!
-    @IBOutlet weak var passengerIdLabel: UILabel!
-    @IBOutlet weak var passengerPhoneLabel: UILabel!
-    @IBOutlet weak var passengerNameLabel: UILabel!
-    @IBOutlet weak var fromPlaceLabel: UILabel!
-    @IBOutlet weak var toPlaceLabel: UILabel!
-    @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var createTimeLabel: UILabel!
-    
-    func configureViewWithOrder(order: Order) {
-        if let price = order.price {
-            priceLabel.text = String(price) + "р"
-        }
-        if let passName = order.passengerInfo.name {
-            passengerNameLabel.text = passName
-        }
-   
-        if let fromPlace = order.fromPlace {
-            fromPlaceLabel.text = fromPlace
-        }
-        if let toPlace = order.toPlace {
-            toPlaceLabel.text = toPlace
-        }
-        
-        if let userId = order.userID {
-            passengerIdLabel.text = "user ID: " + userId
-        }
-        
-        if let orderId = order.orderID {
-            idLabel.text = "order ID: " + orderId
-        }
-        if let createTime = order.createdAt {
-           createTimeLabel.text = createTime.stringWithHumanizedTimeDifference(.SuffixAgo, withFullString: false)
-        }
-    }
-}
+
 
 
 class passengerOrderCell: UITableViewCell {
@@ -196,7 +151,15 @@ class passengerOrderCell: UITableViewCell {
         if let price = order.price {
             priceLabel.text = String(price) + "р"
         }
-        driverNameLabel.text = order.driverInfo.userID
+        if UserProfile.sharedInstance.type == .Driver {
+            if let driverName = order.passengerInfo.name, let driverPhone = order.passengerInfo.phoneNumber {
+                driverNameLabel.text = driverName + "\n" + driverPhone
+            }
+        } else {
+            if let passName = order.driverInfo.name, let passPhone = order.driverInfo.phoneNumber {
+                driverNameLabel.text = passName + "\n" + passPhone
+            }
+        }
         
         statusView.layer.cornerRadius = statusView.frame.size.width / 2
         if order.orderStatus == 1 {

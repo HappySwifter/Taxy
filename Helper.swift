@@ -175,7 +175,8 @@ extension UIViewController {
     }
     
     func enableMenu() {
-        let vc = MenuVC()
+        let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let vc = storyBoard.instantiateViewControllerWithIdentifier(STID.MenuSTID.rawValue)
         let navC = NavigationContr(rootViewController: vc)
         evo_drawerController?.leftDrawerViewController = navC
     }

@@ -15,6 +15,10 @@ enum userType: Int {
     case Driver
 }
 
+enum DriverState: Int {
+    case Free = 1
+    case Busy
+}
 
 
 class UserProfile {
@@ -35,6 +39,7 @@ class UserProfile {
     var userID: String?
     var withChildChair = false
     var location: Location?
+    var driverState: DriverState = .Free
 
     func getModelFromDict(userInfo: [String: JSON], shared: Bool) -> UserProfile {
         let profile = shared ? UserProfile.sharedInstance : UserProfile()
@@ -55,10 +60,19 @@ class UserProfile {
                 profile.type = type1
             }
         }
+        if let driverState = userInfo[UserFields.DriverState.rawValue]?.int, let state = userType(rawValue: driverState) {
+            profile.type = state
+        }
+        
+        
+        
         profile.name = userInfo[UserFields.FirstName.rawValue]?.string
         profile.userID = userInfo[UserFields.Id.rawValue]?.string
         profile.phoneNumber = userInfo[UserFields.PhoneNumber.rawValue]?.string
         profile.balance = userInfo[UserFields.Balance.rawValue]?.int
+        
+        
+        
         
         if let lat = userInfo[UserFields.Latitude.rawValue]?.double,
         let lon = userInfo[UserFields.Longitude.rawValue]?.double,
@@ -74,5 +88,5 @@ class UserProfile {
 }
 
 enum UserFields: String {
-    case Id, FirstName, City, UserType, Image, PhoneNumber, Balance, CarPhoto, WithChildChair, Longitude, Latitude, LocationUpdatedAt
+    case Id, FirstName, City, UserType, Image, PhoneNumber, Balance, CarPhoto, WithChildChair, Longitude, Latitude, LocationUpdatedAt, DriverState
 }
