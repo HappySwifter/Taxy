@@ -274,6 +274,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" red="0.83273396164021163" green="0.83273396164021163" blue="0.83273396164021163" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YVn-sf-6dP">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="6Ic-jm-YiF"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MyR-2Q-Y3Y">
                                 <rect key="frame" x="20" y="80" width="79" height="27"/>
                                 <constraints>
@@ -319,6 +326,23 @@
                                 <state key="normal" title="ОТМЕНИТЬ">
                                     <color key="titleColor" red="0.80224867724867721" green="0.054729050535416358" blue="0.11240580043482326" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="cancelOrderTouched" destination="vfg-sV-LRu" eventType="touchUpInside" id="qfs-Dc-nKT"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFn-8y-Am2">
+                                <rect key="frame" x="362" y="78" width="128" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="128" id="fkN-3n-9y6"/>
+                                    <constraint firstAttribute="height" constant="30" id="s2A-Nh-dHV"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="13"/>
+                                <state key="normal" title="ЗАКАЗ ВЫПОЛНЕН">
+                                    <color key="titleColor" red="0.18690594844365602" green="0.6898308011049723" blue="0.055753708228445956" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="closeOrderTouched" destination="vfg-sV-LRu" eventType="touchUpInside" id="Q9V-pg-SPj"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="kAD-Al-kZ4">
                                 <rect key="frame" x="20" y="49" width="560" height="21"/>
@@ -342,6 +366,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="OnO-PU-RiV" firstAttribute="trailing" secondItem="kVE-QO-k6O" secondAttribute="trailingMargin" id="00A-Ix-j5C"/>
+                            <constraint firstItem="IFn-8y-Am2" firstAttribute="top" secondItem="kAD-Al-kZ4" secondAttribute="bottom" constant="8" id="0N4-SB-VV5"/>
                             <constraint firstItem="hod-lq-AgL" firstAttribute="leading" secondItem="cXS-AX-j5p" secondAttribute="trailing" constant="8" id="6y4-9U-2tU"/>
                             <constraint firstItem="7t0-pK-xlk" firstAttribute="trailing" secondItem="kVE-QO-k6O" secondAttribute="trailingMargin" id="7o0-jF-bgi"/>
                             <constraint firstItem="kAD-Al-kZ4" firstAttribute="leading" secondItem="kVE-QO-k6O" secondAttribute="leadingMargin" id="81r-Q7-eIh"/>
@@ -349,6 +374,7 @@
                             <constraint firstItem="MyR-2Q-Y3Y" firstAttribute="leading" secondItem="kVE-QO-k6O" secondAttribute="leadingMargin" id="Cit-It-elX"/>
                             <constraint firstItem="7t0-pK-xlk" firstAttribute="top" secondItem="yfh-LR-mJf" secondAttribute="bottom" id="Gja-Pc-4bo"/>
                             <constraint firstItem="q6W-OI-i23" firstAttribute="leading" secondItem="cXS-AX-j5p" secondAttribute="trailing" constant="8" id="MEz-LU-xeV"/>
+                            <constraint firstItem="YVn-sf-6dP" firstAttribute="top" secondItem="kVE-QO-k6O" secondAttribute="top" id="PdH-wc-MrF"/>
                             <constraint firstItem="Ld1-vu-YX8" firstAttribute="top" secondItem="cXS-AX-j5p" secondAttribute="bottom" constant="20" id="Qbn-nO-NLW"/>
                             <constraint firstItem="q6W-OI-i23" firstAttribute="top" secondItem="hod-lq-AgL" secondAttribute="bottom" constant="8" id="T33-52-5vM"/>
                             <constraint firstAttribute="trailing" secondItem="LzS-ON-51n" secondAttribute="trailing" id="T7e-JL-tCr"/>
@@ -359,10 +385,13 @@
                             <constraint firstItem="Ld1-vu-YX8" firstAttribute="top" secondItem="LzS-ON-51n" secondAttribute="bottom" id="df0-sI-8XH"/>
                             <constraint firstItem="Ld1-vu-YX8" firstAttribute="top" secondItem="q6W-OI-i23" secondAttribute="bottom" constant="20" id="ekm-MY-Kv8"/>
                             <constraint firstItem="7t0-pK-xlk" firstAttribute="leading" secondItem="kVE-QO-k6O" secondAttribute="leadingMargin" id="fF1-9v-za6"/>
+                            <constraint firstItem="YVn-sf-6dP" firstAttribute="leading" secondItem="kVE-QO-k6O" secondAttribute="leading" id="k85-Q6-Nnc"/>
                             <constraint firstItem="LzS-ON-51n" firstAttribute="leading" secondItem="kVE-QO-k6O" secondAttribute="leading" id="mmQ-lG-gxg"/>
                             <constraint firstItem="kAD-Al-kZ4" firstAttribute="top" secondItem="7t0-pK-xlk" secondAttribute="bottom" constant="8" id="rnx-o7-gRz"/>
                             <constraint firstItem="kAD-Al-kZ4" firstAttribute="trailing" secondItem="kVE-QO-k6O" secondAttribute="trailingMargin" id="sOd-GQ-Fb8"/>
                             <constraint firstItem="q6W-OI-i23" firstAttribute="trailing" secondItem="kVE-QO-k6O" secondAttribute="trailingMargin" id="v6h-0Z-b7C"/>
+                            <constraint firstItem="OnO-PU-RiV" firstAttribute="leading" secondItem="IFn-8y-Am2" secondAttribute="trailing" constant="14" id="xjv-6g-8js"/>
+                            <constraint firstAttribute="trailing" secondItem="YVn-sf-6dP" secondAttribute="trailing" id="zgp-o8-tzP"/>
                         </constraints>
                     </view>
                     <connections>

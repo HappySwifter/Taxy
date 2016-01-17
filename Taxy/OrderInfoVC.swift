@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import CNPPopupController
+import HCSStarRatingView
 
 class OrderInfoVC: UIViewController {
     
@@ -73,6 +75,30 @@ class OrderInfoVC: UIViewController {
         marker.map = mapView
     }
     
+    @IBAction func cancelOrderTouched() {
+        Networking.instanse.cancelOrder(order) { [weak self] result in
+            switch result {
+            case .Error(let error):
+                Popup.instanse.showError("Внимание!", message: error)
+            default:
+                break
+            }
+            self?.timer?.invalidate()
+            self?.navigationController?.popViewControllerAnimated(true)
+        }
+    }
+
+    @IBAction func closeOrderTouched() {
+        Networking.instanse.closeOrder(order) { [weak self] result in
+            switch result {
+            case .Error(let error):
+                Popup.instanse.showError("Внимание!", message: error)
+            case .Response(_):
+                self?.presentRate()
+            }
+
+        }
+    }
 }
 
 extension OrderInfoVC: GMSMapViewDelegate {
@@ -97,7 +123,7 @@ extension OrderInfoVC: GMSMapViewDelegate {
         if let infoView = UIView.viewFromNibName("MarkerInfoView") as? MarkerInfoView {
             infoView.nameLabel.text = placeMarker.place.driverInfo.name
             
-            if let photo = placeMarker.place.driverInfo.carPhoto {
+            if let photo = placeMarker.place.driverInfo.image {
                 infoView.placePhoto.image = photo
             } else {
                 infoView.placePhoto.image = UIImage(named: "generic")
@@ -139,4 +165,19 @@ extension OrderInfoVC: CLLocationManagerDelegate {
             locationManager.stopUpdatingLocation()
         }
     }
+}
+
+
+extension OrderInfoVC: Rateble {
+    func didRate(value: AnyObject) {
+        if let value = value as? HCSStarRatingView {
+            print(value.value)
+        }
+    }
+    
+    func popupControllerDidDismiss() {
+        self.timer?.invalidate()
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
 }
