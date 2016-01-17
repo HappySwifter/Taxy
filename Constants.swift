@@ -36,6 +36,7 @@ enum ServerMethods: String {
     case GetUserInfo
     case UpdateProfile
     case SetDriverState // 1 - свободен, 2 - занят
+    case Rate
     // orders
     case CreateOrder
     case GetOrders

@@ -217,6 +217,28 @@ final class Networking {
         }
     }
     
+    func rateDriver(driverId: String, value: Int) {
+        
+        guard let userId = LocalData().getUserID else {
+            return
+        }
+        let params = [
+            "id": userId,
+            "driverId": driverId,
+            "rate": String(value)
+        ]
+        🙏(.POST, url: mainUrl + orderString + ServerMethods.Rate.rawValue, params: params) { result in
+            switch result {
+            case .Error(let error):
+                debugPrint(error)
+            default:
+                break
+            }
+        }
+    }
+    
+    
+    
 // MARK: ORDERS
     func createOrder (order: Order, _ completion: Result<String, String> -> Void) {
         

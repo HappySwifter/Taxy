@@ -169,12 +169,11 @@ extension OrderInfoVC: CLLocationManagerDelegate {
 
 
 extension OrderInfoVC: Rateble {
-    func didRate(value: AnyObject) {
-        if let value = value as? HCSStarRatingView {
-            print(value.value)
-        }
+    func didRate(value: HCSStarRatingView) {
+        print(value.value)
+        guard let driverId = order.driverInfo.userID else { return }
+        Networking.instanse.rateDriver(driverId, value: Int(value.value))
     }
-    
     func popupControllerDidDismiss() {
         self.timer?.invalidate()
         self.navigationController?.popViewControllerAnimated(true)
