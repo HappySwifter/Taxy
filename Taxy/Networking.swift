@@ -323,8 +323,8 @@ final class Networking {
             return
         }
         let parameters = [
-            "id" : id,
-            "UserId" : orderId
+            "UserId" : id,
+            "Id" : orderId
         ]
         🙏(.POST, url: mainUrl + orderString + ServerMethods.RejectOrder.rawValue, params: parameters) { result in
             

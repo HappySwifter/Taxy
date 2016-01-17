@@ -13,35 +13,35 @@ class Bot {
     
     func createUser(info: UserProfile, handler: String -> Void) {
         
-        let loginInfo = Login()
-//        let userProfile = UserProfile()
+//        let loginInfo = Login()
+////        let userProfile = UserProfile()
+//        
+//        loginInfo.phone = String(generateRandomNumber(8))
+//        Networking.instanse.getSms(loginInfo) { result in
+//            
+//            switch result {
+//            case .Error(let error):
+//                Popup.instanse.showError("", message: error)
+//            case .Response(let data):
+//                loginInfo.pincode = "11111"
+//                loginInfo.id = data
+//                Networking.instanse.checkPincode(loginInfo) { result in
+//                    
+//                    LocalData.instanse.saveUserID(loginInfo.id!)
+//                    Networking.instanse.updateProfile(info) { status in
+//                        switch result {
+//                        case .Response(_):
+//                            handler(loginInfo.id!)
+//                        default:
+//                            break
+//                        }
+//                        
+//                    }
+//                }
+//            }
         
-        loginInfo.phone = String(generateRandomNumber(8))
-        Networking.instanse.getSms(loginInfo) { result in
             
-            switch result {
-            case .Error(let error):
-                Popup.instanse.showError("", message: error)
-            case .Response(let data):
-                loginInfo.pincode = "11111"
-                loginInfo.id = data
-                Networking.instanse.checkPincode(loginInfo) { result in
-                    
-                    LocalData.instanse.saveUserID(loginInfo.id!)
-                    Networking.instanse.updateProfile(info) { status in
-                        switch result {
-                        case .Response(_):
-                            handler(loginInfo.id!)
-                        default:
-                            break
-                        }
-                        
-                    }
-                }
-            }
-            
-            
-        }
+//        }
     }
     
     

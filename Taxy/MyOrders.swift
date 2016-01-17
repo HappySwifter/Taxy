@@ -17,6 +17,8 @@ class MyOrders: UITableViewController, SegueHandlerType {
     
     var orders = [Order]()
     var selectedOrder: Order?
+    var timer: NSTimer?
+
     enum SegueIdentifier: String {
         case ShowOrderDetailsSegue
     }
@@ -28,25 +30,35 @@ class MyOrders: UITableViewController, SegueHandlerType {
         refresh.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
         tableView.addSubview(refresh)
         setupMenuButtons()
-        loadOrders(0)
         self.title = "Заказы"
         if let selectedOrder = selectedOrder {
             performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: selectedOrder)
         }
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        timer?.invalidate()
+        timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "loadOrders", userInfo: nil, repeats: true)
+        timer!.fire()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        timer?.invalidate()
+    }
 
     
     func refresh(control: UIRefreshControl) {
         control.endRefreshing()
-        loadOrders(0)
+        loadOrders()
     }
     
     
-    func loadOrders(type: Int) {
-        Helper().showLoading("Загрузка заказов")
-        Networking.instanse.getOrders(type) { [weak self] result in
-            Helper().hideLoading()
+    func loadOrders() {
+//        Helper().showLoading("Загрузка заказов")
+        Networking.instanse.getOrders(0) { [weak self] result in
+//            Helper().hideLoading()
             switch result {
             case .Error(let error):
                 Popup.instanse.showError("", message: error)

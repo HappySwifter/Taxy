@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class Login {
+struct Login {
     
 //    static let sharedInstance = Login()
     var phone: String?

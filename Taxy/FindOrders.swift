@@ -9,12 +9,10 @@
 import Foundation
 import BTNavigationDropdownMenu
 
-class FindOrders: UITableViewController, SegueHandlerType {
+class FindOrders: UITableViewController {
     
-    enum SegueIdentifier: String {
-        case ShowOrderDetailsSegue
-    }
     var timer: NSTimer?
+    var mainOrdersTimer: NSTimer?
     var selectedType: Int = 1
     var orders = [Order]()
 
@@ -26,7 +24,7 @@ class FindOrders: UITableViewController, SegueHandlerType {
         self.navigationItem.titleView = menuView
         menuView.didSelectItemAtIndexHandler = { [weak self] indexPath in
             self?.selectedType = indexPath + 1
-            self?.loadOrders(indexPath + 1)
+            self?.loadOrders()
         }
     }
     
@@ -35,12 +33,32 @@ class FindOrders: UITableViewController, SegueHandlerType {
         timer?.invalidate()
         timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "getOnlyMyOrder", userInfo: nil, repeats: true)
         timer!.fire()
+        
+        mainOrdersTimer?.invalidate()
+        mainOrdersTimer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "loadOrders", userInfo: nil, repeats: true)
+        mainOrdersTimer!.fire()
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         timer?.invalidate()
+        mainOrdersTimer?.invalidate()
     }
+    
+    func loadOrders() {
+        Helper().showLoading("Загрузка заказов")
+        Networking.instanse.getOrders(selectedType, find: true) { [weak self] result in
+            Helper().hideLoading()
+            switch result {
+            case .Error(let error):
+                Popup.instanse.showError("", message: error)
+            case .Response(let data):
+                self?.orders = data
+                self?.tableView.reloadData()
+            }
+        }
+    }
+    
     
     func getOnlyMyOrder() {
         Networking.instanse.getOnlyMyOrder { result in
@@ -83,27 +101,11 @@ class FindOrders: UITableViewController, SegueHandlerType {
                     contr.selectedOrder = order
                     let nav = NavigationContr(rootViewController: contr)
                     self?.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
-                    
-//                    self?.performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: order)
                 }
             }
         }
     }
     
-    
-    func loadOrders(type: Int) {
-        Helper().showLoading("Загрузка заказов")
-        Networking.instanse.getOrders(type, find: true) { [weak self] result in
-            Helper().hideLoading()
-            switch result {
-            case .Error(let error):
-                Popup.instanse.showError("", message: error)
-            case .Response(let data):
-                self?.orders = data
-                self?.tableView.reloadData()
-            }
-        }
-    }
 }
 
 
@@ -128,13 +130,8 @@ extension FindOrders {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let order = orders[indexPath.row]
-
-//        if order.orderStatus == 1 && order.driverInfo.userID == UserProfile.sharedInstance.userID {
-//            // заказ принят и принят этим водителем
-//            performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: order)
-//        } else
             if order.orderStatus == 0 {
-            acceptOrder(order)
+                acceptOrder(order)
         }
     }
     
