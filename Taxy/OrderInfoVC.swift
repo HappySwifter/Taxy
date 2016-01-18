@@ -24,6 +24,7 @@ class OrderInfoVC: UIViewController {
 
     var order = Order()
     var timer: NSTimer?
+    var raiting: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,8 +84,7 @@ class OrderInfoVC: UIViewController {
             default:
                 break
             }
-            self?.timer?.invalidate()
-            self?.navigationController?.popViewControllerAnimated(true)
+            self?.dismissMe()
         }
     }
 
@@ -98,6 +98,11 @@ class OrderInfoVC: UIViewController {
             }
 
         }
+    }
+    
+    func dismissMe() {
+        self.timer?.invalidate()
+        self.navigationController?.popViewControllerAnimated(true)
     }
 }
 
@@ -171,12 +176,12 @@ extension OrderInfoVC: CLLocationManagerDelegate {
 extension OrderInfoVC: Rateble {
     func didRate(value: HCSStarRatingView) {
         print(value.value)
-        guard let driverId = order.driverInfo.userID else { return }
-        Networking.instanse.rateDriver(driverId, value: Int(value.value))
+        raiting = Int(value.value)
     }
     func popupControllerDidDismiss() {
-        self.timer?.invalidate()
-        self.navigationController?.popViewControllerAnimated(true)
+        guard let driverId = order.driverInfo.userID else { return }
+        Networking.instanse.rateDriver(driverId, value: raiting)
+        dismissMe()
     }
     
 }
