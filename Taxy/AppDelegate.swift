@@ -22,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let googleMapsApiKey = "AIzaSyAbOCfPpyuBB_Ki4KIbRt45IcXQYowiEwQ"
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        BuddyBuildSDK.setup()
+        
         SVProgressHUD.setDefaultMaskType(.Clear)
         
         //        let driver = UserProfile()

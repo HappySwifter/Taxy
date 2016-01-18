@@ -51,7 +51,9 @@
 		02ED03851C4A62A700C97B5E /* MenuCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ED03841C4A62A700C97B5E /* MenuCells.swift */; };
 		02ED038C1C4A781A00C97B5E /* placeholderImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 02ED038B1C4A781A00C97B5E /* placeholderImage.jpg */; };
 		02F163AA1C270F180065409B /* Bot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F163A91C270F180065409B /* Bot.swift */; };
+		13B5B46BB7726DE4450728BC /* BuddyBuildSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD2256678ABA38C9730CFD4A /* BuddyBuildSDK.framework */; };
 		1A16BC777C7C14235A42C6D1 /* Pods_Taxy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F51B115C652352B6F2F0B59 /* Pods_Taxy.framework */; };
+		25FB41DB662C879DC4F6F151 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E3B4F76A42F21FB7244773 /* AssetsLibrary.framework */; };
 		6A0D5D2B1C195537007AF100 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D5D2A1C195537007AF100 /* Constants.swift */; };
 		6A0D5D2D1C19A6DB007AF100 /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D5D2C1C19A6DB007AF100 /* LocalData.swift */; };
 		6A3D4E2E1C29761F008AB2ED /* SegueHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3D4E2D1C29761F008AB2ED /* SegueHandler.swift */; };
@@ -75,6 +77,9 @@
 		6AE2E2461C48C8B0002E70C5 /* TwoButtonsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE2E2451C48C8B0002E70C5 /* TwoButtonsCell.swift */; };
 		6AE2E2481C48CE6B002E70C5 /* ButtonsRowFormer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE2E2471C48CE6B002E70C5 /* ButtonsRowFormer.swift */; };
 		6AE2E24A1C48EC6C002E70C5 /* Rateble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE2E2491C48EC6C002E70C5 /* Rateble.swift */; };
+		AEFBA911B05DCA7504CF887E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E4F777404262DF48472D743 /* CoreTelephony.framework */; };
+		BBFF3878A712C526DA3A545B /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0147B5097D8AD0B7891B06 /* CoreText.framework */; };
+		E60234E602572D7380443565 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 993342AC62502FB85EDE2D54 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -137,6 +142,7 @@
 		02ED03841C4A62A700C97B5E /* MenuCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuCells.swift; path = ../../Cells/MenuCells.swift; sourceTree = "<group>"; };
 		02ED038B1C4A781A00C97B5E /* placeholderImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = placeholderImage.jpg; sourceTree = "<group>"; };
 		02F163A91C270F180065409B /* Bot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bot.swift; sourceTree = "<group>"; };
+		2E4F777404262DF48472D743 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		4F51B115C652352B6F2F0B59 /* Pods_Taxy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Taxy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B21D3E9309505F882570B78 /* Pods-Taxy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taxy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Taxy/Pods-Taxy.release.xcconfig"; sourceTree = "<group>"; };
 		6A0D5D2A1C195537007AF100 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -165,7 +171,11 @@
 		6AE2E2451C48C8B0002E70C5 /* TwoButtonsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoButtonsCell.swift; sourceTree = "<group>"; };
 		6AE2E2471C48CE6B002E70C5 /* ButtonsRowFormer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonsRowFormer.swift; sourceTree = "<group>"; };
 		6AE2E2491C48EC6C002E70C5 /* Rateble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Rateble.swift; path = Taxy/Rateble.swift; sourceTree = "<group>"; };
+		72E3B4F76A42F21FB7244773 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		7A0147B5097D8AD0B7891B06 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		993342AC62502FB85EDE2D54 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B8F3AFE4EC227EFBF51806D0 /* Pods-Taxy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taxy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Taxy/Pods-Taxy.debug.xcconfig"; sourceTree = "<group>"; };
+		FD2256678ABA38C9730CFD4A /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddyBuildSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +186,11 @@
 				028F6EAE1C0AE41D0052C4B9 /* CoreLocation.framework in Frameworks */,
 				028F6EAC1C0AE1860052C4B9 /* MapKit.framework in Frameworks */,
 				1A16BC777C7C14235A42C6D1 /* Pods_Taxy.framework in Frameworks */,
+				13B5B46BB7726DE4450728BC /* BuddyBuildSDK.framework in Frameworks */,
+				25FB41DB662C879DC4F6F151 /* AssetsLibrary.framework in Frameworks */,
+				BBFF3878A712C526DA3A545B /* CoreText.framework in Frameworks */,
+				AEFBA911B05DCA7504CF887E /* CoreTelephony.framework in Frameworks */,
+				E60234E602572D7380443565 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,6 +399,11 @@
 				028F6EAD1C0AE41D0052C4B9 /* CoreLocation.framework */,
 				028F6EAB1C0AE1860052C4B9 /* MapKit.framework */,
 				4F51B115C652352B6F2F0B59 /* Pods_Taxy.framework */,
+				FD2256678ABA38C9730CFD4A /* BuddyBuildSDK.framework */,
+				72E3B4F76A42F21FB7244773 /* AssetsLibrary.framework */,
+				7A0147B5097D8AD0B7891B06 /* CoreText.framework */,
+				2E4F777404262DF48472D743 /* CoreTelephony.framework */,
+				993342AC62502FB85EDE2D54 /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
