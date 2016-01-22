@@ -307,29 +307,58 @@ import Foundation
 //print(shortTime(date))
 
 
- enum Alert {
-    case None, AtTime, Five, Thirty, Hour, Day, Week
-    func title() -> String {
-        switch self {
-        case None: return "None"
-        case AtTime: return "At time of event"
-        case Five: return "5 minutes before"
-        case Thirty: return "30 minutes before"
-        case Hour: return "1 hour before"
-        case Day: return "1 day before"
-        case Week: return "1 week before"
-        }
+
+
+
+
+
+
+// enum Alert {
+//    case None, AtTime, Five, Thirty, Hour, Day, Week
+//    func title() -> String {
+//        switch self {
+//        case None: return "None"
+//        case AtTime: return "At time of event"
+//        case Five: return "5 minutes before"
+//        case Thirty: return "30 minutes before"
+//        case Hour: return "1 hour before"
+//        case Day: return "1 day before"
+//        case Week: return "1 week before"
+//        }
+//    }
+//    static func values() -> [Alert] {
+//        return [AtTime, Five, Thirty, Hour, Day, Week]
+//    }
+//}
+//
+// let dd: Alert = .AtTime
+//
+//print(Alert.None.title())
+
+
+
+
+protocol Doublable {
+    func twice () -> Self
+}
+
+
+extension Int: Doublable {
+    func twice() -> Int {
+        return self * 2
     }
-    static func values() -> [Alert] {
-        return [AtTime, Five, Thirty, Hour, Day, Week]
+}
+extension String: Doublable {
+    func twice() -> String {
+        return self + self
     }
 }
 
- let dd: Alert = .AtTime
-
-print(Alert.None.title())
 
 
+func fourTimes<T: Doublable>(a: T) -> T {
+    return a.twice().twice().twice()
+}
 
-
+print(fourTimes("ddd"))
 
