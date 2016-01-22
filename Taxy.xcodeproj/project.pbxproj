@@ -71,6 +71,7 @@
 		6A624B8C1C073FBC00404B2D /* MyOrders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A624B8B1C073FBC00404B2D /* MyOrders.swift */; };
 		6A6DF1671C2D2E4B00561DA4 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6DF1661C2D2E4B00561DA4 /* City.swift */; };
 		6A6DF16C1C2D5E5F00561DA4 /* OrderInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6DF16B1C2D5E5F00561DA4 /* OrderInfoVC.swift */; };
+		6A969A821C52589700C598B8 /* OneButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A969A811C52589700C598B8 /* OneButtonCell.xib */; };
 		6AC187EB1C08363A00489557 /* EnterPhoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC187EA1C08363A00489557 /* EnterPhoneVC.swift */; };
 		6AC187EE1C0847E800489557 /* NavigationContr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC187ED1C0847E800489557 /* NavigationContr.swift */; };
 		6AE2E2441C48C848002E70C5 /* TwoButtonsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6AE2E2431C48C848002E70C5 /* TwoButtonsCell.xib */; };
@@ -99,8 +100,8 @@
 		0203F6D71C1F15E100807C1D /* RulesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulesVC.swift; sourceTree = "<group>"; };
 		0203F6DE1C1F2F7500807C1D /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		02450A0F1C418C4700C74F21 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
-		027CDAE81C4987820059EA27 /* search_on_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_on_map.png; sourceTree = "<group>"; };
-		027CDAEA1C49883B0059EA27 /* find_address.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = find_address.png; sourceTree = "<group>"; };
+		027CDAE81C4987820059EA27 /* search_on_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = search_on_map.png; path = ../search_on_map.png; sourceTree = "<group>"; };
+		027CDAEA1C49883B0059EA27 /* find_address.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = find_address.png; path = ../find_address.png; sourceTree = "<group>"; };
 		027CDAEC1C4A0ED70059EA27 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		027CDAEE1C4A19B20059EA27 /* FindOrders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindOrders.swift; sourceTree = "<group>"; };
 		028F6EAB1C0AE1860052C4B9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -137,10 +138,10 @@
 		028F6F9C1C1738040052C4B9 /* FormSegmentedCellNoTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormSegmentedCellNoTitle.swift; sourceTree = "<group>"; };
 		028F6F9E1C1881C70052C4B9 /* DriverRegistrationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverRegistrationVC.swift; sourceTree = "<group>"; };
 		0291016F1C1DA0C80000BD23 /* TaxyRequestingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxyRequestingVC.swift; sourceTree = "<group>"; };
-		02A7DA231C48285D005FCD75 /* taxy.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = taxy.jpg; sourceTree = "<group>"; };
+		02A7DA231C48285D005FCD75 /* taxy.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = taxy.jpg; path = ../taxy.jpg; sourceTree = "<group>"; };
 		02C0B5A61C2195C000AE6919 /* LoadingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingVC.swift; sourceTree = "<group>"; };
 		02ED03841C4A62A700C97B5E /* MenuCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuCells.swift; path = ../../Cells/MenuCells.swift; sourceTree = "<group>"; };
-		02ED038B1C4A781A00C97B5E /* placeholderImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = placeholderImage.jpg; sourceTree = "<group>"; };
+		02ED038B1C4A781A00C97B5E /* placeholderImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = placeholderImage.jpg; path = ../placeholderImage.jpg; sourceTree = "<group>"; };
 		02F163A91C270F180065409B /* Bot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bot.swift; sourceTree = "<group>"; };
 		2E4F777404262DF48472D743 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		4F51B115C652352B6F2F0B59 /* Pods_Taxy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Taxy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -165,6 +166,7 @@
 		6A624B8B1C073FBC00404B2D /* MyOrders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyOrders.swift; sourceTree = "<group>"; };
 		6A6DF1661C2D2E4B00561DA4 /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		6A6DF16B1C2D5E5F00561DA4 /* OrderInfoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderInfoVC.swift; sourceTree = "<group>"; };
+		6A969A811C52589700C598B8 /* OneButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OneButtonCell.xib; sourceTree = "<group>"; };
 		6AC187EA1C08363A00489557 /* EnterPhoneVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterPhoneVC.swift; sourceTree = "<group>"; };
 		6AC187ED1C0847E800489557 /* NavigationContr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationContr.swift; sourceTree = "<group>"; };
 		6AE2E2431C48C848002E70C5 /* TwoButtonsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwoButtonsCell.xib; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				028F6F7A1C10B4E80052C4B9 /* ProfileImageCell.xib */,
 				028F6F7B1C10B4E80052C4B9 /* ProfileLabelCell.xib */,
 				6AE2E2431C48C848002E70C5 /* TwoButtonsCell.xib */,
+				6A969A811C52589700C598B8 /* OneButtonCell.xib */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -271,6 +274,10 @@
 		028F6F901C14BC080052C4B9 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				027CDAE81C4987820059EA27 /* search_on_map.png */,
+				02ED038B1C4A781A00C97B5E /* placeholderImage.jpg */,
+				02A7DA231C48285D005FCD75 /* taxy.jpg */,
+				027CDAEA1C49883B0059EA27 /* find_address.png */,
 				6A624B3A1C06E52C00404B2D /* Assets.xcassets */,
 				028F6F101C0B44430052C4B9 /* Images.xcassets */,
 			);
@@ -326,14 +333,9 @@
 		6A624B241C06E52B00404B2D = {
 			isa = PBXGroup;
 			children = (
-				02ED038B1C4A781A00C97B5E /* placeholderImage.jpg */,
-				02A7DA231C48285D005FCD75 /* taxy.jpg */,
-				027CDAEA1C49883B0059EA27 /* find_address.png */,
 				6A624B341C06E52C00404B2D /* Main.storyboard */,
-				027CDAE81C4987820059EA27 /* search_on_map.png */,
 				6A624B301C06E52C00404B2D /* AppDelegate.swift */,
 				02450A0F1C418C4700C74F21 /* MyPlayground.playground */,
-				02F163A91C270F180065409B /* Bot.swift */,
 				028F6F821C10BBDC0052C4B9 /* Networking.swift */,
 				6A0D5D2A1C195537007AF100 /* Constants.swift */,
 				6A0D5D2C1C19A6DB007AF100 /* LocalData.swift */,
@@ -344,6 +346,7 @@
 				6A624B2E1C06E52C00404B2D /* Products */,
 				712D13B9CBF02A5188EEC500 /* Pods */,
 				B5C47963189B4ADC0872D01D /* Frameworks */,
+				6A969A801C52561400C598B8 /* To delete */,
 				028F6EBC1C0B3B7E0052C4B9 /* Taxy-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
@@ -382,6 +385,14 @@
 			);
 			name = "Menu helpers";
 			path = TableViewHelpers;
+			sourceTree = "<group>";
+		};
+		6A969A801C52561400C598B8 /* To delete */ = {
+			isa = PBXGroup;
+			children = (
+				02F163A91C270F180065409B /* Bot.swift */,
+			);
+			name = "To delete";
 			sourceTree = "<group>";
 		};
 		712D13B9CBF02A5188EEC500 /* Pods */ = {
@@ -474,6 +485,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A969A821C52589700C598B8 /* OneButtonCell.xib in Resources */,
 				028F6F0D1C0B43670052C4B9 /* MarkerInfoView.xib in Resources */,
 				028F6F111C0B44430052C4B9 /* Images.xcassets in Resources */,
 				02A7DA241C48285D005FCD75 /* taxy.jpg in Resources */,

@@ -149,25 +149,43 @@ class MakeOrderVC: FormViewController {
                 self.orderInfo.toPlace = $0
         }
         
-        let findOnMapRow = LabelRowFormer<CenterLabelCell>() {
-            $0.textLabel?.text = "Найти на карте"
-            $0.textLabel?.font = UIFont.light_Small()
-            $0.textLabel?.textAlignment = .Center
-            $0.textLabel?.textColor = .formerSubColor()
-            }.configure {
-                $0.rowHeight = 30
+//        let findOnMapRow = LabelRowFormer<CenterLabelCell>() {
+//            $0.textLabel?.text = "Найти на карте"
+//            $0.textLabel?.font = UIFont.light_Small()
+//            $0.textLabel?.textAlignment = .Center
+//            $0.textLabel?.textColor = .formerSubColor()
+//            }.configure {
+//                $0.rowHeight = 30
+//            }
+//            .onSelected { [weak self] _ in
+//                self?.former.deselect(false)
+//                let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+//                if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MapSTID.rawValue) as? MapViewController {
+//                    contr.initiator = NSStringFromClass((self?.dynamicType)!)
+//                    contr.onSelected = {
+//                        self?.orderInfo.toPlace = $0.address
+//                    }
+//                    self?.navigationController?.pushViewController(contr, animated: true)
+//                }
+//        }
+        
+        let findOnMapRow = ButtonsRowFormer<TwoButtonsCell>(instantiateType: .Nib(nibName: "OneButtonCell"))
+            .configure {
+                $0.rowHeight = 40
             }
-            .onSelected { [weak self] _ in
+            .onButtonPressed { [weak self] index in
                 self?.former.deselect(false)
                 let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
                 if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MapSTID.rawValue) as? MapViewController {
-                    contr.initiator = NSStringFromClass((self?.dynamicType)!)
+                    contr.initiator = String(MakeOrderVC)// NSStringFromClass((self?.dynamicType)!)
                     contr.onSelected = {
                         self?.orderInfo.toPlace = $0.address
                     }
                     self?.navigationController?.pushViewController(contr, animated: true)
                 }
         }
+        
+        
         
         self.toRow = toRow
         //////////////////////////////

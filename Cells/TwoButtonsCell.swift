@@ -24,12 +24,6 @@ final class TwoButtonsCell: UITableViewCell, ButtonsFormableRow {
         button2?.titleLabel?.font = UIFont.light_Small()
     }
     
-//    func formButton1() -> UIButton {
-//        return button1
-//    }
-//    func formButton2() -> UIButton {
-//        return button2
-//    }
     func formButtons() -> [UIButton] {
         return [button1, button2].flatMap { $0 }
     }

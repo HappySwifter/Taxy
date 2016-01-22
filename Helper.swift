@@ -12,24 +12,7 @@ import SwiftLocation
 import SVProgressHUD
 
 struct Helper {
-    
-    
-
-    
-    
-    
-    
-    
-/////////// DATE ////////////
-//    func dateFromString(dateStr: String) -> NSDate? {
-//        let form = NSDateFormatter()
-//        let gmt = NSTimeZone(forSecondsFromGMT: 0)
-//        form.timeZone = gmt
-//        form.dateFormat = "dd.MM.yyyy HH:mm:ss"
-//        return form.dateFromString(dateStr)
-//    }   
-////////////////////////////
-    
+        
     func showLoading(title: String? = "Загрузка") {
         SVProgressHUD.showWithStatus(title)
     }

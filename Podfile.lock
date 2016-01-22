@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (3.1.4)
+  - Alamofire (3.1.5)
   - BTNavigationDropdownMenu (0.2.1)
   - CCMRadarView (1.0.2)
   - CNPPopupController (0.3.1)
@@ -13,7 +13,7 @@ PODS:
   - Former (1.1.0)
   - GoogleMaps (1.11.1)
   - HCSStarRatingView (1.4.3)
-  - netfox (1.7.1)
+  - netfox (1.7.2)
   - OpinionzAlertView (0.3.1)
   - SVProgressHUD (1.1.3)
   - SwiftLocation (0.2.0)
@@ -45,7 +45,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  Alamofire: fbc829692f351fa1d8a31dd75fd7f7f56fea31fb
+  Alamofire: 5f730ba29fd113b7ddd71c1e65d0c630acf5d7b0
   BTNavigationDropdownMenu: 9cf4060162c96510ee27c388412e28678320cdc0
   CCMRadarView: 6bff4c5c3d05d627664a4b398a508d051a4a94be
   CNPPopupController: 67dc2ca5a3f88cd49a27bb1b0aeb78a24d423d79
@@ -54,7 +54,7 @@ SPEC CHECKSUMS:
   Former: 5b2ac5acdc8b059e1346d048c26a9d5dbd751c55
   GoogleMaps: c947160008f414c66707a5ea60f35e92055c7670
   HCSStarRatingView: bada6ae98258c3019531e0218030e2d5ad10765a
-  netfox: 946ee64919f0413b9e09ffcbf2ac41afb454feb5
+  netfox: ab995a8327995b847a7b7c1d83c574e0d4aacb25
   OpinionzAlertView: 213cf7fa544091962ebd9526ff2e7e120b13c149
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   SwiftLocation: ea78ae4a822581bde7379d98c8513273723c8840
