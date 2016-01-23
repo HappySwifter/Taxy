@@ -47,6 +47,7 @@
 		028F6F9F1C1881C70052C4B9 /* DriverRegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028F6F9E1C1881C70052C4B9 /* DriverRegistrationVC.swift */; };
 		029101701C1DA0C80000BD23 /* TaxyRequestingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0291016F1C1DA0C80000BD23 /* TaxyRequestingVC.swift */; };
 		02A7DA241C48285D005FCD75 /* taxy.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 02A7DA231C48285D005FCD75 /* taxy.jpg */; };
+		02AA8D3D1C5352C700D85370 /* Issues resolver in Resources */ = {isa = PBXBuildFile; fileRef = 02AA8D3C1C5352C700D85370 /* Issues resolver */; };
 		02C0B5A71C2195C000AE6919 /* LoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0B5A61C2195C000AE6919 /* LoadingVC.swift */; };
 		02ED03851C4A62A700C97B5E /* MenuCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ED03841C4A62A700C97B5E /* MenuCells.swift */; };
 		02ED038C1C4A781A00C97B5E /* placeholderImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 02ED038B1C4A781A00C97B5E /* placeholderImage.jpg */; };
@@ -139,6 +140,7 @@
 		028F6F9E1C1881C70052C4B9 /* DriverRegistrationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverRegistrationVC.swift; sourceTree = "<group>"; };
 		0291016F1C1DA0C80000BD23 /* TaxyRequestingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxyRequestingVC.swift; sourceTree = "<group>"; };
 		02A7DA231C48285D005FCD75 /* taxy.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = taxy.jpg; path = ../taxy.jpg; sourceTree = "<group>"; };
+		02AA8D3C1C5352C700D85370 /* Issues resolver */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Issues resolver"; sourceTree = "<group>"; };
 		02C0B5A61C2195C000AE6919 /* LoadingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingVC.swift; sourceTree = "<group>"; };
 		02ED03841C4A62A700C97B5E /* MenuCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuCells.swift; path = ../../Cells/MenuCells.swift; sourceTree = "<group>"; };
 		02ED038B1C4A781A00C97B5E /* placeholderImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = placeholderImage.jpg; path = ../placeholderImage.jpg; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 				6A624B301C06E52C00404B2D /* AppDelegate.swift */,
 				02450A0F1C418C4700C74F21 /* MyPlayground.playground */,
 				028F6F821C10BBDC0052C4B9 /* Networking.swift */,
+				02AA8D3C1C5352C700D85370 /* Issues resolver */,
 				6A0D5D2A1C195537007AF100 /* Constants.swift */,
 				6A0D5D2C1C19A6DB007AF100 /* LocalData.swift */,
 				0203F6DE1C1F2F7500807C1D /* Helper.swift */,
@@ -500,6 +503,7 @@
 				028F6F811C10B4E80052C4B9 /* ProfileLabelCell.xib in Resources */,
 				028F6F7C1C10B4E80052C4B9 /* ColorListCell.xib in Resources */,
 				028F6F801C10B4E80052C4B9 /* ProfileImageCell.xib in Resources */,
+				02AA8D3D1C5352C700D85370 /* Issues resolver in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

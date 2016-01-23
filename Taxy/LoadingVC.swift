@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class LoadingVC: UIViewController, CLLocationManagerDelegate {
+final class LoadingVC: UIViewController, CLLocationManagerDelegate {
     
     let manager =  CLLocationManager()
     @IBOutlet weak var reloadButton: UIButton!
@@ -39,7 +39,7 @@ class LoadingVC: UIViewController, CLLocationManagerDelegate {
             GeoSender.instanse.startSending()
             makeRequests()
         case .Restricted, .Denied:
-            Popup.instanse.showError("Геолокация выключена", message: "Для работы приложения, вам необходимо включить геолокацию")
+             showGeoError()
         }
     }
     
@@ -101,16 +101,25 @@ class LoadingVC: UIViewController, CLLocationManagerDelegate {
             GeoSender.instanse.startSending()
             makeRequests()
         case .Restricted, .Denied:
-            Popup.instanse.showError("Геолокация выключена", message: "Для работы приложения, вам необходимо включить геолокацию")
-
-        case .NotDetermined:
-            Popup.instanse.showInfo("Включите геолокацию", message: "Для работы приложения, вам необходимо включить геолокацию")
+            showGeoError()
+        default:
+            break
+//        case .NotDetermined:
+//            Popup.instanse.showInfo("Включите геолокацию", message: "Для работы приложения, вам необходимо включить геолокацию")
         }
     }
     
 
     @IBAction func reloadTouched(control: UIControl) {
         checkStatus()
+    }
+    
+    func showGeoError() {
+        Popup.instanse.showError("Геолокация выключена", message: "Для работы приложения, вам необходимо включить геолокацию", otherButtons: ["Настройки"]).handler { index in
+            if index == 1 {
+                UIApplication.sharedApplication().openURL(NSURL(string:UIApplicationOpenSettingsURLString)!)
+            }
+        }
     }
     
 }

@@ -1,0 +1,11 @@
+*** netox wont show requests body ***
+
+Alamofire - Manager.swift -  public func request()
+
+add
+
+if let bodyData = encodedURLRequest.HTTPBody {
+NSURLProtocol.setProperty(bodyData, forKey: "NFXBodyData", inRequest: encodedURLRequest)
+}
+
+***
