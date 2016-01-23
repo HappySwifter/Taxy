@@ -66,12 +66,11 @@ class FindOrders: UITableViewController {
             case .Error(let error):
                 Popup.instanse.showError("", message: error)
             case .Response(let data):
-                guard let order = data.first, let fromPlace = order.fromPlace, let price = order.price, let id = order.orderID else { return }
-                
-                let message = fromPlace + "\n" + String(price)
-                Popup.instanse.showQuestion("Персональный заказ", message: message, otherButtons: ["Принять"]).handler{ [weak self]
-                    index in
-                    if index == 0 {
+                guard let order = data.first, let fromPlace = order.fromPlace, let toPlace = order.toPlace, let price = order.price, let id = order.orderID else { return }
+                let title = "Персональный заказ - \(String(price))руб"
+                let message = fromPlace + "  ->  " + toPlace
+                Popup.instanse.showQuestion(title, message: message, otherButtons: ["Принять"]).handler{ [weak self] ind in
+                    if ind == 0 {
                         Networking.instanse.rejectOrder(id)
                     } else {
                         self?.acceptOrder(order)

@@ -469,7 +469,8 @@ final class Networking {
         🙏(.POST, url: url, params: parameters) { result in
             switch result {
             case .Error(let error):
-                Popup.instanse.showError("", message: error)
+                debugPrint(error)
+//                Popup.instanse.showError("", message: error)
             default:
                 break
             }
@@ -491,10 +492,11 @@ final class Networking {
                             if errorCode == 200 {
                                 completion(Result.Response(json[Data]))
                             } else {
-                                if errorCode == 404 {
-                                    NSNotificationCenter.defaultCenter().postNotificationName("showLoagingVCNotification", object: nil)
-                                    return
-                                }
+//                                if errorCode == 404 {
+//                                    LocalData.instanse.deleteUserID()
+//                                    NSNotificationCenter.defaultCenter().postNotificationName("showLoagingVCNotification", object: nil)
+//                                    return
+//                                }
                                 let errorDesc = errorDecription().getErrorName(errorCode)
                                 completion(Result.Error(errorDesc))
                             }

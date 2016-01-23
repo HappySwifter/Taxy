@@ -43,7 +43,7 @@ final class Popup {
     private func show(title: String, message: String, type: UInt, otherButtonTitles: [String]) -> Void {
         dismiss()
         handler = nil
-        alert = OpinionzAlertView(title: title, message: message, cancelButtonTitle: "OK", otherButtonTitles: otherButtonTitles, usingBlockWhenTapButton: { alert, index in
+        alert = OpinionzAlertView(title: title, message: message, cancelButtonTitle: "Закрыть", otherButtonTitles: otherButtonTitles, usingBlockWhenTapButton: { alert, index in
             self.handler?(index)
         })
         

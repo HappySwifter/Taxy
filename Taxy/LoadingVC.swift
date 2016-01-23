@@ -55,6 +55,7 @@ final class LoadingVC: UIViewController, CLLocationManagerDelegate {
             self?.reloadButton.hidden = false
             switch result {
             case .Error(let error):
+                debugPrint(error)
                 Popup.instanse.showError("", message: error)
                 
             case .Response(let cities):

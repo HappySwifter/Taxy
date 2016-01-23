@@ -23,7 +23,7 @@ class LocalData {
     var getUserID: String? = {
         let def = NSUserDefaults.standardUserDefaults()
         let userId = def.objectForKey("userID") as? String
-        debugPrint("getting userID \(userId)")
+//        debugPrint("getting userID \(userId)")
 
         return userId
     }()

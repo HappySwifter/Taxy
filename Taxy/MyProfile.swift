@@ -37,7 +37,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
         super.viewDidLoad()
         loadProfile()
         setupMenuButtons()
-        tableView.contentOffset = CGPointMake(0, 20)
+//        tableView.contentOffset = CGPointMake(0, 20)
     }
     
     
