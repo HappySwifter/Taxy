@@ -99,7 +99,7 @@ final class DriverRegistrationVC: FormViewController {
         
         
         let childChairRow = SwitchRowFormer<FormSwitchCell>() {
-            $0.titleLabel.text = "Детское кресло?"
+            $0.titleLabel.text = "Детское кресло"
             $0.titleLabel.textColor = .formerColor()
             $0.titleLabel.font = UIFont.bold_Med()
             $0.switchButton.onTintColor = .formerSubColor()

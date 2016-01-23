@@ -48,7 +48,9 @@ extension Order {
         }
     }
     
-    func getOrdersFomResponse(json: JSON) -> [Order] {
+    func getOrdersFomResponse(json: JSON, caller: String = __FUNCTION__) -> [Order] {
+        debugPrint(caller, "called \(__FUNCTION__)")
+        
         var orders = [Order]()
         
         

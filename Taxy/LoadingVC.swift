@@ -16,6 +16,9 @@ final class LoadingVC: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         disableMenu()
+        title = "Загрузкаb"
+        view.backgroundColor = .lightGrayColor()
+        reloadButton.backgroundColor = .mainOrangeColor()
     }
     
     deinit {

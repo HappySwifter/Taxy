@@ -48,6 +48,7 @@
 		029101701C1DA0C80000BD23 /* TaxyRequestingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0291016F1C1DA0C80000BD23 /* TaxyRequestingVC.swift */; };
 		02A7DA241C48285D005FCD75 /* taxy.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 02A7DA231C48285D005FCD75 /* taxy.jpg */; };
 		02AA8D3D1C5352C700D85370 /* Issues resolver in Resources */ = {isa = PBXBuildFile; fileRef = 02AA8D3C1C5352C700D85370 /* Issues resolver */; };
+		02AA8D3F1C538E7C00D85370 /* loaging_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 02AA8D3E1C538E7B00D85370 /* loaging_image.jpg */; };
 		02C0B5A71C2195C000AE6919 /* LoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0B5A61C2195C000AE6919 /* LoadingVC.swift */; };
 		02ED03851C4A62A700C97B5E /* MenuCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ED03841C4A62A700C97B5E /* MenuCells.swift */; };
 		02ED038C1C4A781A00C97B5E /* placeholderImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 02ED038B1C4A781A00C97B5E /* placeholderImage.jpg */; };
@@ -141,6 +142,7 @@
 		0291016F1C1DA0C80000BD23 /* TaxyRequestingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxyRequestingVC.swift; sourceTree = "<group>"; };
 		02A7DA231C48285D005FCD75 /* taxy.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = taxy.jpg; path = ../taxy.jpg; sourceTree = "<group>"; };
 		02AA8D3C1C5352C700D85370 /* Issues resolver */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Issues resolver"; sourceTree = "<group>"; };
+		02AA8D3E1C538E7B00D85370 /* loaging_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = loaging_image.jpg; sourceTree = "<group>"; };
 		02C0B5A61C2195C000AE6919 /* LoadingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingVC.swift; sourceTree = "<group>"; };
 		02ED03841C4A62A700C97B5E /* MenuCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuCells.swift; path = ../../Cells/MenuCells.swift; sourceTree = "<group>"; };
 		02ED038B1C4A781A00C97B5E /* placeholderImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = placeholderImage.jpg; path = ../placeholderImage.jpg; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 		6A624B241C06E52B00404B2D = {
 			isa = PBXGroup;
 			children = (
+				02AA8D3E1C538E7B00D85370 /* loaging_image.jpg */,
 				6A624B341C06E52C00404B2D /* Main.storyboard */,
 				6A624B301C06E52C00404B2D /* AppDelegate.swift */,
 				02450A0F1C418C4700C74F21 /* MyPlayground.playground */,
@@ -498,6 +501,7 @@
 				028F6F7F1C10B4E80052C4B9 /* ProfileFieldCell.xib in Resources */,
 				6A624B361C06E52C00404B2D /* Main.storyboard in Resources */,
 				6AE2E2441C48C848002E70C5 /* TwoButtonsCell.xib in Resources */,
+				02AA8D3F1C538E7C00D85370 /* loaging_image.jpg in Resources */,
 				027CDAEB1C49883B0059EA27 /* find_address.png in Resources */,
 				027CDAE91C4987820059EA27 /* search_on_map.png in Resources */,
 				028F6F811C10B4E80052C4B9 /* ProfileLabelCell.xib in Resources */,

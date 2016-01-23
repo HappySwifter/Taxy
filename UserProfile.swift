@@ -63,8 +63,12 @@ class UserProfile {
                 profile.type = type1
             }
         }
-        if let driverState = userInfo[UserFields.DriverState.rawValue]?.int, let state = DriverState(rawValue: driverState) {
-            profile.driverState = state
+        if let driverState = userInfo[UserFields.DriverState.rawValue]?.int  {
+            if let state = DriverState(rawValue: driverState - 1) {
+                profile.driverState = state
+            } else {
+                debugPrint("cant determine driver state in \(__FUNCTION__) : \(__FILE__)")
+            }
         }
         
         
@@ -73,7 +77,7 @@ class UserProfile {
         profile.userID = userInfo[UserFields.Id.rawValue]?.string
         profile.phoneNumber = userInfo[UserFields.PhoneNumber.rawValue]?.string
         profile.balance = userInfo[UserFields.Balance.rawValue]?.int
-        
+        profile.withChildChair = userInfo[UserFields.WithChildChair.rawValue]?.bool ?? false
         
         
         

@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let googleMapsApiKey = "AIzaSyAbOCfPpyuBB_Ki4KIbRt45IcXQYowiEwQ"
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "showLoagingVC:", name: "showLoagingVCNotification", object: nil)
         BuddyBuildSDK.setup()
         
         SVProgressHUD.setDefaultMaskType(.Clear)
@@ -81,7 +82,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
-    
+    func showLoagingVC(notification: NSNotification? = nil) {
+        let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.LoadingSTID.rawValue)
+        let nav = NavigationContr(rootViewController: contr)
+        self.drawerController.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
+    }
     
     
     
@@ -103,10 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         switch CLLocationManager.authorizationStatus() {
         case .Denied, .Restricted, .NotDetermined:
-            let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-            let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.LoadingSTID.rawValue)
-            let nav = NavigationContr(rootViewController: contr)
-            self.drawerController.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
+            showLoagingVC()
         default: ()
         }
         

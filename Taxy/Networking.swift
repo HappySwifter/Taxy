@@ -105,6 +105,7 @@ final class Networking {
         
         parameters[UserFields.UserType.rawValue] = userProfile.type.rawValue
         parameters[UserFields.DriverState.rawValue] = userProfile.driverState.rawValue + 1
+        parameters[UserFields.WithChildChair.rawValue] = String(userProfile.withChildChair)
         
 //        switch userProfile.type {
 //        case .Driver:
@@ -490,7 +491,11 @@ final class Networking {
                             if errorCode == 200 {
                                 completion(Result.Response(json[Data]))
                             } else {
-                              let errorDesc = errorDecription().getErrorName(errorCode)
+                                if errorCode == 404 {
+                                    NSNotificationCenter.defaultCenter().postNotificationName("showLoagingVCNotification", object: nil)
+                                    return
+                                }
+                                let errorDesc = errorDecription().getErrorName(errorCode)
                                 completion(Result.Error(errorDesc))
                             }
                         }

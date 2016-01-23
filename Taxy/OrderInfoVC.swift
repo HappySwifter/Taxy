@@ -52,18 +52,25 @@ class OrderInfoVC: UIViewController {
     
     
     func updateView() {
-        driverNameLabel.text = order.driverInfo.name
-        driverCarLabel.text = "машина"
+        if UserProfile.sharedInstance.type == .Passenger {
+            driverNameLabel.text = order.driverInfo.name
+            driverCarLabel.text = "машина"
+            if let driverImage = order.driverInfo.image {
+                driverImageLabel.hidden = false
+                driverImageLabel.image = driverImage
+            } else {
+                driverImageLabel.hidden = true
+            }
+        } else {
+            driverNameLabel.text = ""
+            driverCarLabel.text = ""
+            driverImageLabel.hidden = true
+        }
+
+        
         
         if let price = order.price {
             priceLabel.text = String(price)
-        }
-        
-        if let driverImage = order.driverInfo.image {
-            driverImageLabel.hidden = false
-            driverImageLabel.image = driverImage
-        } else {
-            driverImageLabel.hidden = true
         }
         if let fromPlace = order.fromPlace {
             fromLabel.text = fromPlace

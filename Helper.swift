@@ -164,10 +164,10 @@ extension UIViewController {
         self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
     }
 
-    func instantiateVC(contr: UIViewController) {
-        let nav = NavigationContr(rootViewController: contr)
-        self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
-    }
+//    func instantiateVC(contr: UIViewController) {
+//        let nav = NavigationContr(rootViewController: contr)
+//        self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
+//    }
     
     func enableMenu() {
         let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())

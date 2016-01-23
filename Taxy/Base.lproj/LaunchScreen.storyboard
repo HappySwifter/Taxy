@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,8 +16,30 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" alpha="0.55000000000000004" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loaging_image.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="VpG-ad-ad6">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ДОРОЖНОЕ ТАКСИ" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s4j-Ja-2yf">
+                                <rect key="frame" x="118" y="321" width="362" height="181"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="362" id="Ua0-km-Yfs"/>
+                                    <constraint firstAttribute="height" constant="181" id="nKx-AH-Z2X"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="48"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="s4j-Ja-2yf" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" constant="-1" id="EbD-I8-6c7"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="VpG-ad-ad6" secondAttribute="bottom" id="HpJ-gH-9Xb"/>
+                            <constraint firstItem="VpG-ad-ad6" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Ilj-8b-tsI"/>
+                            <constraint firstItem="VpG-ad-ad6" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="l17-2l-V7A"/>
+                            <constraint firstAttribute="trailing" secondItem="VpG-ad-ad6" secondAttribute="trailing" id="sOy-FY-wZS"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="s4j-Ja-2yf" secondAttribute="bottom" constant="98" id="u0K-KP-hGz"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -25,4 +47,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="loaging_image.jpg" width="500" height="750"/>
+    </resources>
 </document>

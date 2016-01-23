@@ -37,6 +37,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
         super.viewDidLoad()
         loadProfile()
         setupMenuButtons()
+        tableView.contentOffset = CGPointMake(0, 20)
     }
     
     
@@ -210,7 +211,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
         // Create SectionFormers
         
         let userTypeSection = SectionFormer(rowFormer: userTypeRow)
-            .set(headerViewFormer: createHeader("Кто вы?"))
+            .set(headerViewFormer: createHeader(" "))
         let imageSection = SectionFormer(rowFormer: imageRow)
             .set(headerViewFormer: createHeader("Фотография профиля"))
         let aboutSection = SectionFormer(rowFormer: nameRow, cityRow, phoneRow, balanceRow, userIDRow)

@@ -247,6 +247,14 @@
                                     <outlet property="toPlaceLabel" destination="wR4-vH-fxx" id="gyf-Jt-EQ4"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="OeG-YN-cDq">
+                                <rect key="frame" x="0.0" y="239" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OeG-YN-cDq" id="Ed3-gu-XuK">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="oXq-dF-jEL" id="fnK-2L-kdV"/>
@@ -256,7 +264,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VJW-xv-844" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2301" y="1679"/>
+            <point key="canvasLocation" x="1853" y="1667"/>
         </scene>
         <!--Order InfoVC-->
         <scene sceneID="fRj-07-i3W">
@@ -420,15 +428,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" alpha="0.75" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loaging_image.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="vUH-vA-NlI">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tyb-NB-XSg">
-                                <rect key="frame" x="200" y="285" width="200" height="30"/>
-                                <color key="backgroundColor" red="0.074288764140233596" green="0.037411849698715943" blue="0.390625" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="200" y="532" width="200" height="36"/>
+                                <color key="backgroundColor" red="0.95815348759999996" green="0.58194634320000005" blue="0.38528627090000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="kkJ-UK-11e"/>
-                                    <constraint firstAttribute="width" constant="200" id="pjM-4M-rgh"/>
+                                    <constraint firstAttribute="height" constant="36" id="HiD-cU-ELv"/>
+                                    <constraint firstAttribute="width" constant="200" id="z7K-7J-zPv"/>
                                 </constraints>
-                                <state key="normal" title="Обновить">
-                                    <color key="titleColor" red="0.74498309661434459" green="0.8790357389502762" blue="0.87662140630138985" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                <state key="normal" title="ОБНОВИТЬ">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="reloadTouched:" destination="BB2-RC-UHe" eventType="touchUpInside" id="Cle-TT-CIE"/>
@@ -437,8 +449,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Tyb-NB-XSg" firstAttribute="centerX" secondItem="Ynb-Wg-5YF" secondAttribute="centerX" id="WUW-3n-wRv"/>
-                            <constraint firstItem="Tyb-NB-XSg" firstAttribute="centerY" secondItem="Ynb-Wg-5YF" secondAttribute="centerY" id="rO3-pT-fL7"/>
+                            <constraint firstItem="vUH-vA-NlI" firstAttribute="leading" secondItem="Ynb-Wg-5YF" secondAttribute="leading" id="MMt-pV-Mjy"/>
+                            <constraint firstItem="abN-tn-UcF" firstAttribute="top" secondItem="Tyb-NB-XSg" secondAttribute="bottom" constant="32" id="N6a-zU-b6v"/>
+                            <constraint firstItem="vUH-vA-NlI" firstAttribute="top" secondItem="Ynb-Wg-5YF" secondAttribute="top" id="NiZ-TH-aVe"/>
+                            <constraint firstItem="abN-tn-UcF" firstAttribute="top" secondItem="vUH-vA-NlI" secondAttribute="bottom" id="QeP-tN-mNf"/>
+                            <constraint firstItem="Tyb-NB-XSg" firstAttribute="centerX" secondItem="Ynb-Wg-5YF" secondAttribute="centerX" id="SpP-6c-hmz"/>
+                            <constraint firstAttribute="trailing" secondItem="vUH-vA-NlI" secondAttribute="trailing" id="aHn-zo-3vt"/>
                         </constraints>
                     </view>
                     <connections>
@@ -836,5 +852,6 @@
     </scenes>
     <resources>
         <image name="icon_me" width="30" height="55"/>
+        <image name="loaging_image.jpg" width="500" height="750"/>
     </resources>
 </document>

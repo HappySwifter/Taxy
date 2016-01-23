@@ -46,9 +46,9 @@ class FindOrders: UITableViewController {
     }
     
     func loadOrders() {
-        Helper().showLoading("Загрузка заказов")
+//        Helper().showLoading("Загрузка заказов")
         Networking.instanse.getOrders(selectedType, find: true) { [weak self] result in
-            Helper().hideLoading()
+//            Helper().hideLoading()
             switch result {
             case .Error(let error):
                 Popup.instanse.showError("", message: error)

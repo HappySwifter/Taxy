@@ -255,7 +255,8 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate,
                 let nav = NavigationContr(rootViewController: contr)
                 evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
             } else {
-                instantiateVC(FindOrders())
+                instantiateSTID(STID.FindOrdersSTID)
+//                instantiateVC(FindOrders())
             }
             
 

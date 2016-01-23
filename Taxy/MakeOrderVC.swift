@@ -96,8 +96,9 @@ class MakeOrderVC: FormViewController {
                 $0.placeholder = "Откуда?"
                 $0.text = orderInfo.fromPlace
                 $0.rowHeight = 44
-            }.onTextChanged {
-                self.orderInfo.fromPlace = $0
+            }.onTextChanged { [weak self] text in
+                self?.orderInfo.fromPlace = text
+                self?.orderInfo.fromPlaceCoordinates = nil
         }
         
 
