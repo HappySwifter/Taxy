@@ -28,6 +28,10 @@ class FindOrders: UITableViewController {
         }
     }
     
+    deinit {
+        debugPrint("\(__FUNCTION__) in \(__FILE__)")
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         timer?.invalidate()
@@ -61,19 +65,24 @@ class FindOrders: UITableViewController {
     
     
     func getOnlyMyOrder() {
-        Networking.instanse.getOnlyMyOrder { result in
+        Networking.instanse.getOnlyMyOrder { [weak self] result in
             switch result {
             case .Error(let error):
-                Popup.instanse.showError("", message: error)
+                debugPrint(error)
             case .Response(let data):
                 guard let order = data.first, let fromPlace = order.fromPlace, let toPlace = order.toPlace, let price = order.price, let id = order.orderID else { return }
-                let title = "Персональный заказ - \(String(price))руб"
-                let message = fromPlace + "  ->  " + toPlace
-                Popup.instanse.showQuestion(title, message: message, otherButtons: ["Принять"]).handler{ [weak self] ind in
-                    if ind == 0 {
-                        Networking.instanse.rejectOrder(id)
-                    } else {
-                        self?.acceptOrder(order)
+                
+                Helper().canAcceptOrder() { can in
+                    if can {
+                        let title = "Персональный заказ - \(String(price))руб"
+                        let message = fromPlace + "  ->  " + toPlace
+                        Popup.instanse.showQuestion(title, message: message, otherButtons: ["Принять"]).handler{ ind in
+                            if ind == 0 {
+                                Networking.instanse.rejectOrder(id)
+                            } else {
+                                self?.acceptOrder(order)
+                            }
+                        }
                     }
                 }
             }
@@ -130,7 +139,15 @@ extension FindOrders {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let order = orders[indexPath.row]
             if order.orderStatus == 0 {
-                acceptOrder(order)
+                Helper().showLoading("Загрузка...")
+                Helper().canAcceptOrder() { [weak self] can in
+                    Helper().hideLoading()
+                    if can {
+                        self?.acceptOrder(order)
+                    } else {
+                        Popup.instanse.showInfo("Внимание", message: "У вас уже есть активный заказ")
+                    }
+                }
         }
     }
     

@@ -56,9 +56,25 @@ struct Helper {
         }
     }
     
-    
+    func canAcceptOrder(handler: Bool -> Void) {
+        Networking.instanse.getOrders(0) { result in
+            switch result {
+            case .Error(let error):
+                debugPrint(error)
+            case .Response(let data):
+                if data.count > 0 {
+                    handler(false)
+                } else {
+                    handler(true)
+                }
+            }
+            
+        }
+    }
+
     
 }
+
 
 
 extension UIImage {
