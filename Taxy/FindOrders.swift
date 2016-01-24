@@ -8,6 +8,7 @@
 
 import Foundation
 import BTNavigationDropdownMenu
+import CNPPopupController
 
 class FindOrders: UITableViewController {
     
@@ -18,7 +19,6 @@ class FindOrders: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let items = OrderType.value().map { element in element.title() }
         let menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: items.first!, items: items)
         self.navigationItem.titleView = menuView
@@ -50,9 +50,7 @@ class FindOrders: UITableViewController {
     }
     
     func loadOrders() {
-//        Helper().showLoading("Загрузка заказов")
         Networking.instanse.getOrders(selectedType, find: true) { [weak self] result in
-//            Helper().hideLoading()
             switch result {
             case .Error(let error):
                 Popup.instanse.showError("", message: error)
@@ -69,20 +67,12 @@ class FindOrders: UITableViewController {
             switch result {
             case .Error(let error):
                 debugPrint(error)
-            case .Response(let data):
-                guard let order = data.first, let fromPlace = order.fromPlace, let toPlace = order.toPlace, let price = order.price, let id = order.orderID else { return }
-                
+            case .Response(let orders):
                 Helper().canAcceptOrder() { can in
                     if can {
-                        let title = "Персональный заказ - \(String(price))руб"
-                        let message = fromPlace + "  ->  " + toPlace
-                        Popup.instanse.showQuestion(title, message: message, otherButtons: ["Принять"]).handler{ ind in
-                            if ind == 0 {
-                                Networking.instanse.rejectOrder(id)
-                            } else {
-                                self?.acceptOrder(order)
-                            }
-                        }
+                        self?.presentPersonalOrderDialog(orders)
+                    } else {
+                        debugPrint("cant accept personal order. Already has one opened")
                     }
                 }
             }
@@ -113,7 +103,6 @@ class FindOrders: UITableViewController {
             }
         }
     }
-    
 }
 
 
@@ -154,6 +143,71 @@ extension FindOrders {
 }
 
 
+extension FindOrders {
+    
+    func presentPersonalOrderDialog(data: [Order]) {
+        
+        guard let order = data.first, let fromPlace = order.fromPlace, let toPlace = order.toPlace, let price = order.price, let id = order.orderID else { debugPrint("cant show personal order")
+            return
+        }
+        var popupController = CNPPopupController()
+        let dismissButton = CNPPopupButton.init(frame: CGRectMake(0, 0, 200, 45))
+        dismissButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        dismissButton.titleLabel?.font = .bold_Lar()
+        dismissButton.setTitle("Отменить", forState: UIControlState.Normal)
+        dismissButton.backgroundColor = UIColor.init(colorLiteralRed: 0.46, green: 0.8, blue: 1.0, alpha: 1.0)
+        dismissButton.layer.cornerRadius = 4;
+        dismissButton.selectionHandler = { _ in
+            Networking.instanse.rejectOrder(id)
+            popupController.dismissPopupControllerAnimated(true)
+        }
+        
+        let acceptButton = CNPPopupButton.init(frame: CGRectMake(0, 0, 200, 45))
+        acceptButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        acceptButton.titleLabel?.font = .bold_Lar()
+        acceptButton.setTitle("Принять", forState: UIControlState.Normal)
+        acceptButton.backgroundColor = UIColor.init(colorLiteralRed: 0.46, green: 0.8, blue: 1.0, alpha: 1.0)
+        acceptButton.layer.cornerRadius = 4;
+        acceptButton.selectionHandler = { [weak self] _ in
+            popupController.dismissPopupControllerAnimated(true)
+            self?.acceptOrder(order)
+        }
+        
+        let titleLabel = UILabel()
+        titleLabel.numberOfLines = 0;
+        titleLabel.text = "Персональный заказ"
+        titleLabel.font = .bold_Lar()
+        titleLabel.textAlignment = .Center
+        
+        let priceLabel = UILabel()
+        priceLabel.numberOfLines = 0
+        priceLabel.text = "\(price) руб."
+        priceLabel.font = .bold_Lar()
+        priceLabel.textAlignment = .Center
+        priceLabel.textColor = .mainOrangeColor()
+
+        let lineOneLabel = UILabel()
+        lineOneLabel.numberOfLines = 0;
+        lineOneLabel.text = fromPlace
+        lineOneLabel.font = .light_Med()
+        lineOneLabel.textAlignment = .Left
+        
+        let lineTwoLabel = UILabel()
+        lineTwoLabel.numberOfLines = 0;
+        lineTwoLabel.text = toPlace
+        lineTwoLabel.font = .light_Med()
+        lineTwoLabel.textAlignment = .Left
+        
+        popupController = CNPPopupController(contents:[titleLabel, priceLabel, lineOneLabel, lineTwoLabel, dismissButton, acceptButton])
+        popupController.theme = CNPPopupTheme.defaultTheme()
+        popupController.theme.popupStyle = CNPPopupStyle.Centered
+        popupController.theme.shouldDismissOnBackgroundTouch = false
+        popupController.presentPopupControllerAnimated(true)
+    }
+
+}
+
+
 class driverOrderCell: UITableViewCell {
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var passengerIdLabel: UILabel!
@@ -171,18 +225,15 @@ class driverOrderCell: UITableViewCell {
         if let passName = order.passengerInfo.name {
             passengerNameLabel.text = passName
         }
-        
         if let fromPlace = order.fromPlace {
             fromPlaceLabel.text = fromPlace
         }
         if let toPlace = order.toPlace {
             toPlaceLabel.text = toPlace
         }
-        
         if let userId = order.userID {
             passengerIdLabel.text = "user ID: " + userId
         }
-        
         if let orderId = order.orderID {
             idLabel.text = "order ID: " + orderId
         }
