@@ -16,6 +16,7 @@ class FindOrders: UITableViewController {
     var mainOrdersTimer: NSTimer?
     var selectedType: Int = 1
     var orders = [Order]()
+    var popup = CNPPopupController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,9 +69,10 @@ class FindOrders: UITableViewController {
             case .Error(let error):
                 debugPrint(error)
             case .Response(let orders):
-                Helper().canAcceptOrder() { can in
+                guard let order = orders.first else { return }
+                Helper().canAcceptOrder() { [weak self] can in
                     if can {
-                        self?.presentPersonalOrderDialog(orders)
+                        self?.presentPersonalOrderDialog(order)
                     } else {
                         debugPrint("cant accept personal order. Already has one opened")
                     }
@@ -145,21 +147,24 @@ extension FindOrders {
 
 extension FindOrders {
     
-    func presentPersonalOrderDialog(data: [Order]) {
+    func presentPersonalOrderDialog(order: Order) {
         
-        guard let order = data.first, let fromPlace = order.fromPlace, let toPlace = order.toPlace, let price = order.price, let id = order.orderID else { debugPrint("cant show personal order")
+        guard let fromPlace = order.fromPlace, let toPlace = order.toPlace, let price = order.price, let id = order.orderID else { debugPrint("cant show personal order")
             return
         }
-        var popupController = CNPPopupController()
+        
+        popup.dismissPopupControllerAnimated(true)
+            
+        
         let dismissButton = CNPPopupButton.init(frame: CGRectMake(0, 0, 200, 45))
         dismissButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         dismissButton.titleLabel?.font = .bold_Lar()
-        dismissButton.setTitle("Отменить", forState: UIControlState.Normal)
+        dismissButton.setTitle("Отклонить", forState: UIControlState.Normal)
         dismissButton.backgroundColor = UIColor.init(colorLiteralRed: 0.46, green: 0.8, blue: 1.0, alpha: 1.0)
         dismissButton.layer.cornerRadius = 4;
-        dismissButton.selectionHandler = { _ in
+        dismissButton.selectionHandler = { [weak self] _ in
             Networking.instanse.rejectOrder(id)
-            popupController.dismissPopupControllerAnimated(true)
+            self?.popup.dismissPopupControllerAnimated(true)
         }
         
         let acceptButton = CNPPopupButton.init(frame: CGRectMake(0, 0, 200, 45))
@@ -169,8 +174,8 @@ extension FindOrders {
         acceptButton.backgroundColor = UIColor.init(colorLiteralRed: 0.46, green: 0.8, blue: 1.0, alpha: 1.0)
         acceptButton.layer.cornerRadius = 4;
         acceptButton.selectionHandler = { [weak self] _ in
-            popupController.dismissPopupControllerAnimated(true)
             self?.acceptOrder(order)
+            self?.popup.dismissPopupControllerAnimated(true)
         }
         
         let titleLabel = UILabel()
@@ -198,11 +203,12 @@ extension FindOrders {
         lineTwoLabel.font = .light_Med()
         lineTwoLabel.textAlignment = .Left
         
-        popupController = CNPPopupController(contents:[titleLabel, priceLabel, lineOneLabel, lineTwoLabel, dismissButton, acceptButton])
-        popupController.theme = CNPPopupTheme.defaultTheme()
-        popupController.theme.popupStyle = CNPPopupStyle.Centered
-        popupController.theme.shouldDismissOnBackgroundTouch = false
-        popupController.presentPopupControllerAnimated(true)
+        popup = CNPPopupController(contents:[titleLabel, priceLabel, lineOneLabel, lineTwoLabel, dismissButton, acceptButton])
+        popup.theme = CNPPopupTheme.defaultTheme()
+        popup.theme.popupStyle = CNPPopupStyle.Centered
+        popup.theme.presentationStyle = .FadeIn
+        popup.theme.shouldDismissOnBackgroundTouch = false
+        popup.presentPopupControllerAnimated(true)
     }
 
 }

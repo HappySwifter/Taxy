@@ -27,14 +27,13 @@
 import UIKit
 
 class PlaceMarker: GMSMarker {
-  let place: Order
+  let order: Order
   
-  init(place: Order) {
-    self.place = place
+  init(order: Order) {
+    self.order = order
     super.init()
     
-    position = CLLocationCoordinate2DMake(54, 54)
-
+    position = order.driverInfo.location?.coordinates ?? CLLocationCoordinate2DMake(55, 55)
     icon = UIImage(named: "taxy.jpg")
     groundAnchor = CGPoint(x: 0.5, y: 1)
     appearAnimation = kGMSMarkerAnimationPop

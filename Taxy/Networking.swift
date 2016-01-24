@@ -389,12 +389,15 @@ final class Networking {
     
     
     func closeOrder(order: Order, completion: Result<String, String> -> Void) {
-        guard let orderID = order.orderID else {
+        guard let id = LocalData().getUserID, let orderID = order.orderID else {
             Popup.instanse.showError("cant close order. No orderID passed", message: "\(__FUNCTION__)")
             return
         }
-        let parameters = [ OrderFields.Id.rawValue : orderID ]
-        🙏(.POST, url: mainUrl + orderString + ServerMethods.СloseOrder.rawValue, params: parameters) { result in
+        let parameters = [
+            OrderFields.Id.rawValue : orderID,
+            OrderFields.UserId.rawValue : id]
+        // СloseOrder
+        🙏(.POST, url: mainUrl + orderString + ServerMethods.CloseOrder.rawValue, params: parameters) { result in
             switch result {
                 
             case .Error(let error):

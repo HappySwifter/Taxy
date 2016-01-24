@@ -36,6 +36,14 @@ class OrderInfoVC: UIViewController {
         timer!.fire()
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        timer?.invalidate()
+    }
+    
+    deinit {
+        debugPrint("\(__FUNCTION__): \(__FILE__)")
+    }
     
     func checkOrder() {
         Networking.instanse.checkOrder(order) { [weak self] result in
@@ -79,12 +87,24 @@ class OrderInfoVC: UIViewController {
             toLabel.text = toPlace
         }
         
-        let marker = PlaceMarker(place: order)
+        guard let coords = order.driverInfo.location?.coordinates else { return }
+        
+        mapView.clear()
+        let marker = PlaceMarker(order: order)
         marker.map = mapView
+        
+        var bounds = GMSCoordinateBounds()
+        bounds = bounds.includingCoordinate(coords)
+        if let myLocation = mapView.myLocation {
+           bounds = bounds.includingCoordinate(myLocation.coordinate)
+        }
+        mapView.animateWithCameraUpdate(GMSCameraUpdate.fitBounds(bounds, withPadding: 80))
     }
     
     @IBAction func cancelOrderTouched() {
+        Helper().showLoading("Отменяю заказ")
         Networking.instanse.cancelOrder(order) { [weak self] result in
+            Helper().hideLoading()
             switch result {
             case .Error(let error):
                 Popup.instanse.showError("Внимание!", message: error)
@@ -96,19 +116,24 @@ class OrderInfoVC: UIViewController {
     }
 
     @IBAction func closeOrderTouched() {
+        Helper().showLoading("Загрузка")
         Networking.instanse.closeOrder(order) { [weak self] result in
+            Helper().hideLoading()
             switch result {
             case .Error(let error):
                 Popup.instanse.showError("Внимание!", message: error)
             case .Response(_):
-                self?.presentRate()
+                if UserProfile.sharedInstance.type == .Passenger {
+                    self?.presentRate()
+                } else {
+                    self?.dismissMe()
+                }
             }
-
         }
     }
     
     func dismissMe() {
-        self.timer?.invalidate()
+//        self.timer?.invalidate()
         self.navigationController?.popViewControllerAnimated(true)
     }
 }
@@ -133,9 +158,9 @@ extension OrderInfoVC: GMSMapViewDelegate {
         }
         
         if let infoView = UIView.viewFromNibName("MarkerInfoView") as? MarkerInfoView {
-            infoView.nameLabel.text = placeMarker.place.driverInfo.name
+            infoView.nameLabel.text = placeMarker.order.driverInfo.name
             
-            if let photo = placeMarker.place.driverInfo.image {
+            if let photo = placeMarker.order.driverInfo.image {
                 infoView.placePhoto.image = photo
             } else {
                 infoView.placePhoto.image = UIImage(named: "generic")
@@ -159,6 +184,13 @@ extension OrderInfoVC: GMSMapViewDelegate {
 //        mapView.selectedMarker = nil
 //        return false
 //    }
+    
+    
+    func mapViewDidFinishTileRendering(mapView: GMSMapView!) {
+        
+    }
+    
+
 
 }
 
@@ -173,7 +205,12 @@ extension OrderInfoVC: CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
-            mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+            
+//            let bounds = GMSCoordinateBounds()
+//            bounds.includingCoordinate(location.coordinate)
+//            mapView.animateWithCameraUpdate(GMSCameraUpdate.fitBounds(bounds))
+            
+//            mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
             locationManager.stopUpdatingLocation()
         }
     }
@@ -186,7 +223,10 @@ extension OrderInfoVC: Rateble {
         raiting = Int(value.value)
     }
     func popupControllerDidDismiss() {
-        guard let driverId = order.driverInfo.userID else { return }
+        guard let driverId = order.driverInfo.userID else {
+            dismissMe()
+            return
+        }
         Networking.instanse.rateDriver(driverId, value: raiting)
         dismissMe()
     }

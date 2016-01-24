@@ -98,7 +98,9 @@ class TaxyRequestingVC: UIViewController {
     }
     
     @IBAction func cancelTouched() {
+        Helper().showLoading("Отменяю заказ")
         Networking.instanse.cancelOrder(orderInfo) { [weak self] result in
+            Helper().hideLoading()
             switch result {
             case .Error(let error):
                 Popup.instanse.showError("Внимание!", message: error)

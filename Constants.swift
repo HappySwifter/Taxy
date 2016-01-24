@@ -44,7 +44,7 @@ enum ServerMethods: String {
     case CancelOrder
     case CheckOrder // инфа по определенному заказу (для мониторинга)
     case GetOnlyMyOrder // для водителя. Мониторит заказы для конкретного водителя, назначенные ему, как самому ближнему по расстоянию к пассажиру
-    case СloseOrder
+    case CloseOrder
     case SendCoordinates
     case AcceptOrder
     case RejectOrder // для отмены водителем автоназначаемого заказа
