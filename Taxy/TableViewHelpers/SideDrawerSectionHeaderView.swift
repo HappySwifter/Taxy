@@ -40,11 +40,11 @@ class SideDrawerSectionHeaderView: UIView {
     }
     
     func commonSetup() {
-        self.backgroundColor = UIColor(red: 110 / 255, green: 113 / 255, blue: 115 / 255, alpha: 1.0)
+        self.backgroundColor = UIColor.whiteColor()
         self.label = UILabel(frame: CGRect(x: 15, y: CGRectGetMaxY(self.bounds) - 28, width: CGRectGetWidth(self.bounds) - 30, height: 22))
         self.label.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
         self.label.backgroundColor = UIColor.clearColor()
-        self.label.textColor = UIColor(red: 203 / 255, green: 206 / 255, blue: 209 / 255, alpha: 1.0)
+        self.label.textColor = UIColor.lightGrayColor()
         self.label.autoresizingMask = [ .FlexibleWidth ,.FlexibleTopMargin ]
         self.addSubview(self.label)
         self.clipsToBounds = false
@@ -81,7 +81,7 @@ class SwitchHeaderView: UIView {
     }
     
     func commonSetup() {
-        self.backgroundColor = UIColor(red: 110 / 255, green: 113 / 255, blue: 115 / 255, alpha: 1.0)
+        self.backgroundColor = UIColor.whiteColor()
 
         let runkeeperSwitch = DGRunkeeperSwitch(leftTitle: "Свободен", rightTitle: "Занят")
         runkeeperSwitch.backgroundColor = .whiteColor()

@@ -35,16 +35,15 @@ class SideDrawerTableViewCell: TableViewCell {
         self.accessoryCheckmarkColor = UIColor.whiteColor()
         let backgroundView = UIView(frame: self.bounds)
         backgroundView.autoresizingMask = [ .FlexibleHeight, .FlexibleWidth ]
-        let backgroundColor = UIColor(red: 122 / 255, green: 126 / 255, blue: 128 / 255, alpha: 1.0)
+        let backgroundColor = UIColor.whiteColor()
         backgroundView.backgroundColor = backgroundColor
-        
         self.backgroundView = backgroundView
-        
         self.textLabel?.backgroundColor = UIColor.clearColor()
-        self.textLabel?.textColor = UIColor(red: 230 / 255, green: 236 / 255, blue: 242 / 255, alpha: 1.0)
+        self.textLabel?.textColor = UIColor.lightGrayColor()
+
     }
     
     override func updateContentForNewContentSize() {
-        self.textLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+        self.textLabel?.font = .light_Med()
     }
 }
