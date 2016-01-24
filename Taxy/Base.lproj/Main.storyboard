@@ -119,6 +119,53 @@
                                     <outlet property="userIdLabel" destination="YVj-rt-9eL" id="rKU-MV-pX0"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoOrdersCell" rowHeight="163" id="1kU-mA-1m2" customClass="NoOrdersCell" customModule="Taxy" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="235" width="600" height="163"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1kU-mA-1m2" id="9I6-9e-OWW">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="162"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="У вас нет заказов" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDX-uq-Gth">
+                                            <rect key="frame" x="134" y="18" width="332" height="39"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="39" id="BoF-IQ-9YT"/>
+                                                <constraint firstAttribute="width" constant="332" id="UUr-of-KOh"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gX4-Q5-IaC">
+                                            <rect key="frame" x="202" y="84" width="197" height="42"/>
+                                            <color key="backgroundColor" red="0.93158667129999995" green="0.57596031700000005" blue="0.23524554389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="42" id="3Y9-Ve-qsT"/>
+                                                <constraint firstAttribute="width" constant="197" id="DaV-8h-f5H"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                            <state key="normal" title="                                                 ">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="selected" title="                                                 "/>
+                                            <state key="highlighted" title="                                                 "/>
+                                            <connections>
+                                                <action selector="buttonPressed" destination="1kU-mA-1m2" eventType="touchUpInside" id="Vb3-2B-XKE"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="CDX-uq-Gth" firstAttribute="centerX" secondItem="9I6-9e-OWW" secondAttribute="centerX" id="1bS-fO-vES"/>
+                                        <constraint firstItem="CDX-uq-Gth" firstAttribute="top" secondItem="9I6-9e-OWW" secondAttribute="topMargin" constant="10" id="91T-0t-nIS"/>
+                                        <constraint firstItem="gX4-Q5-IaC" firstAttribute="centerX" secondItem="9I6-9e-OWW" secondAttribute="centerX" id="Jrh-g3-GaA"/>
+                                        <constraint firstItem="gX4-Q5-IaC" firstAttribute="top" secondItem="CDX-uq-Gth" secondAttribute="bottom" constant="27" id="ddT-F8-6w7"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="customButton" destination="gX4-Q5-IaC" id="nst-34-pwD"/>
+                                    <outlet property="titleLabel" destination="CDX-uq-Gth" id="9MG-1r-i3M"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="xkK-C1-cH3" id="PIn-4g-YfC"/>
@@ -247,13 +294,53 @@
                                     <outlet property="toPlaceLabel" destination="wR4-vH-fxx" id="gyf-Jt-EQ4"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="OeG-YN-cDq">
-                                <rect key="frame" x="0.0" y="239" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoOrdersCell" rowHeight="163" id="1GX-ci-agX" customClass="NoOrdersCell" customModule="Taxy" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="239" width="600" height="163"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OeG-YN-cDq" id="Ed3-gu-XuK">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1GX-ci-agX" id="ioT-cJ-3Il">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="162"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Заказы не найдены" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Yyf-AE-NA7">
+                                            <rect key="frame" x="13" y="18" width="574" height="39"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="39" id="lhj-1l-Zg5"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="62b-qX-pcD">
+                                            <rect key="frame" x="202" y="84" width="197" height="42"/>
+                                            <color key="backgroundColor" red="0.93158667129999995" green="0.57596031700000005" blue="0.23524554389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="197" id="ckl-8G-AKc"/>
+                                                <constraint firstAttribute="height" constant="42" id="txW-j3-rf6"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                            <state key="normal" title="                                                 ">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="selected" title="                                                 "/>
+                                            <state key="highlighted" title="                                                 "/>
+                                            <connections>
+                                                <action selector="buttonPressed" destination="1GX-ci-agX" eventType="touchUpInside" id="3Nj-Iq-jbE"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Yyf-AE-NA7" secondAttribute="trailing" constant="5" id="IEl-ct-Ar0"/>
+                                        <constraint firstItem="62b-qX-pcD" firstAttribute="top" secondItem="Yyf-AE-NA7" secondAttribute="bottom" constant="27" id="MOy-HH-HHl"/>
+                                        <constraint firstItem="Yyf-AE-NA7" firstAttribute="top" secondItem="ioT-cJ-3Il" secondAttribute="topMargin" constant="10" id="NGA-06-Sie"/>
+                                        <constraint firstItem="Yyf-AE-NA7" firstAttribute="leading" secondItem="ioT-cJ-3Il" secondAttribute="leadingMargin" constant="5" id="Rgm-1v-SHf"/>
+                                        <constraint firstItem="62b-qX-pcD" firstAttribute="centerX" secondItem="ioT-cJ-3Il" secondAttribute="centerX" id="lvR-aw-jjM"/>
+                                        <constraint firstItem="Yyf-AE-NA7" firstAttribute="centerX" secondItem="ioT-cJ-3Il" secondAttribute="centerX" id="oDa-Kx-BRo"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="customButton" destination="62b-qX-pcD" id="53B-1S-YPp"/>
+                                    <outlet property="titleLabel" destination="Yyf-AE-NA7" id="58a-vn-mm0"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -434,7 +521,7 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tyb-NB-XSg">
                                 <rect key="frame" x="200" y="532" width="200" height="36"/>
-                                <color key="backgroundColor" red="0.95815348759999996" green="0.58194634320000005" blue="0.38528627090000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.93158667129999995" green="0.57596031700000005" blue="0.23524554389999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="HiD-cU-ELv"/>
                                     <constraint firstAttribute="width" constant="200" id="z7K-7J-zPv"/>

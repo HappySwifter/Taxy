@@ -10,7 +10,7 @@ import Foundation
 import BTNavigationDropdownMenu
 import CNPPopupController
 
-class FindOrders: UITableViewController {
+class FindOrders: UITableViewController, NoOrdersCellDelegate {
     
     var timer: NSTimer?
     var mainOrdersTimer: NSTimer?
@@ -20,6 +20,10 @@ class FindOrders: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
+        tableView.addSubview(refresh)
+        
         let items = OrderType.value().map { element in element.title() }
         let menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: items.first!, items: items)
         self.navigationItem.titleView = menuView
@@ -29,9 +33,7 @@ class FindOrders: UITableViewController {
         }
     }
     
-    deinit {
-        debugPrint("\(__FUNCTION__) in \(__FILE__)")
-    }
+
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -48,6 +50,16 @@ class FindOrders: UITableViewController {
         super.viewWillDisappear(animated)
         timer?.invalidate()
         mainOrdersTimer?.invalidate()
+        self.navigationItem.titleView = nil
+    }
+    
+    deinit {
+        debugPrint("\(__FUNCTION__) in \(__FILE__)")
+    }
+    
+    func refresh(control: UIRefreshControl) {
+        control.endRefreshing()
+        loadOrders()
     }
     
     func loadOrders() {
@@ -111,15 +123,28 @@ class FindOrders: UITableViewController {
 extension FindOrders {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let order = orders[indexPath.row]
         
-        let cell = self.tableView.dequeueReusableCellWithIdentifier("driverOrderCell", forIndexPath: indexPath) as! driverOrderCell
-        cell.configureViewWithOrder(order)
-        return cell
+        if orders.count == 0 {
+            let cell = tableView.dequeueReusableCellWithIdentifier(String(NoOrdersCell), forIndexPath: indexPath) as! NoOrdersCell
+            cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
+            cell.configureForVC(String(FindOrders))
+            cell.delegate = self
+            return cell
+        } else {
+            
+            let order = orders[indexPath.row]
+            let cell = self.tableView.dequeueReusableCellWithIdentifier("driverOrderCell", forIndexPath: indexPath) as! driverOrderCell
+            cell.configureViewWithOrder(order)
+            return cell
+        }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return orders.count
+        if orders.count > 0 {
+            return orders.count
+        } else {
+            return 1
+        }
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -127,6 +152,7 @@ extension FindOrders {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        guard orders.count > 0 else { return }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let order = orders[indexPath.row]
             if order.orderStatus == 0 {
@@ -140,6 +166,10 @@ extension FindOrders {
                     }
                 }
         }
+    }
+    
+    func noOrdersCellButtonTouched() {
+        loadOrders()
     }
     
 }

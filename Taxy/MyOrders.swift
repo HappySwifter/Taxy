@@ -13,7 +13,7 @@ import UIKit
 import DrawerController
 
 
-class MyOrders: UITableViewController, SegueHandlerType {
+class MyOrders: UITableViewController, SegueHandlerType, NoOrdersCellDelegate {
     
     var orders = [Order]()
     var selectedOrder: Order?
@@ -25,7 +25,7 @@ class MyOrders: UITableViewController, SegueHandlerType {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.lightGrayColor()
+//        self.view.backgroundColor = UIColor.lightGrayColor()
         let refresh = UIRefreshControl()
         refresh.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
         tableView.addSubview(refresh)
@@ -46,6 +46,10 @@ class MyOrders: UITableViewController, SegueHandlerType {
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         timer?.invalidate()
+    }
+    
+    deinit {
+        debugPrint("\(__FUNCTION__): \(__FILE__)")
     }
 
     
@@ -110,15 +114,28 @@ class MyOrders: UITableViewController, SegueHandlerType {
 extension MyOrders {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let order = orders[indexPath.row]
-
-            let cell = self.tableView.dequeueReusableCellWithIdentifier("passengerOrderCell", forIndexPath: indexPath) as! passengerOrderCell
+        
+        if orders.count == 0 {
+            let cell = tableView.dequeueReusableCellWithIdentifier(String(NoOrdersCell), forIndexPath: indexPath) as! NoOrdersCell
+            cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
+            cell.configureForVC(String(MyOrders))
+            cell.delegate = self
+            return cell
+        } else {
+            let order = orders[indexPath.row]
+            let cell = self.tableView.dequeueReusableCellWithIdentifier(String(passengerOrderCell), forIndexPath: indexPath) as! passengerOrderCell
+            cell.separatorInset = UIEdgeInsetsZero
             cell.configureViewWithOrder(order)
             return cell
+        }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return orders.count
+        if orders.count > 0 {
+            return orders.count
+        } else {
+            return 1
+        }
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -126,6 +143,7 @@ extension MyOrders {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        guard orders.count > 0 else { return }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let order = orders[indexPath.row]
         switch UserProfile.sharedInstance.type {
@@ -141,6 +159,14 @@ extension MyOrders {
 //            else if order.orderStatus == 0 {
 //                acceptOrder(order)
 //            }
+        }
+    }
+    
+    func noOrdersCellButtonTouched() {
+        if UserProfile.sharedInstance.type == .Passenger {
+            instantiateSTID(STID.MakeOrderSTID)
+        } else {
+            instantiateSTID(STID.FindOrdersSTID)
         }
     }
     
