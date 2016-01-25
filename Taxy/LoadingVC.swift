@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-final class LoadingVC: UIViewController, CLLocationManagerDelegate {
+final class LoadingVC: UIViewController, CLLocationManagerDelegate, OnboardingControllerDelegate {
     
     let manager =  CLLocationManager()
     @IBOutlet weak var reloadButton: UIButton!
@@ -19,6 +19,18 @@ final class LoadingVC: UIViewController, CLLocationManagerDelegate {
         title = "Загрузкаb"
         view.backgroundColor = .lightGrayColor()
         reloadButton.backgroundColor = .mainOrangeColor()
+        
+        let key = "isNotFirstLoading"
+        let def = NSUserDefaults.standardUserDefaults()
+        if !def.boolForKey(key) {
+            let contr = OnboardingController()
+            contr.delegate = self
+            presentViewController(contr, animated: false) {}
+            def.setBool(true, forKey: key)
+        } else {
+            checkStatus()
+        }
+        
     }
     
     deinit {
@@ -30,11 +42,9 @@ final class LoadingVC: UIViewController, CLLocationManagerDelegate {
         super.viewWillAppear(animated)
         reloadButton.layer.cornerRadius = 0.8
         
-        let contr = OnboardingController()
-        presentViewController(contr, animated: true) { [weak self] _ in
-            self?.checkStatus()
-        }
+        
     }
+    
     
     private func checkStatus() {
         switch CLLocationManager.authorizationStatus() {
@@ -127,6 +137,10 @@ final class LoadingVC: UIViewController, CLLocationManagerDelegate {
                 UIApplication.sharedApplication().openURL(NSURL(string:UIApplicationOpenSettingsURLString)!)
             }
         }
+    }
+    
+    func onboardingDismissed() {
+       checkStatus()
     }
     
 }

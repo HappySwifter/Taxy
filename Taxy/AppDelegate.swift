@@ -23,46 +23,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "showLoagingVC:", name: "showLoagingVCNotification", object: nil)
+        configureApperance()
         BuddyBuildSDK.setup()
-        
-        SVProgressHUD.setDefaultMaskType(.Clear)
-        
-        //        let driver = UserProfile()
-        //        driver.type = .Driver
-        //        driver.city = City(name: "", code: 0)
-        //
-        //        let passenger = UserProfile()
-        //        passenger.type = .Passenger
-        //        passenger.city = City(name: "", code: 0)
-        //
-        //        Bot().createUser(driver) {
-        //            print("@@@ BOT @@@ id = \($0), \(driver.type), \(driver.city!.code)")
-        //
-        //            Bot().createUser(passenger) {
-        //                print("@@@ BOT @@@id = \($0), \(passenger.type), \(passenger.city!.code)")
-        //            }
-        //
-        //
-        //        }
-        
-        //        let manager = CLLocationManager()
-        //        CLLocationManager.requestAlwaysAuthorization(manager)
-        
-        UISegmentedControl.appearance().tintColor = UIColor.mainOrangeColor()
-        
+        GMSServices.provideAPIKey(googleMapsApiKey)
         NFX.sharedInstance().start()
         NFX.sharedInstance().ignoreURL(mainUrl + "order/" + ServerMethods.SendCoordinates.rawValue)
-        
         
         let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         let centerViewController = storyBoard.instantiateViewControllerWithIdentifier(STID.LoadingSTID.rawValue)
         let nav = NavigationContr(rootViewController: centerViewController)
-        
-        
         let leftMenu = storyBoard.instantiateViewControllerWithIdentifier(STID.MenuSTID.rawValue)
-
         let menu = UINavigationController(rootViewController: leftMenu)
-        
         self.drawerController = DrawerController(centerViewController: nav, leftDrawerViewController: menu)
         self.drawerController.setMaximumLeftDrawerWidth(240, animated: true, completion:nil)
         self.drawerController.openDrawerGestureModeMask = .All
@@ -71,14 +42,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             DrawerVisualState.animatedHamburgerButtonVisualStateBlock(drawerController, drawerSide, percentVisible)
         }
         
-        
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         let tintColor = UIColor.whiteColor()
         self.window?.tintColor = tintColor
         self.window?.rootViewController = self.drawerController
-        
-        GMSServices.provideAPIKey(googleMapsApiKey)
         return true
+    }
+    
+    func configureApperance() {
+        SVProgressHUD.setDefaultMaskType(.Clear)
+        UISegmentedControl.appearance().tintColor = UIColor.mainOrangeColor()
     }
     
     

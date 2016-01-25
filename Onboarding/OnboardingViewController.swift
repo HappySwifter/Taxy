@@ -1,5 +1,11 @@
 import UIKit
+
+protocol OnboardingControllerDelegate: class {
+    func onboardingDismissed ()
+}
+
 class OnboardingController: UIViewController, UIScrollViewDelegate {
+    weak var delegate:OnboardingControllerDelegate?
 	let backgroundColor = UIColor(red: 52.0/255.0, green: 73.0/255.0, blue: 94.0/255.0, alpha: 1.0)
 	let slides = [
 		[ "image": "Screen_Shot_2016-01-18_at_19.03.01.png", "text": "Быстрый доступ из меню"],
@@ -44,7 +50,7 @@ class OnboardingController: UIViewController, UIScrollViewDelegate {
 		scroll?.delegate = self
 		dots?.addTarget(self, action: Selector("swipe:"), forControlEvents: UIControlEvents.ValueChanged)
 		let closeButton = UIButton()
-		closeButton.frame = CGRect(x: screen.width - 70, y: 20, width: 60, height: 60)
+		closeButton.frame = CGRect(x: screen.width - 90, y: 20, width: 80, height: 60)
 		closeButton.setTitle("Закрыть", forState: .Normal)
 		closeButton.setTitleColor(.whiteColor(), forState: .Normal)
 		closeButton.titleLabel!.font =  .bold_Med()
@@ -52,8 +58,10 @@ class OnboardingController: UIViewController, UIScrollViewDelegate {
 		view.addSubview(closeButton)
 	}
 	func pressed(sender: UIButton!) {
-		self.dismissViewControllerAnimated(true) { () -> Void in
-		}
+        dismissViewControllerAnimated(true) { [weak self] _ in
+            self?.delegate?.onboardingDismissed()
+        }
+		
 	}
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
