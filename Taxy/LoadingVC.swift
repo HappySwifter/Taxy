@@ -29,8 +29,11 @@ final class LoadingVC: UIViewController, CLLocationManagerDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         reloadButton.layer.cornerRadius = 0.8
-        checkStatus()
         
+        let contr = OnboardingController()
+        presentViewController(contr, animated: true) { [weak self] _ in
+            self?.checkStatus()
+        }
     }
     
     private func checkStatus() {

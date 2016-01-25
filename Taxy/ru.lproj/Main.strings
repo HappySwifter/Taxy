@@ -1,0 +1,105 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "2rk-e0-bv4"; */
+"2rk-e0-bv4.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "58z-HS-A6G"; */
+"58z-HS-A6G.text" = "Label";
+
+/* Class = "UIButton"; highlightedTitle = "                                                 "; ObjectID = "62b-qX-pcD"; */
+"62b-qX-pcD.highlightedTitle" = "                                                 ";
+
+/* Class = "UIButton"; normalTitle = "                                                 "; ObjectID = "62b-qX-pcD"; */
+"62b-qX-pcD.normalTitle" = "                                                 ";
+
+/* Class = "UIButton"; selectedTitle = "                                                 "; ObjectID = "62b-qX-pcD"; */
+"62b-qX-pcD.selectedTitle" = "                                                 ";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "7t0-pK-xlk"; */
+"7t0-pK-xlk.text" = "Label";
+
+/* Class = "UILabel"; text = "У вас нет заказов"; ObjectID = "CDX-uq-Gth"; */
+"CDX-uq-Gth.text" = "У вас нет заказов";
+
+/* Class = "UIButton"; normalTitle = "Отменить заказ"; ObjectID = "FcA-kX-fPe"; */
+"FcA-kX-fPe.normalTitle" = "Отменить заказ";
+
+/* Class = "UILabel"; text = "order ID"; ObjectID = "Gx2-Co-4Vg"; */
+"Gx2-Co-4Vg.text" = "order ID";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "HLc-Nr-ePb"; */
+"HLc-Nr-ePb.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "IBm-VS-d7q"; */
+"IBm-VS-d7q.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "ЗАКАЗ ВЫПОЛНЕН"; ObjectID = "IFn-8y-Am2"; */
+"IFn-8y-Am2.normalTitle" = "ЗАКАЗ ВЫПОЛНЕН";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "MyR-2Q-Y3Y"; */
+"MyR-2Q-Y3Y.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "MyV-dN-cZu"; */
+"MyV-dN-cZu.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "ОТМЕНИТЬ"; ObjectID = "OnO-PU-RiV"; */
+"OnO-PU-RiV.normalTitle" = "ОТМЕНИТЬ";
+
+/* Class = "UITextView"; text = "Правила для водителей:\n1) За каждый выполненный заказ с Вашего кошелька списывается 10% от стоимости заказа"; ObjectID = "PSB-mI-DxK"; */
+"PSB-mI-DxK.text" = "Правила для водителей:\n1) За каждый выполненный заказ с Вашего кошелька списывается 10% от стоимости заказа";
+
+/* Class = "UIButton"; normalTitle = "ОБНОВИТЬ"; ObjectID = "Tyb-NB-XSg"; */
+"Tyb-NB-XSg.normalTitle" = "ОБНОВИТЬ";
+
+/* Class = "UILabel"; text = "Имя пассажира"; ObjectID = "WIi-8L-O5C"; */
+"WIi-8L-O5C.text" = "Имя пассажира";
+
+/* Class = "UILabel"; text = "order ID"; ObjectID = "XkP-qB-JOn"; */
+"XkP-qB-JOn.text" = "order ID";
+
+/* Class = "UILabel"; text = " "; ObjectID = "XtY-4I-TNh"; */
+"XtY-4I-TNh.text" = " ";
+
+/* Class = "UILabel"; text = "user ID"; ObjectID = "YVj-rt-9eL"; */
+"YVj-rt-9eL.text" = "user ID";
+
+/* Class = "UILabel"; text = "Заказы не найдены"; ObjectID = "Yyf-AE-NA7"; */
+"Yyf-AE-NA7.text" = "Заказы не найдены";
+
+/* Class = "UIButton"; highlightedTitle = "                                                 "; ObjectID = "gX4-Q5-IaC"; */
+"gX4-Q5-IaC.highlightedTitle" = "                                                 ";
+
+/* Class = "UIButton"; normalTitle = "                                                 "; ObjectID = "gX4-Q5-IaC"; */
+"gX4-Q5-IaC.normalTitle" = "                                                 ";
+
+/* Class = "UIButton"; selectedTitle = "                                                 "; ObjectID = "gX4-Q5-IaC"; */
+"gX4-Q5-IaC.selectedTitle" = "                                                 ";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "hod-lq-AgL"; */
+"hod-lq-AgL.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "kAD-Al-kZ4"; */
+"kAD-Al-kZ4.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "lgy-Gt-OFi"; */
+"lgy-Gt-OFi.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "q6W-OI-i23"; */
+"q6W-OI-i23.text" = "Label";
+
+/* Class = "UILabel"; text = "pass ID"; ObjectID = "qCu-yZ-Zkv"; */
+"qCu-yZ-Zkv.text" = "pass ID";
+
+/* Class = "UISegmentedControl"; vuw-al-CeJ.segmentTitles[0] = "Пассажир"; ObjectID = "vuw-al-CeJ"; */
+"vuw-al-CeJ.segmentTitles[0]" = "Пассажир";
+
+/* Class = "UISegmentedControl"; vuw-al-CeJ.segmentTitles[1] = "Водитель"; ObjectID = "vuw-al-CeJ"; */
+"vuw-al-CeJ.segmentTitles[1]" = "Водитель";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "wR4-vH-fxx"; */
+"wR4-vH-fxx.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "zEb-WK-ov3"; */
+"zEb-WK-ov3.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "zOK-Kk-TGL"; */
+"zOK-Kk-TGL.text" = "Label";
