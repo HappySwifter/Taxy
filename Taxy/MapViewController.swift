@@ -89,9 +89,9 @@ class MapViewController: UIViewController {
             }
             self.addressLabel.text = city + ", " + street
             if home.characters.count > 0 {
-                self.coords = coordinate
                 self.addressLabel.text?.appendContentsOf(", \(home)")
             }
+            self.coords = coordinate
             let labelHeight = self.addressLabel.intrinsicContentSize().height + 10
             self.mapView.padding = UIEdgeInsets(top: self.topLayoutGuide.length, left: 0, bottom: labelHeight, right: 0)
             

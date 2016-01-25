@@ -55,7 +55,7 @@ class MakeOrderVC: FormViewController {
         if fastOrder == true {
             let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
             let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.TaxyRequestingSTID.rawValue)
-            self.navigationController?.pushViewController(contr, animated: true)
+            self.navigationController?.pushViewController(contr, animated: false)
         }
     }
     
@@ -110,11 +110,13 @@ class MakeOrderVC: FormViewController {
             .onButtonPressed { [weak self] index in
                 switch index {
                 case 0:
-                Helper().getAddres {
-                    self?.orderInfo.fromPlace = $0.0
-                    self?.orderInfo.fromPlaceCoordinates = $0.1
+                Helper().getAddres({ [weak self] (address, coords) -> Void in
+                    self?.orderInfo.fromPlace = address
+                    self?.orderInfo.fromPlaceCoordinates = coords
                     self?.update()
-                    }
+                    }, failure: { (error) -> Void in
+                        Popup.instanse.showError("Ошибка", message: error)
+                })
                 case 1:
                     let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
                     if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MapSTID.rawValue) as? MapViewController {

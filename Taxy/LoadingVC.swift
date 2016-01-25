@@ -164,7 +164,14 @@ class GeoSender: NSObject {
     }
     
     func sendCoords() {
-        Helper().getLocation { Networking.instanse.sendCoordinates($0.coordinate) }
+        Helper().getLocation { result in
+            switch result {
+            case .Response(let location):
+                Networking.instanse.sendCoordinates(location.coordinate)
+            default:
+                break
+            }
+        }
     }
     
 }
