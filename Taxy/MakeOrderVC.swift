@@ -19,7 +19,6 @@ class MakeOrderVC: FormViewController {
     var fromRow:TextViewRowFormer<FormTextViewCell>?
     var toRow:TextViewRowFormer<FormTextViewCell>?
     var orderInfo = Order()
-    var fastOrder = false
     
     private lazy var informationSection: SectionFormer = {
         let childChairRow = SwitchRowFormer<FormSwitchCell>() {
@@ -52,11 +51,6 @@ class MakeOrderVC: FormViewController {
         super.viewDidLoad()
         setupMenuButtons()
         configure()
-        if fastOrder == true {
-            let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-            let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.TaxyRequestingSTID.rawValue)
-            self.navigationController?.pushViewController(contr, animated: true)
-        }
     }
     
     deinit {
@@ -146,29 +140,10 @@ class MakeOrderVC: FormViewController {
                 $0.placeholder = "Куда?"
                 $0.text = orderInfo.toPlace
                 $0.rowHeight = 44
-            }.onTextChanged {
-                self.orderInfo.toPlace = $0
+            }.onTextChanged { [weak self] text in
+                self?.orderInfo.toPlace = text
         }
         
-//        let findOnMapRow = LabelRowFormer<CenterLabelCell>() {
-//            $0.textLabel?.text = "Найти на карте"
-//            $0.textLabel?.font = UIFont.light_Small()
-//            $0.textLabel?.textAlignment = .Center
-//            $0.textLabel?.textColor = .formerSubColor()
-//            }.configure {
-//                $0.rowHeight = 30
-//            }
-//            .onSelected { [weak self] _ in
-//                self?.former.deselect(false)
-//                let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-//                if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MapSTID.rawValue) as? MapViewController {
-//                    contr.initiator = NSStringFromClass((self?.dynamicType)!)
-//                    contr.onSelected = {
-//                        self?.orderInfo.toPlace = $0.address
-//                    }
-//                    self?.navigationController?.pushViewController(contr, animated: true)
-//                }
-//        }
         
         let findOnMapRow = ButtonsRowFormer<TwoButtonsCell>(instantiateType: .Nib(nibName: "OneButtonCell"))
             .configure {
@@ -200,8 +175,8 @@ class MakeOrderVC: FormViewController {
             $0.textField.inputAccessoryView = self?.formerInputAccessoryView
             }.configure {
                 $0.placeholder = "Введите цену"
-            }.onTextChanged {
-                self.orderInfo.price = Int($0)
+            }.onTextChanged { [weak self] price in
+                self?.orderInfo.price = Int(price)
         }
         //////////////////////////////
         
@@ -220,25 +195,14 @@ class MakeOrderVC: FormViewController {
                 $0.switchWhenSelected = true
             }.onSwitchChanged { [weak self] in
                 self?.orderInfo.moreInformation = $0
-                //                if !$0 {
-                //                    self?.orderInfo.isChildChair = false
-                //                }
                 self?.switchInfomationSection()
                 
         }
         
-        
-        
-//        let createHeader: (String -> ViewFormer) = { text in
-//            return LabelViewFormer<FormLabelHeaderView>()
-//                .configure {
-//                    $0.text = text
-//                    $0.viewHeight = 44
-//            }
-//        }
 
-        let titleRow = LabelRowFormer<CenterLabelCell>() {
-            $0.textLabel?.text = "Создать заказ \(self.orderInfo.orderType.title())"
+        let titleRow = LabelRowFormer<CenterLabelCell>() { [weak self] in
+            let orderType = self?.orderInfo.orderType.title() ?? ""
+            $0.textLabel?.text = "Создать заказ \(orderType)"
             $0.textLabel?.textAlignment = .Center
             $0.textLabel?.font = UIFont.light_Lar()
             }.configure {
@@ -249,17 +213,13 @@ class MakeOrderVC: FormViewController {
         }
     
         
-//        let segmentSection = SectionFormer(rowFormer: taxyTypeRow)
-        let fromSection = SectionFormer(rowFormer:titleRow, fromRow, buttons2Row)
-//            .set(headerViewFormer: createHeader("Создать заказ \(orderInfo.orderType.title())"))
+        let fromSection = SectionFormer(rowFormer: titleRow, fromRow, buttons2Row)
         let toSection = SectionFormer(rowFormer: toRow, findOnMapRow)
-//            .set(headerViewFormer: createHeader("Куда"))
         let priceSection = SectionFormer(rowFormer: priceRow)
-//        let commentSection = SectionFormer(rowFormer: commentRow)
         let moreSection = SectionFormer(rowFormer: moreRow)
         
         
-        former.append(sectionFormer: fromSection, toSection, priceSection, moreSection)
+        former.append(sectionFormer:fromSection, toSection, priceSection, moreSection)
             .onCellSelected { [weak self] _ in
                 self?.formerInputAccessoryView.update()
         }

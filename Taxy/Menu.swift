@@ -118,16 +118,6 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate,
                 } else if indexPath.row == 1 {
                     cell.textLabel?.text = profileSection[indexPath.row]
                 }
-//                else if indexPath.row == 2 {
-//                    if let cell = tableView.dequeueReusableCellWithIdentifier("switchCell", forIndexPath: indexPath) as? SwitchCell {
-//                        cell.configure()
-//                        cell.delegate = self
-//                        return cell
-//                    }
-//                }
-            
-            
-
 
             case DrawerSection.Orders.rawValue:
                 if UserProfile.sharedInstance.type == .Passenger {
@@ -245,17 +235,19 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate,
         case DrawerSection.Orders.rawValue:
 
             if UserProfile.sharedInstance.type == .Passenger {
-                let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MakeOrderSTID.rawValue) as! MakeOrderVC
+                let makeOrderVC = storyBoard.instantiateViewControllerWithIdentifier(STID.MakeOrderSTID.rawValue) as! MakeOrderVC
+                let nav = NavigationContr(rootViewController: makeOrderVC)
+                
                 if indexPath.row != 0 {
-                    contr.orderInfo.orderType = OrderType.value()[indexPath.row - 1]
+                    makeOrderVC.orderInfo.orderType = OrderType.value()[indexPath.row - 1]
                 } else {
-                    let _ = contr.fastOrder = true
+                    // fast order. We're pushing to taxyRequestingVC
+                    let taxyRequestingVC = storyBoard.instantiateViewControllerWithIdentifier(STID.TaxyRequestingSTID.rawValue)
+                    nav.viewControllers.insert(taxyRequestingVC, atIndex: nav.viewControllers.count)
                 }
-                let nav = NavigationContr(rootViewController: contr)
                 evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
             } else {
                 instantiateSTID(STID.FindOrdersSTID)
-//                instantiateVC(FindOrders())
             }
             
 
