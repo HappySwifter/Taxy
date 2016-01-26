@@ -56,6 +56,11 @@ class LocalData {
         UserProfile.sharedInstance.location = nil
         UserProfile.sharedInstance.driverState = .Free
         UserProfile.sharedInstance.withChildChair = false
+        UserProfile.sharedInstance.carColor = nil
+        UserProfile.sharedInstance.carModel = nil
+        UserProfile.sharedInstance.carNumber = nil
+
+
     }
     
 }

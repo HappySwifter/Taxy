@@ -37,6 +37,10 @@ class UserProfile {
     var type: userType = .Passenger
     var balance: Int?
     // Driver
+    var carModel: String?
+    var carNumber: String?
+    var carColor: String?
+    
     var pravaPhoto: UIImage?
     var carPhoto: UIImage?
     var userID: String?
@@ -78,7 +82,10 @@ class UserProfile {
         profile.phoneNumber = userInfo[UserFields.PhoneNumber.rawValue]?.string
         profile.balance = userInfo[UserFields.Balance.rawValue]?.int
         profile.withChildChair = userInfo[UserFields.WithChildChair.rawValue]?.bool ?? false
-        
+        profile.carModel = userInfo[UserFields.CarModel.rawValue]?.string
+        profile.carColor = userInfo[UserFields.CarColor.rawValue]?.string
+        profile.carNumber = userInfo[UserFields.CarNumber.rawValue]?.string
+
         
         
         if let lat = userInfo[UserFields.Latitude.rawValue]?.double,
@@ -95,5 +102,5 @@ class UserProfile {
 }
 
 enum UserFields: String {
-    case Id, FirstName, City, UserType, Image, PhoneNumber, Balance, CarPhoto, WithChildChair, Longitude, Latitude, LocationUpdatedAt, DriverState
+    case Id, FirstName, City, UserType, Image, PhoneNumber, Balance, CarPhoto, WithChildChair, Longitude, Latitude, LocationUpdatedAt, DriverState, CarModel, CarNumber, CarColor
 }

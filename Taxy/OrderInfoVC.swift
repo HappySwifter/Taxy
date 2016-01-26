@@ -14,11 +14,14 @@ class OrderInfoVC: UIViewController {
     
     @IBOutlet weak var driverNameLabel: UILabel!
     @IBOutlet weak var driverCarLabel: UILabel!
-    @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var driverImageLabel: UIImageView!
-    @IBOutlet weak var fromLabel: UILabel!
-    @IBOutlet weak var toLabel: UILabel!
+//    @IBOutlet weak var priceLabel: UILabel!
+//    @IBOutlet weak var driverImageLabel: UIImageView!
+//    @IBOutlet weak var fromLabel: UILabel!
+//    @IBOutlet weak var toLabel: UILabel!
     @IBOutlet weak var mapView: GMSMapView!
+    @IBOutlet weak var topGradientView: UIView!
+    @IBOutlet weak var bottomGradientView: UIView!
+    @IBOutlet weak var callButton: UIButton!
 
     private let locationManager = CLLocationManager()
 
@@ -63,29 +66,23 @@ class OrderInfoVC: UIViewController {
         if UserProfile.sharedInstance.type == .Passenger {
             driverNameLabel.text = order.driverInfo.name
             driverCarLabel.text = "машина"
-            if let driverImage = order.driverInfo.image {
-                driverImageLabel.hidden = false
-                driverImageLabel.image = driverImage
-            } else {
-                driverImageLabel.hidden = true
-            }
+            
         } else {
             driverNameLabel.text = ""
             driverCarLabel.text = ""
-            driverImageLabel.hidden = true
         }
+
+
+        
+        topGradientView.layer.mask = getGradientForView(topGradientView)
+        bottomGradientView.layer.mask = getGradientForView(bottomGradientView, inverted: true)
 
         
         
-        if let price = order.price {
-            priceLabel.text = String(price)
+        if !UIApplication.sharedApplication().canOpenURL(NSURL(string: "tel://")!) {
+            callButton.hidden = true
         }
-        if let fromPlace = order.fromPlace {
-            fromLabel.text = fromPlace
-        }
-        if let toPlace = order.toPlace {
-            toLabel.text = toPlace
-        }
+        
         
         guard let coords = order.driverInfo.location?.coordinates else { return }
         
@@ -135,6 +132,20 @@ class OrderInfoVC: UIViewController {
     func dismissMe() {
 //        self.timer?.invalidate()
         self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    func getGradientForView(view : UIView, inverted: Bool = false) -> CAGradientLayer {
+        let startColor: UIColor = UIColor.whiteColor()
+        let endColor: UIColor = UIColor.clearColor()
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = topGradientView.bounds;
+        if inverted {
+            gradientLayer.colors = [endColor.CGColor, startColor.CGColor, startColor.CGColor]
+        } else {
+            gradientLayer.colors = [startColor.CGColor, startColor.CGColor, endColor.CGColor]
+        }
+        gradientLayer.locations = [0.0, 0.3, 1.0]
+        return gradientLayer
     }
 }
 
