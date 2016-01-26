@@ -50,7 +50,7 @@ class OnboardingController: UIViewController, UIScrollViewDelegate {
 		scroll?.delegate = self
 		dots?.addTarget(self, action: Selector("swipe:"), forControlEvents: UIControlEvents.ValueChanged)
 		let closeButton = UIButton()
-		closeButton.frame = CGRect(x: screen.width - 110, y: 20, width: 100, height: 60)
+		closeButton.frame = CGRect(x: screen.width - 110, y: 10, width: 100, height: 40)
 		closeButton.setTitle("Закрыть", forState: .Normal)
 		closeButton.setTitleColor(.whiteColor(), forState: .Normal)
 		closeButton.titleLabel!.font =  .bold_Med()

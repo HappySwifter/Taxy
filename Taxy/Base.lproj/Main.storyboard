@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -799,12 +799,12 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FcA-kX-fPe">
-                                <rect key="frame" x="0.0" y="560" width="600" height="40"/>
-                                <color key="backgroundColor" red="1" green="0.45091797076557127" blue="0.42543799365817281" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="0.0" y="546" width="600" height="54"/>
+                                <color key="backgroundColor" red="1" green="0.3155391026400568" blue="0.33054317856587279" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="2TG-MJ-Zcv"/>
+                                    <constraint firstAttribute="height" constant="54" id="2TG-MJ-Zcv"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="19"/>
                                 <state key="normal" title="Отменить заказ">
                                     <color key="titleColor" red="0.98580289707654956" green="1" blue="0.97560464692182858" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -812,14 +812,26 @@
                                     <action selector="cancelTouched" destination="QTG-wQ-rTl" eventType="touchUpInside" id="qzL-Yb-X6y"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ищем свободное такси" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lht-6o-8f2">
+                                <rect key="frame" x="20" y="153" width="560" height="52"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="GHh-qq-Odk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="27"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="0uc-iO-pxZ" firstAttribute="top" secondItem="lht-6o-8f2" secondAttribute="bottom" constant="37" id="2T3-XW-GSu"/>
                             <constraint firstItem="mrb-XA-8b9" firstAttribute="top" secondItem="FcA-kX-fPe" secondAttribute="bottom" id="5ZR-nq-wsL"/>
                             <constraint firstItem="0uc-iO-pxZ" firstAttribute="centerX" secondItem="tkR-Gi-oqp" secondAttribute="centerX" id="Bxg-rB-7W6"/>
                             <constraint firstItem="0uc-iO-pxZ" firstAttribute="centerY" secondItem="tkR-Gi-oqp" secondAttribute="centerY" id="GBv-8j-4hS"/>
+                            <constraint firstItem="lht-6o-8f2" firstAttribute="leading" secondItem="tkR-Gi-oqp" secondAttribute="leadingMargin" id="Jgq-3r-f3s"/>
                             <constraint firstAttribute="trailing" secondItem="FcA-kX-fPe" secondAttribute="trailing" id="KUg-8r-qWf"/>
                             <constraint firstItem="FcA-kX-fPe" firstAttribute="leading" secondItem="tkR-Gi-oqp" secondAttribute="leading" id="NIM-Up-VIs"/>
+                            <constraint firstItem="lht-6o-8f2" firstAttribute="trailing" secondItem="tkR-Gi-oqp" secondAttribute="trailingMargin" id="qEj-mb-td1"/>
                         </constraints>
                     </view>
                     <connections>
@@ -873,7 +885,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HLc-Nr-ePb">
-                                                    <rect key="frame" x="123" y="8" width="465" height="84"/>
+                                                    <rect key="frame" x="123" y="8" width="465" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="EN3-Ia-rhf"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -884,19 +899,29 @@
                                                         <constraint firstAttribute="width" constant="90" id="jyx-BG-M9b"/>
                                                     </constraints>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z2O-hA-RBP">
+                                                    <rect key="frame" x="123" y="61" width="465" height="31"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="HLc-Nr-ePb" secondAttribute="trailing" constant="4" id="Dup-M1-Joe"/>
-                                                <constraint firstItem="HLc-Nr-ePb" firstAttribute="top" secondItem="La8-U7-ypG" secondAttribute="topMargin" id="GBJ-rG-deW"/>
-                                                <constraint firstItem="HLc-Nr-ePb" firstAttribute="leading" secondItem="WLZ-qE-z2I" secondAttribute="trailing" constant="11" id="IPk-Rk-tXF"/>
+                                                <constraint firstItem="HLc-Nr-ePb" firstAttribute="leading" secondItem="WLZ-qE-z2I" secondAttribute="trailing" constant="11" id="Q8a-cX-3DP"/>
                                                 <constraint firstItem="WLZ-qE-z2I" firstAttribute="top" secondItem="La8-U7-ypG" secondAttribute="top" id="SOt-kT-36Q"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="HLc-Nr-ePb" secondAttribute="bottom" id="U2P-6I-cqO"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="HLc-Nr-ePb" secondAttribute="trailing" constant="4" id="Xft-Kt-hH7"/>
                                                 <constraint firstAttribute="bottom" secondItem="WLZ-qE-z2I" secondAttribute="bottom" id="ZvM-gq-0oy"/>
+                                                <constraint firstItem="HLc-Nr-ePb" firstAttribute="top" secondItem="La8-U7-ypG" secondAttribute="topMargin" id="gpV-GF-wTR"/>
+                                                <constraint firstItem="z2O-hA-RBP" firstAttribute="bottom" secondItem="La8-U7-ypG" secondAttribute="bottomMargin" id="kzW-VX-7BA"/>
+                                                <constraint firstItem="z2O-hA-RBP" firstAttribute="leading" secondItem="WLZ-qE-z2I" secondAttribute="trailing" constant="11" id="ofD-Ow-25X"/>
                                                 <constraint firstItem="WLZ-qE-z2I" firstAttribute="leading" secondItem="La8-U7-ypG" secondAttribute="leading" constant="22" id="t54-an-qAk"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="z2O-hA-RBP" secondAttribute="trailing" constant="4" id="xxs-3s-JPm"/>
+                                                <constraint firstItem="z2O-hA-RBP" firstAttribute="top" secondItem="HLc-Nr-ePb" secondAttribute="bottom" constant="3" id="zkY-16-y6g"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="nameLabel" destination="HLc-Nr-ePb" id="Ijx-lY-qCG"/>
+                                            <outlet property="phoneLabel" destination="z2O-hA-RBP" id="XYj-Mf-PF6"/>
                                             <outlet property="photoView" destination="WLZ-qE-z2I" id="s9n-sf-biU"/>
                                         </connections>
                                     </tableViewCell>

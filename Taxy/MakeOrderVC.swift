@@ -49,6 +49,7 @@ class MakeOrderVC: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Заказать"
         setupMenuButtons()
         configure()
     }
@@ -66,8 +67,8 @@ class MakeOrderVC: FormViewController {
         let leftDrawerButton = DrawerBarButtonItem(target: self, action: "leftDrawerButtonPress:")
         self.navigationItem.setLeftBarButtonItem(leftDrawerButton, animated: true)
         
-        let doneButton = UIBarButtonItem(title: "Создать заказ", style: .Plain, target: self, action: "orderTouched")
-        self.navigationItem.setRightBarButtonItem(doneButton, animated: false)
+//        let doneButton = UIBarButtonItem(title: "Создать заказ", style: .Plain, target: self, action: "orderTouched")
+//        self.navigationItem.setRightBarButtonItem(doneButton, animated: false)
     }
     
     func leftDrawerButtonPress(sender: AnyObject?) {
@@ -202,9 +203,30 @@ class MakeOrderVC: FormViewController {
         }
         
         
+
+        let makeOrderButtonRow = LabelRowFormer<CenterLabelCell>() {
+            $0.backgroundColor = .mainOrangeColor()
+            $0.titleLabel.textColor = .whiteColor()
+            }
+            .configure {
+                $0.text = "Создать заказ"
+            }
+            .onSelected { [weak self] _ in
+                self?.former.deselect(true)
+                let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+                if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.TaxyRequestingSTID.rawValue) as? TaxyRequestingVC {
+                    if let info = self?.orderInfo {
+                        contr.orderInfo = info
+                        self?.navigationController?.pushViewController(contr, animated: true)
+                    }
+                    
+                }
+        }
+        
+        
         let titleRow = LabelRowFormer<CenterLabelCell>() { [weak self] in
             let orderType = self?.orderInfo.orderType.title() ?? ""
-            $0.textLabel?.text = "Создать заказ \(orderType)"
+            $0.textLabel?.text = "\(orderType)"
             $0.textLabel?.textAlignment = .Center
             $0.textLabel?.font = UIFont.light_Lar()
             }.configure {
@@ -214,14 +236,14 @@ class MakeOrderVC: FormViewController {
                 self?.former.deselect(false)
         }
         
-        
-        let fromSection = SectionFormer(rowFormer: titleRow, fromRow, buttons2Row)
+        let titleSection = SectionFormer(rowFormer: titleRow)
+        let fromSection = SectionFormer(rowFormer: fromRow, buttons2Row)
         let toSection = SectionFormer(rowFormer: toRow, findOnMapRow)
         let priceSection = SectionFormer(rowFormer: priceRow)
         let moreSection = SectionFormer(rowFormer: moreRow)
+        let buttonSection = SectionFormer(rowFormer: makeOrderButtonRow)
         
-        
-        former.append(sectionFormer:fromSection, toSection, priceSection, moreSection)
+        former.append(sectionFormer:titleSection, fromSection, toSection, priceSection, moreSection, buttonSection)
             .onCellSelected { [weak self] _ in
                 self?.formerInputAccessoryView.update()
         }
@@ -243,18 +265,18 @@ class MakeOrderVC: FormViewController {
     
     
     func orderTouched() {
-        let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.TaxyRequestingSTID.rawValue) as? TaxyRequestingVC {
-            contr.orderInfo = orderInfo
-            self.navigationController?.pushViewController(contr, animated: true)
-        }
+//        let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+//        if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.TaxyRequestingSTID.rawValue) as? TaxyRequestingVC {
+//            contr.orderInfo = orderInfo
+//            self.navigationController?.pushViewController(contr, animated: true)
+//        }
     }
     
     
     private func switchInfomationSection() {
         if orderInfo.moreInformation {
-            former.insertUpdate(sectionFormer: informationSection, toSection: former.numberOfSections, rowAnimation: .Top)
-            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: informationSection.numberOfRows - 1, inSection: former.numberOfSections - 1), atScrollPosition: .Bottom, animated: true)
+            former.insertUpdate(sectionFormer: informationSection, toSection: former.numberOfSections - 1, rowAnimation: .Top)
+//            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: informationSection.numberOfRows - 1, inSection: former.numberOfSections - 1), atScrollPosition: .Bottom, animated: true)
         } else {
             former.removeUpdate(sectionFormer: informationSection, rowAnimation: .Top)
         }

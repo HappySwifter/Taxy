@@ -54,9 +54,9 @@ enum OrderType {
     case City, Intercity, Freight, Service
     func title() -> String {
         switch self {
-        case City: return "По городу"
-        case Intercity: return "Межгород"
-        case Freight: return "Грузовое"
+        case City: return "Такси по городу"
+        case Intercity: return "Такси межгород"
+        case Freight: return "Грузовое такси"
         case Service: return "Услуги"
         }
     }

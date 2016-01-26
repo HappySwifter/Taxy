@@ -30,12 +30,17 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Дорожное такси"
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        
+        
+        tableView.backgroundColor = UIColor(patternImage: UIImage(named: "loaging_image.jpg")!)
+//        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
+//        let blurView = UIVisualEffectView(effect: blurEffect)
+//        blurView.frame = tableView.frame
+//        tableView.addSubview(blurView)
 
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.backgroundColor = UIColor.whiteColor()
-//        self.navigationController?.navigationBar.barTintColor = UIColor(red: 161 / 255, green: 164 / 255, blue: 166 / 255, alpha: 1.0)
-//        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 55 / 255, green: 70 / 255, blue: 77 / 255, alpha: 1.0)]
     }
     
     func switchChanged(index: Int) {
@@ -157,7 +162,7 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate,
         case DrawerSection.Main.rawValue:
             return "Общее"
         case DrawerSection.Orders.rawValue:
-            return "Заказы"
+            return "ЗАКАЗАТЬ"
         default:
             return nil
         }
@@ -206,6 +211,11 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate,
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0
+    }
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.backgroundColor = .clearColor()
+        cell.contentView.backgroundColor = .clearColor()
     }
     
     // MARK: - UITableViewDelegate

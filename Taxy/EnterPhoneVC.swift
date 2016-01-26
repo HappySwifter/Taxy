@@ -58,7 +58,7 @@ final class LoginViewController: UIViewController {
             $0.titleLabel.textColor = .whiteColor()
             }.configure {
                 $0.viewHeight = 40
-                $0.text = "Добро пожаловать!"
+                $0.text = "Введите номер телефона"
 //                $0.textAligment = .Center
         }
         
