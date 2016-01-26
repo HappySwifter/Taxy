@@ -42,7 +42,8 @@ final class Networking {
     
     func getSms (loginInfo: Login?, completion: Result<String, String> -> Void)  {
         guard let phone = loginInfo?.phone else {
-//            Popup.instanse.showError("", message: "\(__FUNCTION__)")
+            debugPrint("\(__FUNCTION__)")
+            completion(Result.Error("Ошибка"))
             return
         }
         let parameters = [
@@ -64,7 +65,8 @@ final class Networking {
     func checkPincode (loginInfo: Login?, completion: Result<String, String>  -> Void) {
         
         guard let phone = loginInfo?.phone, pincode = loginInfo?.pincode else {
-            Popup.instanse.showError("", message: "\(__FUNCTION__)")
+            debugPrint("\(__FUNCTION__)")
+            completion(Result.Error("Ошибка"))
             return
         }
         let parameters = [
@@ -91,7 +93,8 @@ final class Networking {
         var parameters = [String: AnyObject]()
         
         guard let id = LocalData().getUserID else {
-            Popup.instanse.showError("", message: "\(__FUNCTION__)")
+            debugPrint("\(__FUNCTION__)")
+            completion(Result.Error("Ошибка"))
             return
         }
         parameters[UserFields.Id.rawValue] = id
@@ -103,16 +106,22 @@ final class Networking {
             parameters[UserFields.FirstName.rawValue] = name
         }
         
+        if let model = userProfile.carModel {
+            parameters[UserFields.CarModel.rawValue] = model
+        }
+        if let number = userProfile.carNumber {
+            parameters[UserFields.CarNumber.rawValue] = number
+        }
+        if let color = userProfile.carColor {
+            parameters[UserFields.CarColor.rawValue] = color
+        }
+        
         parameters[UserFields.UserType.rawValue] = userProfile.type.rawValue
         parameters[UserFields.DriverState.rawValue] = userProfile.driverState.rawValue + 1
         parameters[UserFields.WithChildChair.rawValue] = String(userProfile.withChildChair)
-        
-//        switch userProfile.type {
-//        case .Driver:
-//            parameters["UserType"] = "Driver"
-//        case .Passenger:
-//            parameters["UserType"] = "Passenger"
-//        }
+
+
+
         if let image = userProfile.image {
             if let base64 = image.toBase64() {
                 parameters[UserFields.Image.rawValue] = base64
@@ -136,7 +145,7 @@ final class Networking {
     
     func changeUserState (state: Int, completion: Result<Int, String>  -> Void) {
         guard let userId = LocalData().getUserID else {
-            Popup.instanse.showError("", message: "Не обнружен id пользователя")
+            debugPrint("Не обнружен id пользователя \(__FUNCTION__)")
             completion(Result.Error("Не обнружен id пользователя"))
             return
         }
@@ -163,7 +172,7 @@ final class Networking {
     func getUserInfo (completion: Result<String, String>  -> Void) {
         
         guard let userId = LocalData().getUserID else {
-            Popup.instanse.showError("", message: "Не обнружен id пользователя")
+            debugPrint("Не обнружен id пользователя \(__FUNCTION__)")
             completion(Result.Error("Не обнружен id пользователя"))
             return
         }
@@ -221,6 +230,7 @@ final class Networking {
     func rateDriver(driverId: String, value: Int) {
         
         guard let userId = LocalData().getUserID else {
+            debugPrint("\(__FUNCTION__)")
             return
         }
         let params = [
@@ -246,7 +256,8 @@ final class Networking {
         var parameters = [String: String]()
         
         guard let id = LocalData().getUserID, let fromPlace = order.fromPlace  else {
-            Popup.instanse.showError("", message: "\(__FUNCTION__)")
+            debugPrint("\(__FUNCTION__)")
+            completion(Result.Error("Ошибка"))
             return
         }
         if let lon = order.fromPlaceCoordinates?.longitude, let lat = order.fromPlaceCoordinates?.latitude {
@@ -290,7 +301,7 @@ final class Networking {
     
     func cancelOrder(order: Order, _ completion: Result<String, String> -> Void) {
         guard let id = LocalData().getUserID, orderID = order.orderID else {
-            Popup.instanse.showError("", message: "\(__FUNCTION__)")
+            debugPrint("\(__FUNCTION__)")
             completion(Result.Error("Не найден заказ"))
             return
         }
@@ -314,7 +325,8 @@ final class Networking {
     func getOrders(orderType: Int, find: Bool = false, completion: Result<[Order], String> -> Void) {
         
         guard let id = LocalData().getUserID  else {
-            Popup.instanse.showError("", message: "\(__FUNCTION__)")
+            debugPrint("\(__FUNCTION__)")
+            completion(Result.Error("Ошибка"))
             return
         }
         
@@ -343,7 +355,7 @@ final class Networking {
     
     func rejectOrder(orderId: String) {
         guard let id = LocalData().getUserID  else {
-            Popup.instanse.showError("", message: "\(__FUNCTION__)")
+            debugPrint("\(__FUNCTION__)")
             return
         }
         let parameters = [
@@ -366,7 +378,8 @@ final class Networking {
     
     func checkOrder(order: Order, completion: Result<[Order], String> -> Void) {
         guard let id = LocalData().getUserID, orderID = order.orderID  else {
-            Popup.instanse.showError("", message: "\(__FUNCTION__)")
+            debugPrint("\(__FUNCTION__)")
+            completion(Result.Error("Ошибка"))
             return
         }
         let parameters = [
@@ -392,6 +405,8 @@ final class Networking {
     func closeOrder(order: Order, completion: Result<String, String> -> Void) {
         guard let id = LocalData().getUserID, let orderID = order.orderID else {
             Popup.instanse.showError("cant close order. No orderID passed", message: "\(__FUNCTION__)")
+            debugPrint("cant close order. No orderID passed in\(__FUNCTION__)")
+            completion(Result.Error("Не получается закрыть заказ"))
             return
         }
         let parameters = [
@@ -412,7 +427,8 @@ final class Networking {
     
     func getOnlyMyOrder(completion: Result<[Order], String> -> ()) {
         guard let id = LocalData().getUserID else {
-            Popup.instanse.showError("", message: "\(__FUNCTION__)")
+            debugPrint("\(__FUNCTION__)")
+            completion(Result.Error("Ошибка"))
             return
         }
         let parameters = [ "userId" : id ]
@@ -431,7 +447,8 @@ final class Networking {
     
     func acceptOrder(orderId: String, completion: Result<Int, String> -> Void) {
         guard let id = LocalData().getUserID else {
-            Popup.instanse.showError("", message: "\(__FUNCTION__)")
+            debugPrint("\(__FUNCTION__)")
+            completion(Result.Error("Ошибка"))
             return
         }
         let parameters = [

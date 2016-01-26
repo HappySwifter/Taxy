@@ -13,7 +13,8 @@ final class DriverRegistrationVC: FormViewController {
     
     private var selectedRow = 0
 //    var userInfo: UserProfile?
-    
+    private lazy var formerInputAccessoryView: FormerInputAccessoryView = FormerInputAccessoryView(former: self.former)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMenuButtons()
@@ -41,7 +42,9 @@ final class DriverRegistrationVC: FormViewController {
     
 
     private lazy var pravaRow: LabelRowFormer<ProfileImageCell> = {
-        LabelRowFormer<ProfileImageCell>(instantiateType: .Nib(nibName: "ProfileImageCell"))
+        LabelRowFormer<ProfileImageCell>(instantiateType: .Nib(nibName: "ProfileImageCell")) {
+            $0.iconView.image = UserProfile.sharedInstance.pravaPhoto
+            }
             .configure {
                 $0.text = "Фото прав"
                 $0.rowHeight = 60
@@ -54,7 +57,9 @@ final class DriverRegistrationVC: FormViewController {
 
     
     private lazy var carRow: LabelRowFormer<ProfileImageCell> = {
-        LabelRowFormer<ProfileImageCell>(instantiateType: .Nib(nibName: "ProfileImageCell"))
+        LabelRowFormer<ProfileImageCell>(instantiateType: .Nib(nibName: "ProfileImageCell")) {
+            $0.iconView.image = UserProfile.sharedInstance.carPhoto
+            }
             .configure {
                 $0.text = "Фото машины"
                 $0.rowHeight = 60
@@ -66,20 +71,45 @@ final class DriverRegistrationVC: FormViewController {
     }()
     
     
-//    private lazy var informationSection: SectionFormer = {
-//        let childChairRow = SwitchRowFormer<FormSwitchCell>() {
-//            $0.titleLabel.text = "Детское кресло?"
-//            $0.titleLabel.textColor = .formerColor()
-//            $0.titleLabel.font = UIFont.bold_Med()
-//            $0.switchButton.onTintColor = .formerSubColor()
-//            }.configure {
-//                $0.switchWhenSelected = true
-//            }.onSwitchChanged {
-//                UserProfile.sharedInstance.withChildChair = $0
-//        }
-//        return SectionFormer(rowFormer: childChairRow)
-//    }()
+    private lazy var carModelRow: TextFieldRowFormer<FormTextFieldCell> = { [weak self] _ in
+        TextFieldRowFormer<FormTextFieldCell> {
+            $0.textField.inputAccessoryView = self?.formerInputAccessoryView
+            $0.titleLabel.text = "Марка"
+            $0.textField.textColor = .formerSubColor()
+            }.configure {
+                $0.text = UserProfile.sharedInstance.carModel
+            }
+            .onTextChanged {
+                UserProfile.sharedInstance.carModel = $0
+        }
+    }()
+    
+    private lazy var carNumberRow: TextFieldRowFormer<FormTextFieldCell> = { [weak self] _ in
+        TextFieldRowFormer<FormTextFieldCell> {
+            $0.textField.inputAccessoryView = self?.formerInputAccessoryView
+            $0.titleLabel.text = "Номер"
+            $0.textField.textColor = .formerSubColor()
+            }.configure {
+                $0.text = UserProfile.sharedInstance.carNumber
+            }
+            .onTextChanged {
+                UserProfile.sharedInstance.carNumber = $0
+        }
+    }()
 
+    private lazy var carColorRow: TextFieldRowFormer<FormTextFieldCell> = { [weak self] _ in
+        TextFieldRowFormer<FormTextFieldCell> {
+            $0.textField.inputAccessoryView = self?.formerInputAccessoryView
+            $0.titleLabel.text = "Цвет"
+            $0.textField.textColor = .formerSubColor()
+            }.configure {
+                $0.text = UserProfile.sharedInstance.carColor
+            }
+            .onTextChanged {
+                UserProfile.sharedInstance.carColor = $0
+        }
+    }()
+    
     
     private func configure() {
         
@@ -90,11 +120,20 @@ final class DriverRegistrationVC: FormViewController {
         let descriptionHeader = LabelViewFormer<FormLabelHeaderView>() {
             $0.contentView.backgroundColor = .clearColor()
             $0.titleLabel.textColor = .grayColor()
-            $0.titleLabel.font = .systemFontOfSize(17)
+            $0.titleLabel.font = .bold_Med()
             }.configure {
                 $0.viewHeight = 150
                 $0.text = "Почти готово! Загрузите фотографию своей машины и водительского удостоверения. После того, как наши диспетчеры их проверят, вам придет СМС о подтверждении регистрации"
 //                $0.textAligment = .Center
+        }
+        
+        let descriptionHeader2 = LabelViewFormer<FormLabelHeaderView>() {
+            $0.contentView.backgroundColor = .clearColor()
+            $0.titleLabel.textColor = .grayColor()
+            $0.titleLabel.font = .bold_Med()
+            }.configure {
+                $0.viewHeight = 40
+                $0.text = "Информация о машине"
         }
         
         
@@ -110,12 +149,19 @@ final class DriverRegistrationVC: FormViewController {
                 UserProfile.sharedInstance.withChildChair = $0
         }
         
-        let rows = [pravaRow, carRow, childChairRow]
+        let rows = [pravaRow, carRow, ]
 
+        
         let section = SectionFormer(rowFormers: rows)
         .set(headerViewFormer: descriptionHeader)
-        former.add(sectionFormers: [section])
-        print("dddd")
+        
+        let section2 = SectionFormer(rowFormer: childChairRow, carModelRow, carNumberRow, carColorRow)
+         .set(headerViewFormer: descriptionHeader2)
+        
+        former.add(sectionFormers: [section, section2])
+            .onCellSelected { [weak self] _ in
+                self?.formerInputAccessoryView.update()
+        }
     }
 
     
