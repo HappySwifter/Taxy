@@ -11,6 +11,7 @@ import Foundation
 import SwiftLocation
 import SVProgressHUD
 
+
 struct Helper {
         
     func showLoading(title: String? = "Загрузка") {
@@ -21,38 +22,45 @@ struct Helper {
         SVProgressHUD.dismiss()
     }
     
-    func getAddres( completion: (String, CLLocationCoordinate2D) ->Void ) {
-        getLocation { location in
-            SwiftLocation.shared.reverseCoordinates(Service.GoogleMaps, coordinates: location.coordinate, onSuccess: { (place) -> Void in
-                guard let city = place?.locality, let street = place?.thoroughfare, let home = place?.subThoroughfare else {
-                    debugPrint("cant get city and street from place")
-                    return
-                }
-                var address = city + ", " + street
-                if home.characters.count > 0 {
-                    address.appendContentsOf(", \(home)")
+    func getAddres( completion: (String, CLLocationCoordinate2D) -> Void, failure: (String -> Void)) {
+        getLocation { result in
+            switch result {
+            case .Response(let location):
+                SwiftLocation.shared.reverseCoordinates(Service.GoogleMaps, coordinates: location.coordinate, onSuccess: { (place) -> Void in
+                    guard let city = place?.locality, let street = place?.thoroughfare, let home = place?.subThoroughfare else {
+//                        debugPrint("cant get city and street from place")
+                        failure("Не удалось определить адрес")
+                        return
+                    }
+                    var address = city + ", " + street
+                    if home.characters.count > 0 {
+                        address.appendContentsOf(", \(home)")
+                    }
                     completion(address, location.coordinate)
+                    }) {
+                        failure(String($0))
                 }
-                }) { (error) -> Void in
-                    debugPrint(error)
+            case .Error(let error):
+                failure(error)
             }
+            
         }
     }
     
-    func getLocation( completion: CLLocation -> Void) {
+    func getLocation( completion: Result<CLLocation, String> -> Void) {
         do {
             try SwiftLocation.shared.currentLocation(Accuracy.Neighborhood, timeout: 20, onSuccess: { (location) -> Void in
                 if let location = location {
-                    completion(location)
+                    completion(Result.Response(location))
                 } else {
-                    print("cant find coords")
+                    completion(Result.Error("Не удалось определить координаты"))
                 }
                 
             }) { (error) -> Void in
-                print(error)
+                completion(Result.Error(error?.description ?? "Ошибка определения геолокации"))
             }
         } catch {
-            print(error)
+            completion(Result.Error(String(error)))
         }
     }
     

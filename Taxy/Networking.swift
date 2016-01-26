@@ -291,6 +291,7 @@ final class Networking {
     func cancelOrder(order: Order, _ completion: Result<String, String> -> Void) {
         guard let id = LocalData().getUserID, orderID = order.orderID else {
             Popup.instanse.showError("", message: "\(__FUNCTION__)")
+            completion(Result.Error("Не найден заказ"))
             return
         }
         let parameters = [
@@ -355,7 +356,7 @@ final class Networking {
             case .Error(let error):
                 Popup.instanse.showError("", message: "\(error) \(__FUNCTION__)")
                 
-            case .Response(let json):
+            case .Response(_):
                 print("REJECTED")
             }
         }

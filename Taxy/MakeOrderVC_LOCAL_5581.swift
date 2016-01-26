@@ -76,7 +76,7 @@ class MakeOrderVC: FormViewController {
     
     func configure() {
         
-        
+
         
         
         ////////// from place /////////////
@@ -85,7 +85,7 @@ class MakeOrderVC: FormViewController {
             $0.textView.font = UIFont.light_Med()
             $0.textView.inputAccessoryView = self?.formerInputAccessoryView
             $0.textLabel?.font = UIFont.light_Small()
-            
+
             }.configure {
                 $0.placeholder = "Откуда?"
                 $0.text = orderInfo.fromPlace
@@ -95,7 +95,7 @@ class MakeOrderVC: FormViewController {
                 self?.orderInfo.fromPlaceCoordinates = nil
         }
         
-        
+
         
         let buttons2Row = ButtonsRowFormer<TwoButtonsCell>(instantiateType: .Nib(nibName: "TwoButtonsCell"))
             .configure {
@@ -104,13 +104,11 @@ class MakeOrderVC: FormViewController {
             .onButtonPressed { [weak self] index in
                 switch index {
                 case 0:
-                    Helper().getAddres({ [weak self] (address, coords) -> Void in
-                        self?.orderInfo.fromPlace = address
-                        self?.orderInfo.fromPlaceCoordinates = coords
-                        self?.update()
-                        }, failure: { (error) -> Void in
-                            Popup.instanse.showError("Ошибка", message: error)
-                    })
+                Helper().getAddres {
+                    self?.orderInfo.fromPlace = $0.0
+                    self?.orderInfo.fromPlaceCoordinates = $0.1
+                    self?.update()
+                    }
                 case 1:
                     let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
                     if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MapSTID.rawValue) as? MapViewController {
@@ -183,7 +181,7 @@ class MakeOrderVC: FormViewController {
         //////////////////////////////
         
         
-        
+      
         
         
         let moreRow = SwitchRowFormer<FormSwitchCell>() {
@@ -201,7 +199,7 @@ class MakeOrderVC: FormViewController {
                 
         }
         
-        
+
         let titleRow = LabelRowFormer<CenterLabelCell>() { [weak self] in
             let orderType = self?.orderInfo.orderType.title() ?? ""
             $0.textLabel?.text = "Создать заказ \(orderType)"
@@ -213,7 +211,7 @@ class MakeOrderVC: FormViewController {
             .onSelected { [weak self] _ in
                 self?.former.deselect(false)
         }
-        
+    
         
         let fromSection = SectionFormer(rowFormer: titleRow, fromRow, buttons2Row)
         let toSection = SectionFormer(rowFormer: toRow, findOnMapRow)

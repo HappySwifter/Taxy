@@ -9,3 +9,15 @@ NSURLProtocol.setProperty(bodyData, forKey: "NFXBodyData", inRequest: encodedURL
 }
 
 ***
+
+
+
+
+TODO
+{
+
+add good screens to onboarding VC
+
+
+
+}

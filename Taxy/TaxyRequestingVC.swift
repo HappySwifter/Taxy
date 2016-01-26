@@ -24,13 +24,20 @@ class TaxyRequestingVC: UIViewController {
         title = "Поиск такси"
         cancelRequestButton.enabled = false
         if orderInfo.fromPlace == nil { // fast order
-            Helper().getAddres {
-                self.orderInfo.fromPlace = $0.0
-                self.orderInfo.fromPlaceCoordinates = $0.1
-                self.orderInfo.toPlace = "Быстрый заказ"
-                self.orderInfo.price = 0
-                self.createOrder()
-            }
+            
+            Helper().getAddres({ [weak self] (addres, location) -> Void in
+                
+                self?.orderInfo.fromPlace = addres
+                self?.orderInfo.fromPlaceCoordinates = location
+                self?.orderInfo.toPlace = "Быстрый заказ"
+                self?.orderInfo.price = 0
+                self?.createOrder()
+                
+                }, failure: { [weak self] (error) -> Void in
+                    Popup.instanse.showError("Ошибка", message: error)
+                    self?.dismiss()
+            })
+
         } else {
             createOrder()
         }
@@ -107,11 +114,14 @@ class TaxyRequestingVC: UIViewController {
             default:
                 break
             }
-            
-            self?.timer?.invalidate()
-            self?.enableMenu()
-            self?.navigationController?.popViewControllerAnimated(true)
+            self?.dismiss()
         }
+    }
+    
+    func dismiss() {
+        timer?.invalidate()
+        enableMenu()
+        navigationController?.popViewControllerAnimated(true)
     }
 
 }

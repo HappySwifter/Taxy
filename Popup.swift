@@ -25,7 +25,7 @@ final class Popup {
         return self
     }
     
-    func showError(title: String, message: String, otherButtons: [String]? =  nil) -> Self {
+    func showError(title: String = "Ошибка", message: String, otherButtons: [String]? =  nil) -> Self {
         show(title, message: message, type: 2, otherButtonTitles: otherButtons ?? [])
         return self
     }
