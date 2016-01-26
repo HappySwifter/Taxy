@@ -129,6 +129,11 @@ class OrderInfoVC: UIViewController {
         }
     }
     
+    @IBAction func showInfoTouched() {
+        performSegueWithIdentifier("ShowAditionalInfoSegue", sender: nil)
+    }
+    
+    
     func dismissMe() {
 //        self.timer?.invalidate()
         self.navigationController?.popViewControllerAnimated(true)
