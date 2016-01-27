@@ -40,7 +40,7 @@ class SideDrawerSectionHeaderView: UIView {
     }
     
     func commonSetup() {
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.clearColor()
         self.label = UILabel(frame: CGRect(x: 15, y: CGRectGetMaxY(self.bounds) - 28, width: CGRectGetWidth(self.bounds) - 30, height: 22))
         self.label.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
         self.label.backgroundColor = UIColor.clearColor()
@@ -81,7 +81,7 @@ class SwitchHeaderView: UIView {
     }
     
     func commonSetup() {
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.clearColor()
 
         let runkeeperSwitch = DGRunkeeperSwitch(leftTitle: "Свободен", rightTitle: "Занят")
         runkeeperSwitch.backgroundColor = .whiteColor()
@@ -90,7 +90,6 @@ class SwitchHeaderView: UIView {
         runkeeperSwitch.selectedTitleColor = .whiteColor()
         runkeeperSwitch.titleFont = UIFont.bold_Med()
         runkeeperSwitch.frame = CGRect(x: 15.0, y: 15, width: 200.0, height: 30.0)
-//        runkeeperSwitch.center = center
         runkeeperSwitch.addTarget(self, action: Selector("switchValueDidChange:"), forControlEvents: .ValueChanged)
         runkeeperSwitch.setSelectedIndex(UserProfile.sharedInstance.driverState.rawValue, animated: false)
         addSubview(runkeeperSwitch)

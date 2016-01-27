@@ -10,37 +10,15 @@
 import UIKit
 import DrawerController
 
-enum DrawerSection: Int {
-    case Avatar
-    case Orders
-    case Main
-    case Other
-}
-
-
-
-class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate, SwitchDelegate {
+final class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchDelegate {
     @IBOutlet weak var tableView: UITableView!
-//    let drawerWidths: [CGFloat] = [160, 200, 240, 280, 320]
 
-    let profileSection = ["Профиль", "Мои заказы"]
-    let driverOrdersSection = ["Поиск заказов"]
-    let passOrdersSection = ["Быстрый заказ"]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Дорожное такси"
         tableView.delegate = self
         tableView.dataSource = self
-        
-        
-        
-        tableView.backgroundColor = UIColor(patternImage: UIImage(named: "loaging_image.jpg")!)
-//        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
-//        let blurView = UIVisualEffectView(effect: blurEffect)
-//        blurView.frame = tableView.frame
-//        tableView.addSubview(blurView)
-
+        tableView.backgroundColor = UIColor(patternImage: UIImage(named: "loaging_image_blurred.jpg")!)
     }
     
     func switchChanged(index: Int) {
@@ -52,105 +30,69 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate,
                 }
             case .Error(let error):
                 debugPrint(error)
-          
             }
         }
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
         // See https://github.com/sascha/DrawerController/issues/12
         self.navigationController?.view.setNeedsLayout()
-        
-        self.tableView.reloadData()
-        
-    }
-    
-    override func contentSizeDidChange(size: String) {
         self.tableView.reloadData()
     }
     
-    // MARK: - UITableViewDataSource
+//    override func contentSizeDidChange(size: String) {
+//        self.tableView.reloadData()
+//    }
     
+   
+    
+    private func isPassenger() -> Bool {
+        return UserProfile.sharedInstance.type == .Passenger
+    }
+    
+    private func getMenuItems() -> [(sectionTitle: String, items: [String])] {
+        if isPassenger() {
+            return [
+                ("", ["Профиль", "Мои заказы"]),
+                ("ЗАКАЗАТЬ", ["Быстрый заказ"] + OrderType.value().map { $0.title() })
+            ]
+        } else {
+            return [
+                ("", ["Профиль", "Мои заказы"]),
+                ("СОЗДАТЬ", ["Поиск заказов"])
+            ]
+        }
+    }
+}
+
+
+extension MenuVC {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 4
+        return getMenuItems().count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case DrawerSection.Main.rawValue:
-            return 1
-        case DrawerSection.Avatar.rawValue:
-            if UserProfile.sharedInstance.type == .Passenger {
-                return profileSection.count
-            } else {
-                return profileSection.count
-            }
-        case DrawerSection.Orders.rawValue:
-            if UserProfile.sharedInstance.type == .Passenger {
-                return passOrdersSection.count + OrderType.value().count
-            } else {
-                return driverOrdersSection.count
-            }
-        case DrawerSection.Other.rawValue:
-            return 1
-        default:
-            return 0
-        }
+        return getMenuItems()[section].items.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let CellIdentifier = "Cell"
+        let cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("Cell") as UITableViewCell?
         
-        var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as UITableViewCell?
-        
-        if cell == nil {
-            cell = SideDrawerTableViewCell(style: .Value1, reuseIdentifier: CellIdentifier)
-            cell.selectionStyle = .Blue
-        }
-        cell.imageView?.image = nil
-
+        let section = indexPath.section
+        let row = indexPath.row
         
         switch indexPath.section {
-            
-            case DrawerSection.Avatar.rawValue:
-                if indexPath.row == 0 {
-                    if let cell = tableView.dequeueReusableCellWithIdentifier("profileCell", forIndexPath: indexPath) as? ProfileCell {
-                        cell.configure()
-                        return cell
-                    }
-                } else if indexPath.row == 1 {
-                    cell.textLabel?.text = profileSection[indexPath.row]
-                }
-
-            case DrawerSection.Orders.rawValue:
-                if UserProfile.sharedInstance.type == .Passenger {
-                    if indexPath.row == 0 {
-                        cell.textLabel?.text = passOrdersSection[indexPath.row]
-                    } else {
-                        cell.textLabel?.text = OrderType.value()[indexPath.row - 1].title()
-                    }
-                } else {
-                    cell.textLabel?.text = driverOrdersSection[indexPath.row]
+        case 0:
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCellWithIdentifier("profileCell", forIndexPath: indexPath) as! ProfileCell
+                cell.configure()
+                return cell
+            } else if indexPath.row == 1 {
+                cell.textLabel?.text = getMenuItems()[section].items[row]
             }
-                
-            
-
-            case DrawerSection.Main.rawValue:
-                switch indexPath.row {
-                case 0:
-                    cell.textLabel?.text = "Настройки"
-               
-                default:
-                    break
-                }
-            
-        case DrawerSection.Other.rawValue:
-            cell.textLabel?.text = "Правила"
-            
         default:
-            break
+            cell.textLabel?.text = getMenuItems()[section].items[row]
         }
         return cell
     }
@@ -158,24 +100,17 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate,
     
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case DrawerSection.Main.rawValue:
-            return "Общее"
-        case DrawerSection.Orders.rawValue:
-            return "ЗАКАЗАТЬ"
-        default:
-            return nil
-        }
+        return getMenuItems()[section].sectionTitle
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
-        case DrawerSection.Avatar.rawValue:
+        case 0:
             let headerView = SwitchHeaderView(frame: CGRect(x: 0, y: 0, width: CGRectGetWidth(tableView.bounds), height: 40.0))
             headerView.delegate = self
             return headerView
             
-        case DrawerSection.Main.rawValue, DrawerSection.Orders.rawValue:
+        case 1:
             let headerView = SideDrawerSectionHeaderView(frame: CGRect(x: 0, y: 0, width: CGRectGetWidth(tableView.bounds), height: 30.0))
             headerView.autoresizingMask = [ .FlexibleHeight, .FlexibleWidth ]
             headerView.title = tableView.dataSource?.tableView?(tableView, titleForHeaderInSection: section)
@@ -187,45 +122,38 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate,
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
-        case DrawerSection.Avatar.rawValue:
+        case 0:
             if isPassenger() {
                 return 0
             } else {
                 return 60
             }
-        case DrawerSection.Orders.rawValue:
-            return 30
-        case DrawerSection.Main.rawValue:
-            return 30
         default:
-            return 0
+            return 30
         }
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == DrawerSection.Avatar.rawValue && indexPath.row == 0 {
+        if indexPath.section == 0 && indexPath.row == 0 {
             return 100
         }
         return 40
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0
-    }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         cell.backgroundColor = .clearColor()
         cell.contentView.backgroundColor = .clearColor()
+//        cell.backgroundView?.backgroundColor = .clearColor()
     }
     
-    // MARK: - UITableViewDelegate
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         switch indexPath.section {
-
             
-        case DrawerSection.Avatar.rawValue:
+            
+        case 0:
             switch indexPath.row {
             case 0:
                 if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MySettingsSTID.rawValue) as? MyProfileVC {
@@ -235,16 +163,12 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate,
                 }
             case 1:
                 instantiateSTID(STID.MyOrdersSTID)
-                
             default:
                 break
             }
-        
-         
             
-        case DrawerSection.Orders.rawValue:
-
-            if UserProfile.sharedInstance.type == .Passenger {
+        case 1:
+            if isPassenger() {
                 let makeOrderVC = storyBoard.instantiateViewControllerWithIdentifier(STID.MakeOrderSTID.rawValue) as! MakeOrderVC
                 let nav = NavigationContr(rootViewController: makeOrderVC)
                 
@@ -259,26 +183,11 @@ class MenuVC: ExampleViewController, UITableViewDataSource, UITableViewDelegate,
             } else {
                 instantiateSTID(STID.FindOrdersSTID)
             }
-            
-
-            
-        case DrawerSection.Other.rawValue:
-            switch indexPath.row {
-            case 0:
-                instantiateSTID(STID.RulesSTID)
-            default:
-                break
-            }
-       
         default:
             break
         }
         
         tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .None)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-    
-    func isPassenger() -> Bool {
-        return UserProfile.sharedInstance.type == .Passenger
     }
 }
