@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CCMRadarView
 
-class TaxyRequestingVC: UIViewController {
+final class TaxyRequestingVC: UIViewController {
     
     @IBOutlet weak var radarView: CCMRadarView!
     @IBOutlet weak var cancelRequestButton: UIButton!

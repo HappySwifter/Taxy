@@ -19,5 +19,6 @@ pod 'CCMRadarView'
 pod 'CNPPopupController'
 pod 'HCSStarRatingView', '~> 1.4.3'
 pod 'DGRunkeeperSwitch', '~> 1.1'
+pod 'MXParallaxHeader'
 end
 

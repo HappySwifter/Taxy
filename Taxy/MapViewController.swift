@@ -31,7 +31,7 @@ import SwiftLocation
 
 
 
-class MapViewController: UIViewController {
+final class MapViewController: UIViewController {
     
     
     var initiator: String?

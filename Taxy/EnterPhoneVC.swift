@@ -57,7 +57,7 @@ final class LoginViewController: UIViewController {
             $0.contentView.backgroundColor = .clearColor()
             $0.titleLabel.textColor = .whiteColor()
             }.configure {
-                $0.viewHeight = 40
+//                $0.viewHeight = 30
                 $0.text = "Введите номер телефона"
 //                $0.textAligment = .Center
         }
@@ -82,9 +82,10 @@ final class LoginViewController: UIViewController {
         let descriptionHeader = LabelViewFormer<FormLabelHeaderView>() {
             $0.contentView.backgroundColor = .clearColor()
             $0.titleLabel.textColor = .whiteColor()
-            }.configure {
-                $0.viewHeight = 50
-        }
+            }
+//            .configure {
+//                $0.viewHeight = 50
+//        }
         
         
         let pincodeRow = TextFieldRowFormer<ProfileFieldCell>(instantiateType: .Nib(nibName: "ProfileFieldCell")) { [weak self] in
@@ -133,7 +134,7 @@ final class LoginViewController: UIViewController {
             return CustomViewFormer<FormHeaderFooterView>() {
                 $0.contentView.backgroundColor = .clearColor()
                 }.configure {
-                    $0.viewHeight = 30
+                    $0.viewHeight = 10
             }
         }
         return SectionFormer(rowFormer: phoneRow).set(headerViewFormer: createSpaceHeader())

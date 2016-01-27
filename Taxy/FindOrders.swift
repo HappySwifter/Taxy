@@ -10,7 +10,7 @@ import Foundation
 import BTNavigationDropdownMenu
 import CNPPopupController
 
-class FindOrders: UITableViewController, NoOrdersCellDelegate {
+final class FindOrders: UITableViewController, NoOrdersCellDelegate {
     
     var timer: NSTimer?
     var mainOrdersTimer: NSTimer?

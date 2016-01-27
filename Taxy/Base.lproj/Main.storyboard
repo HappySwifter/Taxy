@@ -503,6 +503,7 @@
                         <outlet property="driverCarLabel" destination="q6W-OI-i23" id="gim-eY-azP"/>
                         <outlet property="driverNameLabel" destination="hod-lq-AgL" id="gqA-iF-3q3"/>
                         <outlet property="mapView" destination="LzS-ON-51n" id="Y1G-78-Gyh"/>
+                        <outlet property="titleLabel" destination="k1D-G6-ExV" id="zfu-1f-fbc"/>
                         <outlet property="topGradientView" destination="YVn-sf-6dP" id="VUc-M1-1zx"/>
                         <segue destination="GX3-aa-0rR" kind="popoverPresentation" identifier="ShowAditionalInfoSegue" popoverAnchorView="feU-JL-c14" id="pXj-90-c0g">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
@@ -941,15 +942,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HLc-Nr-ePb">
-                                                    <rect key="frame" x="123" y="8" width="465" height="50"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="EN3-Ia-rhf"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WLZ-qE-z2I">
                                                     <rect key="frame" x="22" y="0.0" width="90" height="100"/>
                                                     <constraints>
@@ -957,7 +949,19 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z2O-hA-RBP">
-                                                    <rect key="frame" x="123" y="61" width="465" height="31"/>
+                                                    <rect key="frame" x="123" y="46" width="465" height="33"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="33" id="dN2-4W-vof"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HLc-Nr-ePb">
+                                                    <rect key="frame" x="123" y="8" width="465" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="EN3-Ia-rhf"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -969,11 +973,10 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="HLc-Nr-ePb" secondAttribute="trailing" constant="4" id="Xft-Kt-hH7"/>
                                                 <constraint firstAttribute="bottom" secondItem="WLZ-qE-z2I" secondAttribute="bottom" id="ZvM-gq-0oy"/>
                                                 <constraint firstItem="HLc-Nr-ePb" firstAttribute="top" secondItem="La8-U7-ypG" secondAttribute="topMargin" id="gpV-GF-wTR"/>
-                                                <constraint firstItem="z2O-hA-RBP" firstAttribute="bottom" secondItem="La8-U7-ypG" secondAttribute="bottomMargin" id="kzW-VX-7BA"/>
-                                                <constraint firstItem="z2O-hA-RBP" firstAttribute="leading" secondItem="WLZ-qE-z2I" secondAttribute="trailing" constant="11" id="ofD-Ow-25X"/>
+                                                <constraint firstItem="z2O-hA-RBP" firstAttribute="top" secondItem="HLc-Nr-ePb" secondAttribute="bottom" constant="3" id="ho5-Pe-UnD"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="z2O-hA-RBP" secondAttribute="trailing" constant="4" id="iYM-FM-fbr"/>
                                                 <constraint firstItem="WLZ-qE-z2I" firstAttribute="leading" secondItem="La8-U7-ypG" secondAttribute="leading" constant="22" id="t54-an-qAk"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="z2O-hA-RBP" secondAttribute="trailing" constant="4" id="xxs-3s-JPm"/>
-                                                <constraint firstItem="z2O-hA-RBP" firstAttribute="top" secondItem="HLc-Nr-ePb" secondAttribute="bottom" constant="3" id="zkY-16-y6g"/>
+                                                <constraint firstItem="z2O-hA-RBP" firstAttribute="leading" secondItem="WLZ-qE-z2I" secondAttribute="trailing" constant="11" id="xUg-t0-yEs"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>

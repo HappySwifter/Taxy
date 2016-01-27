@@ -10,8 +10,8 @@ import Foundation
 import CNPPopupController
 import HCSStarRatingView
 
-class OrderInfoVC: UIViewController {
-    
+final class OrderInfoVC: UIViewController {
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var driverNameLabel: UILabel!
     @IBOutlet weak var driverCarLabel: UILabel!
 //    @IBOutlet weak var priceLabel: UILabel!
@@ -64,12 +64,13 @@ class OrderInfoVC: UIViewController {
     
     func updateView() {
         if UserProfile.sharedInstance.type == .Passenger {
+            titleLabel.text = "Водитель в пути"
             driverNameLabel.text = order.driverInfo.name
-            driverCarLabel.text = "машина"
+            driverCarLabel.text = order.driverInfo.carModel
             
         } else {
-            driverNameLabel.text = ""
-            driverCarLabel.text = ""
+            titleLabel.text = "Клиент ожидает"
+            driverNameLabel.text = order.passengerInfo.name
         }
 
 

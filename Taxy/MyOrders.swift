@@ -13,7 +13,7 @@ import UIKit
 import DrawerController
 
 
-class MyOrders: UITableViewController, SegueHandlerType, NoOrdersCellDelegate {
+final class MyOrders: UITableViewController, SegueHandlerType, NoOrdersCellDelegate {
     
     var orders = [Order]()
     var selectedOrder: Order?

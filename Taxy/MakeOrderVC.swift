@@ -13,7 +13,7 @@ import DrawerController
 import SwiftLocation
 
 
-class MakeOrderVC: FormViewController {
+final class MakeOrderVC: FormViewController {
     
     private lazy var formerInputAccessoryView: FormerInputAccessoryView = FormerInputAccessoryView(former: self.former)
     var fromRow:TextViewRowFormer<FormTextViewCell>?

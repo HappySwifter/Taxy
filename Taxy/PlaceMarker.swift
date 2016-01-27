@@ -34,7 +34,12 @@ class PlaceMarker: GMSMarker {
     super.init()
     
     position = order.driverInfo.location?.coordinates ?? CLLocationCoordinate2DMake(55, 55)
-    icon = UIImage(named: "taxy.jpg")
+    if UserProfile.sharedInstance.type == .Passenger {
+        icon = UIImage(named: "pin_driver.png")
+    } else {
+        icon = UIImage(named: "pin_customer.png")
+    }
+    
     groundAnchor = CGPoint(x: 0.5, y: 1)
     appearAnimation = kGMSMarkerAnimationPop
   }

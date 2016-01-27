@@ -9,6 +9,7 @@
 
 import UIKit
 import DrawerController
+import MXParallaxHeader
 
 final class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchDelegate {
     @IBOutlet weak var tableView: UITableView!
@@ -16,9 +17,15 @@ final class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Дорожное такси"
+        navigationController?.navigationBarHidden = true
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = UIColor(patternImage: UIImage(named: "loaging_image_blurred.jpg")!)
+        
+        // Parallax Header
+        self.tableView.parallaxHeader.view = NSBundle.mainBundle().loadNibNamed("RocketHeader", owner: self, options: nil).first as? UIView
+        self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.Bottom
+        
     }
     
     func switchChanged(index: Int) {
