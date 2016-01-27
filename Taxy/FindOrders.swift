@@ -102,16 +102,19 @@ final class FindOrders: UITableViewController, NoOrdersCellDelegate {
             case .Error(let error):
                 Popup.instanse.showError("", message: error)
                 Helper().hideLoading()
-            case .Response(let data):
-                print(data)
-                if data == 1 {
+            case .Response(let orders):
+                
+                guard let order = orders.first, let orderStatus = order.orderStatus else { return }
+                if orderStatus == 1 {
                     
                     let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-                    guard let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MyOrdersSTID.rawValue) as? MyOrders else {
-                        return
-                    }
-                    contr.selectedOrder = order
+                    let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MyOrdersSTID.rawValue)
                     let nav = NavigationContr(rootViewController: contr)
+                    
+                    let orderInfoVC = storyBoard.instantiateViewControllerWithIdentifier(STID.OrderInfoSTID.rawValue) as! OrderInfoVC
+                    orderInfoVC.order = order
+                    nav.viewControllers.insert(orderInfoVC, atIndex: nav.viewControllers.count)
+                    
                     self?.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
                 }
             }

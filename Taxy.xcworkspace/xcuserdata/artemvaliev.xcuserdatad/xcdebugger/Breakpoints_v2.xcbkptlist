@@ -41,6 +41,38 @@
             endingLineNumber = "117"
             landmarkName = "noSMSSection"
             landmarkType = "19">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Taxy.LoginViewController.((noSMSSection in _605F2AFC62922858BC5AE87764C93C5C).getter : Former.SectionFormer).(closure #1).(closure #3).(closure #1)"
+                  moduleName = "Taxy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemvaliev/Desktop/project1/Taxy/EnterPhoneVC.swift"
+                  timestampString = "475606626.94659"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "117"
+                  endingLineNumber = "117"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Taxy.LoginViewController.((noSMSSection in _605F2AFC62922858BC5AE87764C93C5C).getter : Former.SectionFormer).(closure #1).(closure #3).(closure #1).(closure #1)"
+                  moduleName = "Taxy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemvaliev/Desktop/project1/Taxy/EnterPhoneVC.swift"
+                  timestampString = "475606626.946805"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "118"
+                  endingLineNumber = "118"
+                  offsetFromSymbolStart = "48">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -252,11 +284,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Taxy/FindOrders.swift"
-            timestampString = "475353486.695073"
+            timestampString = "475606498.25764"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
             landmarkName = "presentPersonalOrderDialog(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -268,11 +300,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Taxy/Networking.swift"
-            timestampString = "475327580.507199"
+            timestampString = "475606498.25764"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "492"
-            endingLineNumber = "492"
+            startingLineNumber = "489"
+            endingLineNumber = "489"
             landmarkName = "sendCoordinates(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -284,12 +316,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Taxy/OrderInfoVC.swift"
-            timestampString = "475333197.397568"
+            timestampString = "475604218.49715"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
-            landmarkName = "popupControllerDidDismiss()"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "updateView()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Taxy/OrderInfoVC.swift"
+            timestampString = "475604150.317971"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "updateView()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

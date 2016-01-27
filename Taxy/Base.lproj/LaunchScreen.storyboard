@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -17,28 +17,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.55000000000000004" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loaging_image.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="VpG-ad-ad6">
+                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loaging_image.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="VpG-ad-ad6">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ДОРОЖНОЕ ТАКСИ" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s4j-Ja-2yf">
-                                <rect key="frame" x="118" y="369" width="362" height="181"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ДОРОЖНОЕ ТАКСИ" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mYh-H6-4ba">
+                                <rect key="frame" x="173" y="523" width="254" height="28"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="362" id="Ua0-km-Yfs"/>
-                                    <constraint firstAttribute="height" constant="181" id="nKx-AH-Z2X"/>
+                                    <constraint firstAttribute="width" constant="254" id="neQ-xY-Q1u"/>
+                                    <constraint firstAttribute="height" constant="28" id="qvz-FN-Kfo"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="48"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="25"/>
+                                <color key="textColor" red="1" green="0.7529456578" blue="0.14085764040000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1PB-65-MDC">
+                                <rect key="frame" x="173" y="559" width="254" height="5"/>
+                                <color key="backgroundColor" red="1" green="0.7529456578" blue="0.14085764040000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="254" id="ZAt-NH-Oix"/>
+                                    <constraint firstAttribute="height" constant="5" id="bbR-Zc-4F1"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_menu_welcome.png" translatesAutoresizingMaskIntoConstraints="NO" id="5gp-d9-kE9">
+                                <rect key="frame" x="262" y="439" width="76" height="76"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="76" id="5OJ-X0-Zld"/>
+                                    <constraint firstAttribute="width" constant="76" id="TPS-hI-a5M"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="s4j-Ja-2yf" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" constant="-1" id="EbD-I8-6c7"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="1PB-65-MDC" secondAttribute="bottom" constant="36" id="0PX-ty-7KE"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="VpG-ad-ad6" secondAttribute="bottom" id="HpJ-gH-9Xb"/>
                             <constraint firstItem="VpG-ad-ad6" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Ilj-8b-tsI"/>
+                            <constraint firstItem="mYh-H6-4ba" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="NsO-VQ-ZN3"/>
+                            <constraint firstItem="mYh-H6-4ba" firstAttribute="top" secondItem="5gp-d9-kE9" secondAttribute="bottom" constant="8" id="NyX-ML-D62"/>
+                            <constraint firstItem="5gp-d9-kE9" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Xk2-Jc-G9y"/>
+                            <constraint firstItem="1PB-65-MDC" firstAttribute="top" secondItem="mYh-H6-4ba" secondAttribute="bottom" constant="8" id="erw-Y4-oY6"/>
                             <constraint firstItem="VpG-ad-ad6" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="l17-2l-V7A"/>
+                            <constraint firstItem="1PB-65-MDC" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="luQ-pM-dGB"/>
                             <constraint firstAttribute="trailing" secondItem="VpG-ad-ad6" secondAttribute="trailing" id="sOy-FY-wZS"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="s4j-Ja-2yf" secondAttribute="bottom" constant="50" id="u0K-KP-hGz"/>
                         </constraints>
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
@@ -49,6 +68,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="img_menu_welcome.png" width="216" height="216"/>
         <image name="loaging_image.jpg" width="500" height="750"/>
     </resources>
 </document>

@@ -67,7 +67,7 @@ final class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         } else {
             return [
                 ("", ["Профиль", "Мои заказы"]),
-                ("СОЗДАТЬ", ["Поиск заказов"])
+                ("НАЙТИ", ["Поиск заказов"])
             ]
         }
     }

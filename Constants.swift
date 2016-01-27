@@ -24,6 +24,7 @@ enum STID: String {
     case MapSTID
     case MakeOrderSTID
     case TaxyRequestingSTID
+    case OrderInfoSTID
     case RulesSTID
     case RateSTID
 }

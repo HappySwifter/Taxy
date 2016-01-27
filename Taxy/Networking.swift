@@ -445,7 +445,7 @@ final class Networking {
         }
     }
     
-    func acceptOrder(orderId: String, completion: Result<Int, String> -> Void) {
+    func acceptOrder(orderId: String, completion: Result<[Order], String> -> Void) {
         guard let id = LocalData().getUserID else {
             debugPrint("\(__FUNCTION__)")
             completion(Result.Error("Ошибка"))
@@ -462,11 +462,8 @@ final class Networking {
                 completion(Result.Error(error))
                 
             case .Response(let json):
-                if let status = Order().getOrderStatusFromResponse(json) {
-                    completion(Result.Response(status))
-                } else {
-                    completion(Result.Error("Ошибка"))
-                }
+                let orders = Order().getOrdersFomResponse(json)
+                completion(Result.Response(orders))
             }
         }
     }

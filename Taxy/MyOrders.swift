@@ -16,7 +16,6 @@ import DrawerController
 final class MyOrders: UITableViewController, SegueHandlerType, NoOrdersCellDelegate {
     
     var orders = [Order]()
-    var selectedOrder: Order?
     var timer: NSTimer?
 
     enum SegueIdentifier: String {
@@ -25,15 +24,12 @@ final class MyOrders: UITableViewController, SegueHandlerType, NoOrdersCellDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.view.backgroundColor = UIColor.lightGrayColor()
         let refresh = UIRefreshControl()
         refresh.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
         tableView.addSubview(refresh)
         setupMenuButtons()
-        self.title = "Заказы"
-        if let selectedOrder = selectedOrder {
-            performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: selectedOrder)
-        }
+        self.title = "Мои заказы"
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -73,23 +69,23 @@ final class MyOrders: UITableViewController, SegueHandlerType, NoOrdersCellDeleg
         }
     }
     
-    func acceptOrder(order: Order) {
-        guard let orderID = order.orderID else { return }
-        Helper().showLoading("Принимаю заказ")
-        Networking.instanse.acceptOrder(orderID) { [weak self] result in
-            Helper().hideLoading()
-            switch result {
-            case .Error(let error):
-                Popup.instanse.showError("", message: error)
-                Helper().hideLoading()
-            case .Response(let data):
-                print(data)
-                if data == 1 {
-                    self?.performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: order)
-                }
-            }
-        }
-    }
+//    func acceptOrder(order: Order) {
+//        guard let orderID = order.orderID else { return }
+//        Helper().showLoading("Принимаю заказ")
+//        Networking.instanse.acceptOrder(orderID) { [weak self] result in
+//            Helper().hideLoading()
+//            switch result {
+//            case .Error(let error):
+//                Popup.instanse.showError("", message: error)
+//                Helper().hideLoading()
+//            case .Response(let data):
+//                print(data)
+//                if data == 1 {
+//                    self?.performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: order)
+//                }
+//            }
+//        }
+//    }
     
     func setupMenuButtons() {
         let leftDrawerButton = DrawerBarButtonItem(target: self, action: "leftDrawerButtonPress:")

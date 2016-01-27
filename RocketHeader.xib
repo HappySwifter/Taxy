@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -14,29 +14,49 @@
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="loaging_image_blurred.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="x15-BF-IZ6">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ДОРОЖНОЕ ТАКСИ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FOB-vd-Uuv">
-                    <rect key="frame" x="8" y="540" width="584" height="34"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ДОРОЖНОЕ ТАКСИ" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FOB-vd-Uuv">
+                    <rect key="frame" x="65" y="529" width="499" height="28"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="34" id="Zrj-sc-ksk"/>
+                        <constraint firstAttribute="width" constant="499" id="BfG-WO-1AU"/>
+                        <constraint firstAttribute="height" constant="28" id="U2q-XN-0Pm"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                    <color key="textColor" red="1" green="0.75294565784993972" blue="0.1408576403549584" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_menu_welcome.png" translatesAutoresizingMaskIntoConstraints="NO" id="gIF-zX-BvP">
+                    <rect key="frame" x="11" y="525" width="48" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="0VU-9Z-FtY"/>
+                        <constraint firstAttribute="width" constant="48" id="H2u-Nc-QCY"/>
+                    </constraints>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ozE-wi-N1u">
+                    <rect key="frame" x="64" y="558" width="170" height="3"/>
+                    <color key="backgroundColor" red="1" green="0.7529456578" blue="0.14085764040000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="170" id="NS0-Cr-R1D"/>
+                        <constraint firstAttribute="height" constant="3" id="Nfb-Ze-tez"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.99607843139999996" green="0.99215686270000003" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstItem="gIF-zX-BvP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="11" id="05b-gL-Pxs"/>
+                <constraint firstItem="FOB-vd-Uuv" firstAttribute="leading" secondItem="gIF-zX-BvP" secondAttribute="trailing" constant="6" id="0ta-rK-ikw"/>
                 <constraint firstItem="x15-BF-IZ6" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="5pg-gt-0z4"/>
+                <constraint firstAttribute="bottom" secondItem="gIF-zX-BvP" secondAttribute="bottom" constant="30" id="CDD-Xk-9Ml"/>
+                <constraint firstItem="ozE-wi-N1u" firstAttribute="top" secondItem="FOB-vd-Uuv" secondAttribute="bottom" constant="1" id="I76-Eg-UAg"/>
                 <constraint firstItem="x15-BF-IZ6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Kjt-wr-zMm"/>
                 <constraint firstItem="x15-BF-IZ6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="V43-2r-Wsb"/>
-                <constraint firstItem="FOB-vd-Uuv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="aJz-P6-KDT"/>
-                <constraint firstAttribute="trailing" secondItem="FOB-vd-Uuv" secondAttribute="trailing" constant="8" id="brN-sh-Zpm"/>
                 <constraint firstItem="x15-BF-IZ6" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" priority="750" id="bvG-bj-QFW"/>
-                <constraint firstAttribute="bottom" secondItem="FOB-vd-Uuv" secondAttribute="bottom" constant="26" id="z93-9a-Zys"/>
+                <constraint firstItem="ozE-wi-N1u" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="64" id="m1o-AK-2DK"/>
+                <constraint firstAttribute="bottom" secondItem="ozE-wi-N1u" secondAttribute="bottom" constant="39" id="yUR-pb-5MT"/>
             </constraints>
         </view>
     </objects>
     <resources>
+        <image name="img_menu_welcome.png" width="216" height="216"/>
         <image name="loaging_image_blurred.jpg" width="500" height="750"/>
     </resources>
 </document>

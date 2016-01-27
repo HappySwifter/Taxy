@@ -80,18 +80,20 @@ final class TaxyRequestingVC: UIViewController {
                 Popup.instanse.showError("", message: error)
             case .Response(let orders):
 //                debugPrint(orderStatus)
-                guard let orderStatus = orders.first?.orderStatus else { return }
+                guard let order = orders.first, let orderStatus = order.orderStatus else { return }
                 switch orderStatus {
                 case 1:
                     self?.timer?.invalidate()
-                    
-                    let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-                    guard let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MyOrdersSTID.rawValue) as? MyOrders else {
-                        return
-                    }
-                    contr.selectedOrder = self?.orderInfo
                     self?.enableMenu()
+
+                    let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+                    let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MyOrdersSTID.rawValue)
                     let nav = NavigationContr(rootViewController: contr)
+                    
+                    let orderInfoVC = storyBoard.instantiateViewControllerWithIdentifier(STID.OrderInfoSTID.rawValue) as! OrderInfoVC
+                    orderInfoVC.order = order
+                    nav.viewControllers.insert(orderInfoVC, atIndex: nav.viewControllers.count)
+                    
                     self?.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
                 case 3:
                     Popup.instanse.showInfo("Внимание", message: "Ваш заказ отменен")

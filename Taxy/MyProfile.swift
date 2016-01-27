@@ -32,17 +32,17 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
         case DriverRegistrationSegue
     }
     
-    // MARK: Public
     override func viewDidLoad() {
         super.viewDidLoad()
         loadProfile()
         setupMenuButtons()
-//        tableView.contentOffset = CGPointMake(0, 20)
     }
     
-    
-    // MARK: Private
-    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        Networking().updateProfile(UserProfile.sharedInstance) { _ in }
+    }
+
     
     func loadProfile() {
         Helper().showLoading("Загрузка")

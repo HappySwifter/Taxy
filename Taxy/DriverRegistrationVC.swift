@@ -21,7 +21,10 @@ final class DriverRegistrationVC: FormViewController {
         configure()
     }
     
-
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        Networking().updateProfile(UserProfile.sharedInstance) { _ in }
+    }
 
     
     func setupMenuButtons() {

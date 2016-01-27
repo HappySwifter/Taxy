@@ -85,14 +85,35 @@ final class OrderInfoVC: UIViewController {
         }
         
         
-        guard let coords = order.driverInfo.location?.coordinates else { return }
+//        guard let coords = order.driverInfo.location?.coordinates else { return }
+        guard let orderStatus = order.orderStatus else {
+            dismissMe()
+            return
+        }
+        
+        if orderStatus == 3 {
+            Popup.instanse.showInfo("Внимание", message: "Заказ отменен")
+            dismissMe()
+            return
+        } else if orderStatus == 2 {
+            timer?.invalidate()
+            Popup.instanse.showSuccess("", message: "Заказ выполнен").handler { [weak self] _ in
+                if UserProfile.sharedInstance.type == .Passenger {
+                    self?.presentRate()
+                    return
+                }
+            }
+        }
+        
+        
+        
         
         mapView.clear()
         let marker = PlaceMarker(order: order)
         marker.map = mapView
         
         var bounds = GMSCoordinateBounds()
-        bounds = bounds.includingCoordinate(coords)
+//        bounds = bounds.includingCoordinate(coords)
         if let myLocation = mapView.myLocation {
            bounds = bounds.includingCoordinate(myLocation.coordinate)
         }
