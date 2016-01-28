@@ -18,6 +18,8 @@ final class MakeOrderVC: FormViewController {
     private lazy var formerInputAccessoryView: FormerInputAccessoryView = FormerInputAccessoryView(former: self.former)
     var fromRow:TextViewRowFormer<FormTextViewCell>?
     var toRow:TextViewRowFormer<FormTextViewCell>?
+    var priceRow:TextFieldRowFormer<ProfileFieldCell>?
+
     var orderInfo = Order()
     
     private lazy var informationSection: SectionFormer = {
@@ -178,9 +180,14 @@ final class MakeOrderVC: FormViewController {
             $0.textField.inputAccessoryView = self?.formerInputAccessoryView
             }.configure {
                 $0.placeholder = "Введите цену"
+                if let price = orderInfo.price {
+                    $0.text = String(price)
+                }
             }.onTextChanged { [weak self] price in
                 self?.orderInfo.price = Int(price)
         }
+        
+        self.priceRow = priceRow
         //////////////////////////////
         
         
@@ -258,9 +265,15 @@ final class MakeOrderVC: FormViewController {
         fromRow?.configure {
             $0.text = orderInfo.fromPlace
         }
+        priceRow?.configure {
+            if let price = orderInfo.price {
+                $0.text = String(price)
+            }
+        }
         
         toRow?.update()
         fromRow?.update()
+        priceRow?.update()
     }
     
     

@@ -19,13 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var drawerController: DrawerController!
-    let googleMapsApiKey = "AIzaSyAbOCfPpyuBB_Ki4KIbRt45IcXQYowiEwQ"
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "showLoagingVC:", name: "showLoagingVCNotification", object: nil)
         configureApperance()
         BuddyBuildSDK.setup()
-        GMSServices.provideAPIKey(googleMapsApiKey)
+        GMSServices.provideAPIKey("AIzaSyAbOCfPpyuBB_Ki4KIbRt45IcXQYowiEwQ")
         NFX.sharedInstance().start()
         NFX.sharedInstance().ignoreURL(mainUrl + "order/" + ServerMethods.SendCoordinates.rawValue)
         
@@ -34,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let nav = NavigationContr(rootViewController: centerViewController)
         let leftMenu = storyBoard.instantiateViewControllerWithIdentifier(STID.MenuSTID.rawValue)
         let menu = UINavigationController(rootViewController: leftMenu)
-        self.drawerController = DrawerController(centerViewController: nav, leftDrawerViewController: menu)
+        self.drawerController = DrawerController(centerViewController: nav, leftDrawerViewController: nil)
         self.drawerController.setMaximumLeftDrawerWidth(240, animated: true, completion:nil)
         self.drawerController.openDrawerGestureModeMask = .All
         self.drawerController.closeDrawerGestureModeMask = .All

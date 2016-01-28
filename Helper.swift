@@ -57,7 +57,7 @@ struct Helper {
                 }
                 
             }) { (error) -> Void in
-                completion(Result.Error(error?.description ?? "Ошибка определения геолокации"))
+                completion(Result.Error(error?.localizedDescription ?? "Ошибка определения геолокации"))
             }
         } catch {
             completion(Result.Error(String(error)))
