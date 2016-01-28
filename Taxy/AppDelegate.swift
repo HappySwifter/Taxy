@@ -31,8 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         let centerViewController = storyBoard.instantiateViewControllerWithIdentifier(STID.LoadingSTID.rawValue)
         let nav = NavigationContr(rootViewController: centerViewController)
-        let leftMenu = storyBoard.instantiateViewControllerWithIdentifier(STID.MenuSTID.rawValue)
-        let menu = UINavigationController(rootViewController: leftMenu)
+//        let leftMenu = storyBoard.instantiateViewControllerWithIdentifier(STID.MenuSTID.rawValue)
+//        let menu = UINavigationController(rootViewController: leftMenu)
         self.drawerController = DrawerController(centerViewController: nav, leftDrawerViewController: nil)
         self.drawerController.setMaximumLeftDrawerWidth(240, animated: true, completion:nil)
         self.drawerController.openDrawerGestureModeMask = .All

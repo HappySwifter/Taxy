@@ -9,6 +9,7 @@
 import Foundation
 import CNPPopupController
 import HCSStarRatingView
+import SwiftLocation
 
 final class OrderInfoVC: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
@@ -23,7 +24,7 @@ final class OrderInfoVC: UIViewController {
     @IBOutlet weak var bottomGradientView: UIView!
     @IBOutlet weak var callButton: UIButton!
 
-    private let locationManager = CLLocationManager()
+//    private let locationManager = CLLocationManager()
 
     var order = Order()
     var timer: NSTimer?
@@ -32,8 +33,23 @@ final class OrderInfoVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
+        mapView.myLocationEnabled = true
+//        do {
+//           try SwiftLocation.shared.continuousLocation(.House, onSuccess: { (location) -> Void in
+//                
+//                }) { (error) -> Void in
+//                     debugPrint(error)
+//            }
+//        }
+//        catch (let ex) {
+//            debugPrint(ex)
+//        }
+        
+        
+        
+        
+//        locationManager.delegate = self
+//        locationManager.requestWhenInUseAuthorization()
         updateView()
         timer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: "checkOrder", userInfo: nil, repeats: true)
         timer!.fire()
@@ -232,27 +248,27 @@ extension OrderInfoVC: GMSMapViewDelegate {
 
 }
 
-extension OrderInfoVC: CLLocationManagerDelegate {
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if status == .AuthorizedWhenInUse {
-            locationManager.startUpdatingLocation()
-            mapView.myLocationEnabled = true
-            mapView.settings.myLocationButton = true
-        }
-    }
-    
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            
-//            let bounds = GMSCoordinateBounds()
-//            bounds.includingCoordinate(location.coordinate)
-//            mapView.animateWithCameraUpdate(GMSCameraUpdate.fitBounds(bounds))
-            
-//            mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
-            locationManager.stopUpdatingLocation()
-        }
-    }
-}
+//extension OrderInfoVC: CLLocationManagerDelegate {
+//    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+//        if status == .AuthorizedWhenInUse {
+//            locationManager.startUpdatingLocation()
+//            mapView.myLocationEnabled = true
+//            mapView.settings.myLocationButton = true
+//        }
+//    }
+//    
+//    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        if let location = locations.first {
+//            
+////            let bounds = GMSCoordinateBounds()
+////            bounds.includingCoordinate(location.coordinate)
+////            mapView.animateWithCameraUpdate(GMSCameraUpdate.fitBounds(bounds))
+//            
+////            mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+//            locationManager.stopUpdatingLocation()
+//        }
+//    }
+//}
 
 
 extension OrderInfoVC: Rateble {

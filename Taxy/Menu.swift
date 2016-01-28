@@ -20,7 +20,9 @@ final class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         navigationController?.navigationBarHidden = true
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = UIColor(patternImage: UIImage(named: "loaging_image_blurred.jpg")!)
+        tableView.backgroundColor = UIColor(patternImage: UIImage(named: "loaging_image.jpg")!)
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
+        tableView.backgroundView = blurView
         
         // Parallax Header
         self.tableView.parallaxHeader.view = NSBundle.mainBundle().loadNibNamed("RocketHeader", owner: self, options: nil).first as? UIView
@@ -29,6 +31,8 @@ final class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     }
     
     func switchChanged(index: Int) {
+        
+        
         Networking.instanse.changeUserState(index) { result in
             switch result {
             case .Response(let index):
@@ -46,6 +50,10 @@ final class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         // See https://github.com/sascha/DrawerController/issues/12
         self.navigationController?.view.setNeedsLayout()
         self.tableView.reloadData()
+    }
+    
+    deinit {
+        debugPrint("\(__FUNCTION__)")
     }
     
 //    override func contentSizeDidChange(size: String) {

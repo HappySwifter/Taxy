@@ -27,13 +27,15 @@ struct Helper {
             switch result {
             case .Response(let location):
                 SwiftLocation.shared.reverseCoordinates(Service.GoogleMaps, coordinates: location.coordinate, onSuccess: { (place) -> Void in
-                    guard let city = place?.locality, let street = place?.thoroughfare, let home = place?.subThoroughfare else {
-//                        debugPrint("cant get city and street from place")
+                    guard var address = place?.locality else {
                         failure("Не удалось определить адрес")
                         return
                     }
-                    var address = city + ", " + street
-                    if home.characters.count > 0 {
+                    if let street =  place?.thoroughfare where street.characters.count > 0 {
+                        address.appendContentsOf(", \(street)")
+                    }
+                    
+                    if let home =  place?.subThoroughfare where home.characters.count > 0 {
                         address.appendContentsOf(", \(home)")
                     }
                     completion(address, location.coordinate)
