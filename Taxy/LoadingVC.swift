@@ -156,7 +156,7 @@ class GeoSender: NSObject {
         case .AuthorizedAlways, .AuthorizedWhenInUse:
             print("start sending coordinates")
             timer?.invalidate()
-            timer = NSTimer.scheduledTimerWithTimeInterval(100, target: self, selector: "sendCoords", userInfo: nil, repeats: true)
+            timer = NSTimer.scheduledTimerWithTimeInterval(sendCoordsPeriod, target: self, selector: "sendCoords", userInfo: nil, repeats: true)
             timer!.fire()
         default:
             debugPrint("Error \(__FUNCTION__) \(CLLocationManager.authorizationStatus())")

@@ -10,8 +10,9 @@ import Foundation
 import CNPPopupController
 import HCSStarRatingView
 import SwiftLocation
+import UIKit
 
-final class OrderInfoVC: UIViewController {
+final class OrderInfoVC: UIViewController, SegueHandlerType {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var driverNameLabel: UILabel!
     @IBOutlet weak var driverCarLabel: UILabel!
@@ -32,7 +33,21 @@ final class OrderInfoVC: UIViewController {
     var order = Order()
     var timer: NSTimer?
     var raiting: Int = 0
-
+    var opponentMarker: GMSMarker?
+    
+    enum SegueIdentifier: String {
+        case ShowMoreInfoSegue
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        switch segueIdentifierForSegue(segue) {
+        case .ShowMoreInfoSegue:
+            if let contr = segue.destinationViewController as? MoreOrderInfoVC {
+                contr.order = order
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
@@ -71,7 +86,8 @@ final class OrderInfoVC: UIViewController {
         Networking.instanse.checkOrder(order) { [weak self] result in
             switch result {
             case .Error(let error):
-                Popup.instanse.showError("", message: error)
+//                Popup.instanse.showError("", message: error)
+                debugPrint("\(__FUNCTION__): \(error)")
             case .Response(let orders):
                 guard let order = orders.first else { return }
                 self?.order = order
@@ -144,11 +160,22 @@ final class OrderInfoVC: UIViewController {
 //            bounds = bounds.includingCoordinate(location.coordinates)
 //            mapView.animateWithCameraUpdate(GMSCameraUpdate.fitBounds(bounds, withPadding: 80))
 
-            mapView.clear()
-            let marker = PlaceMarker(coords: location.coordinates)
-            marker.map = mapView
+//            mapView.clear()
+            if opponentMarker == nil {
+                let marker = PlaceMarker(coords: location.coordinates)
+                marker.map = mapView
+                opponentMarker = marker
+            } else {
+                CATransaction.begin()
+                CATransaction.setAnimationDuration(2.0)
+                opponentMarker!.position = location.coordinates
+                CATransaction.commit()
+            }
+            mapView.camera = GMSCameraPosition(target: location.coordinates, zoom: 15, bearing: 0, viewingAngle: 0)
+
             
-             mapView.camera = GMSCameraPosition(target: location.coordinates, zoom: 15, bearing: 0, viewingAngle: 0)
+            
+            
         } else {
             // если нет координат у оппонента, центруем карту на себе
             if let myLoc = mapView.myLocation {
@@ -168,16 +195,22 @@ final class OrderInfoVC: UIViewController {
             Popup.instanse.showInfo("Вимание", message: "Водитель не может отменить заказ")
             return
         }
-        Helper().showLoading("Отменяю заказ")
-        Networking.instanse.cancelOrder(order) { [weak self] result in
-            Helper().hideLoading()
-            switch result {
-            case .Error(let error):
-                Popup.instanse.showError("Внимание!", message: error)
-            default:
-                break
+        Popup.instanse.showQuestion("Внимание", message: "Вы хотите отменить заказ?", otherButtons: ["Да"], cancelButtonTitle: "Отмена").handler { [weak self] index in
+            if index == 1 {
+                
+                Helper().showLoading("Отменяю заказ")
+                guard let order = self?.order else { return }
+                Networking.instanse.cancelOrder(order) { [weak self] result in
+                    Helper().hideLoading()
+                    switch result {
+                    case .Error(let error):
+                        Popup.instanse.showError("Внимание!", message: error)
+                    default:
+                        break
+                    }
+                    self?.dismissMe()
+                }
             }
-            self?.dismissMe()
         }
     }
 
@@ -186,24 +219,30 @@ final class OrderInfoVC: UIViewController {
             Popup.instanse.showInfo("Вимание", message: "Пассажир не может завершить заказ")
             return
         }
-        Helper().showLoading("Загрузка")
-        Networking.instanse.closeOrder(order) { [weak self] result in
-            Helper().hideLoading()
-            switch result {
-            case .Error(let error):
-                Popup.instanse.showError("Внимание!", message: error)
-            case .Response(_):
-                if UserProfile.sharedInstance.type == .Passenger {
-                    self?.presentRate()
-                } else {
-                    self?.dismissMe()
+        Popup.instanse.showQuestion("Внимание", message: "Вы хотите завершить заказ?", otherButtons: ["Да"], cancelButtonTitle: "Отмена").handler { [weak self] index in
+            if index == 1 {
+                Helper().showLoading("Загрузка")
+                guard let order = self?.order else { return }
+                Networking.instanse.closeOrder(order) { [weak self] result in
+                    Helper().hideLoading()
+                    switch result {
+                    case .Error(let error):
+                        Popup.instanse.showError("Внимание!", message: error)
+                    case .Response(_):
+                        if UserProfile.sharedInstance.type == .Passenger {
+                            self?.presentRate()
+                        } else {
+                            self?.dismissMe()
+                        }
+                    }
                 }
             }
         }
+        
     }
     
     @IBAction func showInfoTouched() {
-        performSegueWithIdentifier("ShowAditionalInfoSegue", sender: nil)
+        performSegueWithIdentifier(.ShowMoreInfoSegue, sender: nil)
     }
     
     

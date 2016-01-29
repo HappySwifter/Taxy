@@ -28,6 +28,8 @@ final class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         self.tableView.parallaxHeader.view = NSBundle.mainBundle().loadNibNamed("RocketHeader", owner: self, options: nil).first as? UIView
         self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.Bottom
         
+        self.evo_drawerController?.setMaximumLeftDrawerWidth(CGRectGetWidth(UIScreen.mainScreen().bounds) - 70, animated: false, completion: nil)
+
     }
     
     func switchChanged(index: Int) {
@@ -47,6 +49,8 @@ final class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        
         // See https://github.com/sascha/DrawerController/issues/12
         self.navigationController?.view.setNeedsLayout()
         self.tableView.reloadData()

@@ -13,6 +13,8 @@ let Data = "Data"
 
 let mainUrl = "http://yakuttaxi.azurewebsites.net/"
 
+let sendCoordsPeriod = 15.0
+let DriverFindOrdersPeriod = 10.0
 
 enum STID: String {
     case MenuSTID
@@ -36,6 +38,7 @@ enum ServerMethods: String {
     case VerifyCode
     case GetUserInfo
     case UpdateProfile
+    case UpdateBalance
     case SetDriverState // 1 - свободен, 2 - занят
     case Rate
     // orders

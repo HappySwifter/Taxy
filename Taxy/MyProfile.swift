@@ -22,7 +22,7 @@ import DrawerController
 import UIKit
 import Former
 
-
+// TODO add driver raiting
 
 final class MyProfileVC: FormViewController, SegueHandlerType {
     
@@ -199,6 +199,26 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
                 $0.enabled = false
         }
         
+        let updateBalanceRow = LabelRowFormer<CenterLabelCell>() {
+            $0.backgroundColor = .whiteColor()
+            $0.titleLabel.textColor = .mainOrangeColor()
+            $0.titleLabel.font = .light_Med()
+            }
+            .configure {
+                $0.text = "Пополнить баланс"
+            }
+            .onSelected { [weak self] _ in
+                self?.former.deselect(true)
+                Networking.instanse.updateBalance() { result in
+                    switch result {
+                    case .Error(let error):
+                        Popup.instanse.showError("", message: error)
+                    case .Response(_):
+                        self?.loadProfile()
+                    }
+                }
+        }
+        
   
         let createHeader: (String -> ViewFormer) = { text in
             return LabelViewFormer<FormLabelHeaderView>()
@@ -214,7 +234,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
             .set(headerViewFormer: createHeader(" "))
         let imageSection = SectionFormer(rowFormer: imageRow)
             .set(headerViewFormer: createHeader("Фотография профиля"))
-        let aboutSection = SectionFormer(rowFormer: nameRow, cityRow, phoneRow, balanceRow, userIDRow)
+        let aboutSection = SectionFormer(rowFormer: nameRow, cityRow, phoneRow, balanceRow, updateBalanceRow, userIDRow)
             .set(headerViewFormer: createHeader("Обо мне"))
         
         former.append(sectionFormer: userTypeSection, imageSection, aboutSection, moreSection)

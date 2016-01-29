@@ -88,6 +88,28 @@ final class Networking {
     }
     
     
+    
+    func updateBalance(completion: Result<String, String>  -> Void) {
+        guard let id = LocalData().getUserID else {
+            debugPrint("\(__FUNCTION__)")
+            completion(Result.Error("Ошибка"))
+            return
+        }
+        let parameters = [
+            "id": id,
+            "sum": String(100)
+        ]
+        🙏(.POST, url: mainUrl + userString + ServerMethods.UpdateBalance.rawValue, params: parameters) { result in
+            switch result {
+            case .Error(let error):
+                completion(Result.Error(error))
+            case .Response(_):
+                completion(Result.Response(""))
+            }
+        }
+        
+    }
+    
     func updateProfile (userProfile: UserProfile, completion: Result<String, String>  -> Void) {
         
         var parameters = [String: AnyObject]()

@@ -38,11 +38,11 @@ final class FindOrders: UITableViewController, NoOrdersCellDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         timer?.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "getOnlyMyOrder", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(DriverFindOrdersPeriod, target: self, selector: "getOnlyMyOrder", userInfo: nil, repeats: true)
         timer!.fire()
         
         mainOrdersTimer?.invalidate()
-        mainOrdersTimer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "loadOrders", userInfo: nil, repeats: true)
+        mainOrdersTimer = NSTimer.scheduledTimerWithTimeInterval(DriverFindOrdersPeriod, target: self, selector: "loadOrders", userInfo: nil, repeats: true)
         mainOrdersTimer!.fire()
     }
     

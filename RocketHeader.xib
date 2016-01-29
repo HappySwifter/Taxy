@@ -11,9 +11,6 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="loaging_image_blurred.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="x15-BF-IZ6">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ДОРОЖНОЕ ТАКСИ" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FOB-vd-Uuv">
                     <rect key="frame" x="65" y="529" width="499" height="28"/>
                     <constraints>
@@ -44,12 +41,8 @@
             <constraints>
                 <constraint firstItem="gIF-zX-BvP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="11" id="05b-gL-Pxs"/>
                 <constraint firstItem="FOB-vd-Uuv" firstAttribute="leading" secondItem="gIF-zX-BvP" secondAttribute="trailing" constant="6" id="0ta-rK-ikw"/>
-                <constraint firstItem="x15-BF-IZ6" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="5pg-gt-0z4"/>
                 <constraint firstAttribute="bottom" secondItem="gIF-zX-BvP" secondAttribute="bottom" constant="30" id="CDD-Xk-9Ml"/>
                 <constraint firstItem="ozE-wi-N1u" firstAttribute="top" secondItem="FOB-vd-Uuv" secondAttribute="bottom" constant="1" id="I76-Eg-UAg"/>
-                <constraint firstItem="x15-BF-IZ6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Kjt-wr-zMm"/>
-                <constraint firstItem="x15-BF-IZ6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="V43-2r-Wsb"/>
-                <constraint firstItem="x15-BF-IZ6" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" priority="750" id="bvG-bj-QFW"/>
                 <constraint firstItem="ozE-wi-N1u" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="64" id="m1o-AK-2DK"/>
                 <constraint firstAttribute="bottom" secondItem="ozE-wi-N1u" secondAttribute="bottom" constant="39" id="yUR-pb-5MT"/>
             </constraints>
@@ -57,6 +50,5 @@
     </objects>
     <resources>
         <image name="img_menu_welcome.png" width="216" height="216"/>
-        <image name="loaging_image_blurred.jpg" width="500" height="750"/>
     </resources>
 </document>

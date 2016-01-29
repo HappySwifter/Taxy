@@ -35,15 +35,15 @@ final class Popup {
         return self
     }
 
-    func showQuestion(title: String, message: String, otherButtons: [String]) -> Self {
-        show(title, message: message, type: 1, otherButtonTitles: otherButtons)
+    func showQuestion(title: String, message: String, otherButtons: [String], cancelButtonTitle: String = "Закрыть") -> Self {
+        show(title, message: message, type: 1, otherButtonTitles: otherButtons, cancelButtonTitle: cancelButtonTitle)
         return self
     }
     
-    private func show(title: String, message: String, type: UInt, otherButtonTitles: [String]) -> Void {
+    private func show(title: String, message: String, type: UInt, otherButtonTitles: [String], cancelButtonTitle: String = "Закрыть") -> Void {
         dismiss()
         handler = nil
-        alert = OpinionzAlertView(title: title, message: message, cancelButtonTitle: "Закрыть", otherButtonTitles: otherButtonTitles, usingBlockWhenTapButton: { alert, index in
+        alert = OpinionzAlertView(title: title, message: message, cancelButtonTitle: cancelButtonTitle, otherButtonTitles: otherButtonTitles, usingBlockWhenTapButton: { alert, index in
             self.handler?(index)
         })
         
