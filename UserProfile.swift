@@ -47,6 +47,7 @@ class UserProfile {
     var withChildChair = false
     var location: Location?
     var driverState: DriverState = .Free
+    var raiting: Int?
 
     func getModelFromDict(userInfo: [String: JSON], shared: Bool) -> UserProfile {
         let profile = shared ? UserProfile.sharedInstance : UserProfile()
@@ -85,6 +86,7 @@ class UserProfile {
         profile.carModel = userInfo[UserFields.CarModel.rawValue]?.string
         profile.carColor = userInfo[UserFields.CarColor.rawValue]?.string
         profile.carNumber = userInfo[UserFields.CarNumber.rawValue]?.string
+        profile.raiting = userInfo[UserFields.AvgRate.rawValue]?.int
 
         
         
@@ -102,5 +104,5 @@ class UserProfile {
 }
 
 enum UserFields: String {
-    case Id, FirstName, City, UserType, Image, PhoneNumber, Balance, CarPhoto, WithChildChair, Longitude, Latitude, LocationUpdatedAt, DriverState, CarModel, CarNumber, CarColor
+    case Id, FirstName, City, UserType, Image, PhoneNumber, Balance, CarPhoto, WithChildChair, Longitude, Latitude, LocationUpdatedAt, DriverState, CarModel, CarNumber, CarColor, AvgRate
 }

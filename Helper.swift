@@ -13,7 +13,22 @@ import SVProgressHUD
 
 
 struct Helper {
-        
+    
+    
+    func getDriverCarInfo(driverInfo: UserProfile) -> String {
+        var string = String()
+        if let carModel = driverInfo.carModel {
+            string += carModel
+        }
+        if let carNumber = driverInfo.carNumber {
+            string += ", \(carNumber)"
+        }
+        if let carColor = driverInfo.carColor {
+            string += ", \(carColor)"
+        }
+        return string
+    }
+    
     func showLoading(title: String? = "Загрузка") {
         SVProgressHUD.showWithStatus(title)
     }

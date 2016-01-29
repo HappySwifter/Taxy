@@ -260,7 +260,7 @@ final class Networking {
             "driverId": driverId,
             "rate": String(value)
         ]
-        🙏(.POST, url: mainUrl + orderString + ServerMethods.Rate.rawValue, params: params) { result in
+        🙏(.POST, url: mainUrl + userString + ServerMethods.Rate.rawValue, params: params) { result in
             switch result {
             case .Error(let error):
                 debugPrint(error)

@@ -69,6 +69,11 @@ final class OrderInfoVC: UIViewController, SegueHandlerType {
 //        locationManager.delegate = self
 //        locationManager.requestWhenInUseAuthorization()
         updateView()
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "checkOrder", userInfo: nil, repeats: true)
         timer!.fire()
     }
@@ -165,13 +170,14 @@ final class OrderInfoVC: UIViewController, SegueHandlerType {
                 let marker = PlaceMarker(coords: location.coordinates)
                 marker.map = mapView
                 opponentMarker = marker
+                mapView.camera = GMSCameraPosition(target: location.coordinates, zoom: 15, bearing: 0, viewingAngle: 0)
             } else {
                 CATransaction.begin()
                 CATransaction.setAnimationDuration(2.0)
                 opponentMarker!.position = location.coordinates
                 CATransaction.commit()
             }
-            mapView.camera = GMSCameraPosition(target: location.coordinates, zoom: 15, bearing: 0, viewingAngle: 0)
+            
 
             
             
@@ -242,7 +248,11 @@ final class OrderInfoVC: UIViewController, SegueHandlerType {
     }
     
     @IBAction func showInfoTouched() {
-        performSegueWithIdentifier(.ShowMoreInfoSegue, sender: nil)
+        let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let vc = storyBoard.instantiateViewControllerWithIdentifier(STID.MoreOrderInfoSTID.rawValue) as! MoreOrderInfoVC
+        vc.order = order
+        navigationController?.pushViewController(vc, animated: true)
+//        performSegueWithIdentifier(.ShowMoreInfoSegue, sender: nil)
     }
     
     

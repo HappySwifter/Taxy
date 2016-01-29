@@ -50,6 +50,7 @@
 		02C0B5A71C2195C000AE6919 /* LoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0B5A61C2195C000AE6919 /* LoadingVC.swift */; };
 		02E9A2F21C591D9A00B827D3 /* pin_customer.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E9A2F01C591D9A00B827D3 /* pin_customer.png */; };
 		02E9A2F31C591D9A00B827D3 /* pin_driver.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E9A2F11C591D9A00B827D3 /* pin_driver.png */; };
+		02E9A2F51C5BCCF000B827D3 /* car-placeholder-eservice.png in Resources */ = {isa = PBXBuildFile; fileRef = 02E9A2F41C5BCCEF00B827D3 /* car-placeholder-eservice.png */; };
 		02ED03851C4A62A700C97B5E /* MenuCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ED03841C4A62A700C97B5E /* MenuCells.swift */; };
 		02F163AA1C270F180065409B /* Bot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F163A91C270F180065409B /* Bot.swift */; };
 		13B5B46BB7726DE4450728BC /* BuddyBuildSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD2256678ABA38C9730CFD4A /* BuddyBuildSDK.framework */; };
@@ -162,6 +163,7 @@
 		02C0B5A61C2195C000AE6919 /* LoadingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingVC.swift; sourceTree = "<group>"; };
 		02E9A2F01C591D9A00B827D3 /* pin_customer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_customer.png; sourceTree = "<group>"; };
 		02E9A2F11C591D9A00B827D3 /* pin_driver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_driver.png; sourceTree = "<group>"; };
+		02E9A2F41C5BCCEF00B827D3 /* car-placeholder-eservice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "car-placeholder-eservice.png"; sourceTree = "<group>"; };
 		02ED03841C4A62A700C97B5E /* MenuCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuCells.swift; path = ../Cells/MenuCells.swift; sourceTree = "<group>"; };
 		02F163A91C270F180065409B /* Bot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bot.swift; sourceTree = "<group>"; };
 		2E4F777404262DF48472D743 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -413,6 +415,7 @@
 		6A624B241C06E52B00404B2D = {
 			isa = PBXGroup;
 			children = (
+				02E9A2F41C5BCCEF00B827D3 /* car-placeholder-eservice.png */,
 				02E9A2F01C591D9A00B827D3 /* pin_customer.png */,
 				02E9A2F11C591D9A00B827D3 /* pin_driver.png */,
 				0275A1ED1C590FA5004E2E15 /* img_menu_welcome.png */,
@@ -570,6 +573,7 @@
 				028F6F7D1C10B4E80052C4B9 /* DynamicHeightCell.xib in Resources */,
 				6A624B3E1C06E52C00404B2D /* LaunchScreen.storyboard in Resources */,
 				6A624B3B1C06E52C00404B2D /* Assets.xcassets in Resources */,
+				02E9A2F51C5BCCF000B827D3 /* car-placeholder-eservice.png in Resources */,
 				6A09B82D1C57B13A0086FAB4 /* Icon-76.png in Resources */,
 				6A9481681C58B7330074456A /* loaging_image.jpg in Resources */,
 				6A94816A1C58B7330074456A /* placeholderImage.jpg in Resources */,
