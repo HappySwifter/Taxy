@@ -50,7 +50,7 @@
                   moduleName = "Taxy"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/artemvaliev/Desktop/project1/Taxy/EnterPhoneVC.swift"
-                  timestampString = "475606626.94659"
+                  timestampString = "475693652.970808"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "117"
@@ -65,7 +65,7 @@
                   moduleName = "Taxy"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/artemvaliev/Desktop/project1/Taxy/EnterPhoneVC.swift"
-                  timestampString = "475606626.946805"
+                  timestampString = "475693652.971151"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "118"
@@ -249,8 +249,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "51"
             endingLineNumber = "51"
-            landmarkName = "AppDelegate"
-            landmarkType = "3">
+            landmarkName = "configureApperance()"
+            landmarkType = "5">
             <Actions>
                <BreakpointActionProxy
                   ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
@@ -306,38 +306,6 @@
             startingLineNumber = "489"
             endingLineNumber = "489"
             landmarkName = "sendCoordinates(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Taxy/OrderInfoVC.swift"
-            timestampString = "475604218.49715"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
-            landmarkName = "updateView()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Taxy/OrderInfoVC.swift"
-            timestampString = "475604150.317971"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
-            landmarkName = "updateView()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

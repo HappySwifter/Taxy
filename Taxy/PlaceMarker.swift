@@ -27,18 +27,20 @@
 import UIKit
 
 class PlaceMarker: GMSMarker {
-  let order: Order
+  let coords: CLLocationCoordinate2D
   
-  init(order: Order) {
-    self.order = order
+  init(coords: CLLocationCoordinate2D) {
+    self.coords = coords
     super.init()
     
-    position = order.driverInfo.location?.coordinates ?? CLLocationCoordinate2DMake(55, 55)
     if UserProfile.sharedInstance.type == .Passenger {
         icon = UIImage(named: "pin_driver.png")
+//        position = order.driverInfo.location?.coordinates ?? CLLocationCoordinate2DMake(55, 55)
     } else {
         icon = UIImage(named: "pin_customer.png")
+//        position = order.passengerInfo.location?.coordinates ?? CLLocationCoordinate2DMake(55, 55)
     }
+    position = coords
     
     groundAnchor = CGPoint(x: 0.5, y: 1)
     appearAnimation = kGMSMarkerAnimationPop

@@ -221,11 +221,9 @@ final class MakeOrderVC: FormViewController {
             .onSelected { [weak self] _ in
                 self?.former.deselect(true)
                 let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-                if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.TaxyRequestingSTID.rawValue) as? TaxyRequestingVC {
-                    if let info = self?.orderInfo {
-                        contr.orderInfo = info
-                        self?.navigationController?.pushViewController(contr, animated: true)
-                    }
+                if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.TaxyRequestingSTID.rawValue) as? TaxyRequestingVC, let info = self?.orderInfo {
+                    contr.orderInfo = info
+                    self?.navigationController?.pushViewController(contr, animated: true)
                     
                 }
         }

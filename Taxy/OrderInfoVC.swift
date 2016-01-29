@@ -23,6 +23,9 @@ final class OrderInfoVC: UIViewController {
     @IBOutlet weak var topGradientView: UIView!
     @IBOutlet weak var bottomGradientView: UIView!
     @IBOutlet weak var callButton: UIButton!
+    
+    @IBOutlet weak var cancelOrderButton: UIButton!
+    @IBOutlet weak var closeOrderButton: UIButton!
 
 //    private let locationManager = CLLocationManager()
 
@@ -51,7 +54,7 @@ final class OrderInfoVC: UIViewController {
 //        locationManager.delegate = self
 //        locationManager.requestWhenInUseAuthorization()
         updateView()
-        timer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: "checkOrder", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "checkOrder", userInfo: nil, repeats: true)
         timer!.fire()
     }
     
@@ -83,10 +86,14 @@ final class OrderInfoVC: UIViewController {
             titleLabel.text = "Водитель в пути"
             driverNameLabel.text = order.driverInfo.name
             driverCarLabel.text = order.driverInfo.carModel
+            closeOrderButton.hidden = true
+            cancelOrderButton.hidden = false
             
         } else {
             titleLabel.text = "Клиент ожидает"
             driverNameLabel.text = order.passengerInfo.name
+            closeOrderButton.hidden = false
+            cancelOrderButton.hidden = true
         }
 
 
@@ -124,19 +131,43 @@ final class OrderInfoVC: UIViewController {
         
         
         
-        mapView.clear()
-        let marker = PlaceMarker(order: order)
-        marker.map = mapView
+
         
-        var bounds = GMSCoordinateBounds()
-//        bounds = bounds.includingCoordinate(coords)
-        if let myLocation = mapView.myLocation {
-           bounds = bounds.includingCoordinate(myLocation.coordinate)
+//        var bounds = GMSCoordinateBounds()
+        let location: Location?
+        if UserProfile.sharedInstance.type == .Passenger {
+            location = order.driverInfo.location
+        } else {
+            location = order.passengerInfo.location
         }
-        mapView.animateWithCameraUpdate(GMSCameraUpdate.fitBounds(bounds, withPadding: 80))
+        if let location = location {
+//            bounds = bounds.includingCoordinate(location.coordinates)
+//            mapView.animateWithCameraUpdate(GMSCameraUpdate.fitBounds(bounds, withPadding: 80))
+
+            mapView.clear()
+            let marker = PlaceMarker(coords: location.coordinates)
+            marker.map = mapView
+            
+             mapView.camera = GMSCameraPosition(target: location.coordinates, zoom: 15, bearing: 0, viewingAngle: 0)
+        } else {
+            // если нет координат у оппонента, центруем карту на себе
+            if let myLoc = mapView.myLocation {
+                 mapView.camera = GMSCameraPosition(target: myLoc.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+            }
+           
+        }
+
+        
+       
+
+        
     }
     
     @IBAction func cancelOrderTouched() {
+        guard order.driverInfo.userID != UserProfile.sharedInstance.userID else {
+            Popup.instanse.showInfo("Вимание", message: "Водитель не может отменить заказ")
+            return
+        }
         Helper().showLoading("Отменяю заказ")
         Networking.instanse.cancelOrder(order) { [weak self] result in
             Helper().hideLoading()
@@ -151,6 +182,10 @@ final class OrderInfoVC: UIViewController {
     }
 
     @IBAction func closeOrderTouched() {
+        guard order.passengerInfo.userID != UserProfile.sharedInstance.userID else {
+            Popup.instanse.showInfo("Вимание", message: "Пассажир не может завершить заказ")
+            return
+        }
         Helper().showLoading("Загрузка")
         Networking.instanse.closeOrder(order) { [weak self] result in
             Helper().hideLoading()
@@ -206,25 +241,25 @@ extension OrderInfoVC: GMSMapViewDelegate {
 //        }
 //    }
     
-    func mapView(mapView: GMSMapView!, markerInfoContents marker: GMSMarker!) -> UIView! {
-        guard let placeMarker = marker as? PlaceMarker else {
-            return nil
-        }
-        
-        if let infoView = UIView.viewFromNibName("MarkerInfoView") as? MarkerInfoView {
-            infoView.nameLabel.text = placeMarker.order.driverInfo.name
-            
-            if let photo = placeMarker.order.driverInfo.image {
-                infoView.placePhoto.image = photo
-            } else {
-                infoView.placePhoto.image = UIImage(named: "generic")
-            }
-            
-            return infoView
-        } else {
-            return nil
-        }
-    }
+//    func mapView(mapView: GMSMapView!, markerInfoContents marker: GMSMarker!) -> UIView! {
+//        guard let placeMarker = marker as? PlaceMarker else {
+//            return nil
+//        }
+//        
+//        if let infoView = UIView.viewFromNibName("MarkerInfoView") as? MarkerInfoView {
+//            infoView.nameLabel.text = placeMarker.order.driverInfo.name
+//            
+//            if let photo = placeMarker.order.driverInfo.image {
+//                infoView.placePhoto.image = photo
+//            } else {
+//                infoView.placePhoto.image = UIImage(named: "generic")
+//            }
+//            
+//            return infoView
+//        } else {
+//            return nil
+//        }
+//    }
     
     
     
