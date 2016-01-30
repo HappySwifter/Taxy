@@ -48,7 +48,6 @@ final class LoginViewController: UIViewController {
     private var getSmsButtonRow: LabelRowFormer<CenterLabelCell>?
     
     @IBOutlet private weak var tableView: UITableView!
-    //    @IBOutlet private weak var dimmingView: UIControl!
     
     
     private lazy var phoneSection: SectionFormer = {
@@ -56,15 +55,17 @@ final class LoginViewController: UIViewController {
         let descriptionHeader = LabelViewFormer<FormLabelHeaderView>() {
             $0.contentView.backgroundColor = .clearColor()
             $0.titleLabel.textColor = .whiteColor()
-            }.configure {
-//                $0.viewHeight = 30
+            $0.titleLabel.textAlignment = .Center
+            $0.titleLabel.font = .light_Lar()
+            }
+            .configure {
+                $0.viewHeight = 60
                 $0.text = "Введите номер телефона"
-//                $0.textAligment = .Center
         }
         
         let phoneRow = TextFieldRowFormer<FormTextFieldCell>() {
             $0.textField.textColor = .formerSubColor()
-            $0.textField.font = .systemFontOfSize(15)
+            $0.textField.font = .light_Med()
             $0.textField.keyboardType = .DecimalPad
             }.configure {
                 $0.placeholder = "Номер телефона"
@@ -82,10 +83,13 @@ final class LoginViewController: UIViewController {
         let descriptionHeader = LabelViewFormer<FormLabelHeaderView>() {
             $0.contentView.backgroundColor = .clearColor()
             $0.titleLabel.textColor = .whiteColor()
+            $0.titleLabel.textAlignment = .Center
+             $0.titleLabel.font = .light_Lar()
             }
-//            .configure {
-//                $0.viewHeight = 50
-//        }
+            .configure {
+                $0.viewHeight = 60
+                $0.text = "Введите код, полученный по СМС"
+        }
         
         
         let pincodeRow = TextFieldRowFormer<ProfileFieldCell>(instantiateType: .Nib(nibName: "ProfileFieldCell")) { [weak self] in
