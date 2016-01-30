@@ -26,7 +26,12 @@ struct Helper {
         if let carColor = driverInfo.carColor {
             string += ", \(carColor)"
         }
-        return string
+        if string.characters.count > 0 {
+            return string
+        } else {
+            return "Нет описания машины"
+        }
+        
     }
     
     func showLoading(title: String? = "Загрузка") {

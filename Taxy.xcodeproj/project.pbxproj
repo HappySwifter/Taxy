@@ -12,6 +12,14 @@
 		0275A1EE1C590FA5004E2E15 /* img_menu_welcome.png in Resources */ = {isa = PBXBuildFile; fileRef = 0275A1ED1C590FA5004E2E15 /* img_menu_welcome.png */; };
 		027CDAED1C4A0ED70059EA27 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027CDAEC1C4A0ED70059EA27 /* Location.swift */; };
 		027CDAEF1C4A19B30059EA27 /* FindOrders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027CDAEE1C4A19B20059EA27 /* FindOrders.swift */; };
+		028787971C5C9BDD008999CB /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028787951C5C9BDD008999CB /* Loading.swift */; };
+		028787981C5C9BDD008999CB /* spinner.png in Resources */ = {isa = PBXBuildFile; fileRef = 028787961C5C9BDD008999CB /* spinner.png */; };
+		0287879C1C5CC48B008999CB /* RaitingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0287879B1C5CC48B008999CB /* RaitingCell.xib */; };
+		0287879E1C5CC51B008999CB /* RaitingRowFormer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0287879D1C5CC51B008999CB /* RaitingRowFormer.swift */; };
+		028787A01C5CC72B008999CB /* RaitingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0287879F1C5CC72B008999CB /* RaitingCell.swift */; };
+		028787A21C5CDC65008999CB /* ic_service_small_regular.png in Resources */ = {isa = PBXBuildFile; fileRef = 028787A11C5CDC65008999CB /* ic_service_small_regular.png */; };
+		028787A41C5CDC73008999CB /* icon_menu_name.png in Resources */ = {isa = PBXBuildFile; fileRef = 028787A31C5CDC73008999CB /* icon_menu_name.png */; };
+		028787A61C5CE2D5008999CB /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = 028787A51C5CE2D5008999CB /* TODO */; };
 		028F6EAC1C0AE1860052C4B9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028F6EAB1C0AE1860052C4B9 /* MapKit.framework */; };
 		028F6EAE1C0AE41D0052C4B9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 028F6EAD1C0AE41D0052C4B9 /* CoreLocation.framework */; };
 		028F6EFB1C0B424D0052C4B9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028F6EFA1C0B424D0052C4B9 /* MapViewController.swift */; };
@@ -124,6 +132,14 @@
 		0275A1ED1C590FA5004E2E15 /* img_menu_welcome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_menu_welcome.png; sourceTree = "<group>"; };
 		027CDAEC1C4A0ED70059EA27 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		027CDAEE1C4A19B20059EA27 /* FindOrders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindOrders.swift; sourceTree = "<group>"; };
+		028787951C5C9BDD008999CB /* Loading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
+		028787961C5C9BDD008999CB /* spinner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spinner.png; sourceTree = "<group>"; };
+		0287879B1C5CC48B008999CB /* RaitingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RaitingCell.xib; sourceTree = "<group>"; };
+		0287879D1C5CC51B008999CB /* RaitingRowFormer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RaitingRowFormer.swift; sourceTree = "<group>"; };
+		0287879F1C5CC72B008999CB /* RaitingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RaitingCell.swift; sourceTree = "<group>"; };
+		028787A11C5CDC65008999CB /* ic_service_small_regular.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_service_small_regular.png; sourceTree = "<group>"; };
+		028787A31C5CDC73008999CB /* icon_menu_name.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_menu_name.png; sourceTree = "<group>"; };
+		028787A51C5CE2D5008999CB /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		028F6EAB1C0AE1860052C4B9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		028F6EAD1C0AE41D0052C4B9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		028F6EBC1C0B3B7E0052C4B9 /* Taxy-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Taxy-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -243,6 +259,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		028787941C5C9BDD008999CB /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				028787951C5C9BDD008999CB /* Loading.swift */,
+				028787961C5C9BDD008999CB /* spinner.png */,
+			);
+			path = Loading;
+			sourceTree = "<group>";
+		};
 		028F6F081C0B43570052C4B9 /* Google */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,7 +300,9 @@
 				028F6F671C10A6680052C4B9 /* ProfileImageCell.swift */,
 				028F6F681C10A6680052C4B9 /* ProfileLabelCell.swift */,
 				6AE2E2451C48C8B0002E70C5 /* TwoButtonsCell.swift */,
+				0287879F1C5CC72B008999CB /* RaitingCell.swift */,
 				6AE2E2471C48CE6B002E70C5 /* ButtonsRowFormer.swift */,
+				0287879D1C5CC51B008999CB /* RaitingRowFormer.swift */,
 			);
 			name = "Former Cells";
 			path = ../Cells;
@@ -291,6 +318,7 @@
 				028F6F7B1C10B4E80052C4B9 /* ProfileLabelCell.xib */,
 				6AE2E2431C48C848002E70C5 /* TwoButtonsCell.xib */,
 				6A969A811C52589700C598B8 /* OneButtonCell.xib */,
+				0287879B1C5CC48B008999CB /* RaitingCell.xib */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -415,6 +443,10 @@
 		6A624B241C06E52B00404B2D = {
 			isa = PBXGroup;
 			children = (
+				028787A31C5CDC73008999CB /* icon_menu_name.png */,
+				028787A11C5CDC65008999CB /* ic_service_small_regular.png */,
+				028787A51C5CE2D5008999CB /* TODO */,
+				028787941C5C9BDD008999CB /* Loading */,
 				02E9A2F41C5BCCEF00B827D3 /* car-placeholder-eservice.png */,
 				02E9A2F01C591D9A00B827D3 /* pin_customer.png */,
 				02E9A2F11C591D9A00B827D3 /* pin_driver.png */,
@@ -567,13 +599,16 @@
 				6A9481751C58D6EA0074456A /* RocketHeader.xib in Resources */,
 				028F6F111C0B44430052C4B9 /* Images.xcassets in Resources */,
 				0275A1EE1C590FA5004E2E15 /* img_menu_welcome.png in Resources */,
+				028787A41C5CDC73008999CB /* icon_menu_name.png in Resources */,
 				6A09B8281C57B13A0086FAB4 /* Icon-40.png in Resources */,
 				6A9481691C58B7330074456A /* phoneicontest.png in Resources */,
 				6A9481661C58B7330074456A /* find_address.png in Resources */,
 				028F6F7D1C10B4E80052C4B9 /* DynamicHeightCell.xib in Resources */,
 				6A624B3E1C06E52C00404B2D /* LaunchScreen.storyboard in Resources */,
 				6A624B3B1C06E52C00404B2D /* Assets.xcassets in Resources */,
+				028787A61C5CE2D5008999CB /* TODO in Resources */,
 				02E9A2F51C5BCCF000B827D3 /* car-placeholder-eservice.png in Resources */,
+				028787981C5C9BDD008999CB /* spinner.png in Resources */,
 				6A09B82D1C57B13A0086FAB4 /* Icon-76.png in Resources */,
 				6A9481681C58B7330074456A /* loaging_image.jpg in Resources */,
 				6A94816A1C58B7330074456A /* placeholderImage.jpg in Resources */,
@@ -586,12 +621,14 @@
 				6A09B82A1C57B13A0086FAB4 /* Icon-40@3x.png in Resources */,
 				02E9A2F31C591D9A00B827D3 /* pin_driver.png in Resources */,
 				028F6F811C10B4E80052C4B9 /* ProfileLabelCell.xib in Resources */,
+				0287879C1C5CC48B008999CB /* RaitingCell.xib in Resources */,
 				028F6F7C1C10B4E80052C4B9 /* ColorListCell.xib in Resources */,
 				6A1D04571C562EF100878653 /* Screen_Shot_2016-01-12_at_21.28.12.png in Resources */,
 				028F6F801C10B4E80052C4B9 /* ProfileImageCell.xib in Resources */,
 				02AA8D3D1C5352C700D85370 /* Issues resolver in Resources */,
 				6A09B8301C57B13A0086FAB4 /* Icon-Small@2x.png in Resources */,
 				6A09B82E1C57B13A0086FAB4 /* Icon-76@2x.png in Resources */,
+				028787A21C5CDC65008999CB /* ic_service_small_regular.png in Resources */,
 				6A09B8291C57B13A0086FAB4 /* Icon-40@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -653,12 +690,14 @@
 			files = (
 				028F6F6C1C10A6680052C4B9 /* ProfileFieldCell.swift in Sources */,
 				028F6F741C10A7E70052C4B9 /* ExampleViewController.swift in Sources */,
+				028787971C5C9BDD008999CB /* Loading.swift in Sources */,
 				6A7677FE1C5B8F5700BC55E2 /* MoreOrderInfoVC.swift in Sources */,
 				028F6F9A1C14BDF60052C4B9 /* Order.swift in Sources */,
 				028F6F951C14BD630052C4B9 /* UserProfile.swift in Sources */,
 				6AE2E2461C48C8B0002E70C5 /* TwoButtonsCell.swift in Sources */,
 				02F163AA1C270F180065409B /* Bot.swift in Sources */,
 				6A570AC01C467E490054C82A /* NSDate+HumanizedTime.m in Sources */,
+				0287879E1C5CC51B008999CB /* RaitingRowFormer.swift in Sources */,
 				028F6F971C14BDAA0052C4B9 /* Login.swift in Sources */,
 				028F6F9F1C1881C70052C4B9 /* DriverRegistrationVC.swift in Sources */,
 				028F6F6A1C10A6680052C4B9 /* ColorListCell.swift in Sources */,
@@ -671,6 +710,7 @@
 				6AC187EE1C0847E800489557 /* NavigationContr.swift in Sources */,
 				0203F6D81C1F15E100807C1D /* RulesVC.swift in Sources */,
 				6A624B7F1C06E7D700404B2D /* MyProfile.swift in Sources */,
+				028787A01C5CC72B008999CB /* RaitingCell.swift in Sources */,
 				028F6F851C121F9C0052C4B9 /* Popup.swift in Sources */,
 				6AE2E24A1C48EC6C002E70C5 /* Rateble.swift in Sources */,
 				028F6F031C0B43270052C4B9 /* GoogleDataProvider.swift in Sources */,

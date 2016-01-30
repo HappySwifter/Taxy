@@ -21,6 +21,7 @@
 import DrawerController
 import UIKit
 import Former
+import HCSStarRatingView
 
 // TODO add driver raiting
 
@@ -218,6 +219,21 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
                     }
                 }
         }
+
+        
+        let raitingRow = RaitingRowFormer<RaitingCell>(instantiateType: .Nib(nibName: "RaitingCell")) {
+            $0.userInteractionEnabled = false
+            
+            if let raiting = UserProfile.sharedInstance.raiting where raiting > 0  {
+                $0.raitingView.hidden = false
+                $0.infoLabel.hidden = true
+                $0.raitingView.value = CGFloat.init(raiting)
+            } else {
+                $0.raitingView.hidden = true
+                $0.infoLabel.hidden = false
+            }
+        }
+
         
   
         let createHeader: (String -> ViewFormer) = { text in
@@ -234,7 +250,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
             .set(headerViewFormer: createHeader(" "))
         let imageSection = SectionFormer(rowFormer: imageRow)
             .set(headerViewFormer: createHeader("Фотография профиля"))
-        let aboutSection = SectionFormer(rowFormer: nameRow, cityRow, phoneRow, balanceRow, updateBalanceRow, userIDRow)
+        let aboutSection = SectionFormer(rowFormer: nameRow, cityRow, phoneRow, balanceRow, updateBalanceRow, userIDRow, raitingRow)
             .set(headerViewFormer: createHeader("Обо мне"))
         
         former.append(sectionFormer: userTypeSection, imageSection, aboutSection, moreSection)

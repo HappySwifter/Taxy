@@ -106,7 +106,7 @@ final class OrderInfoVC: UIViewController, SegueHandlerType {
         if UserProfile.sharedInstance.type == .Passenger {
             titleLabel.text = "Водитель в пути"
             driverNameLabel.text = order.driverInfo.name
-            driverCarLabel.text = order.driverInfo.carModel
+            driverCarLabel.text = Helper().getDriverCarInfo(order.driverInfo)
             closeOrderButton.hidden = true
             cancelOrderButton.hidden = false
             

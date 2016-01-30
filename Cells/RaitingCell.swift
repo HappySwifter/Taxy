@@ -1,0 +1,22 @@
+import UIKit
+import Former
+import HCSStarRatingView
+
+final class RaitingCell: UITableViewCell, RaitingFormableRow {
+    
+    @IBOutlet weak var raitingView: HCSStarRatingView!
+    @IBOutlet weak var infoLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        infoLabel.textColor = .mainOrangeColor()
+        infoLabel.font = .light_Med()
+        
+//        raitingView.backgroundColor = .whiteColor()
+        raitingView.tintColor = UIColor.greenColor()
+    }
+    
+
+    
+    func updateWithRowFormer(rowFormer: RowFormer) {}
+}

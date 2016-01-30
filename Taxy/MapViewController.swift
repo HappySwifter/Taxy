@@ -64,23 +64,13 @@ final class MapViewController: UIViewController {
 
     
     func setupMenuButtons() {
-//        let leftDrawerButton = DrawerBarButtonItem(target: self, action: "leftDrawerButtonPress:")
-//        self.navigationItem.setLeftBarButtonItem(leftDrawerButton, animated: true)
         let doneButton = UIBarButtonItem(title: "Выбрать", style: .Plain, target: self, action: "doneTouched")
         self.navigationItem.setRightBarButtonItem(doneButton, animated: false)
     }
-    
-    func leftDrawerButtonPress(sender: AnyObject?) {
-        self.evo_drawerController?.toggleDrawerSide(.Left, animated: true, completion: nil)
-    }
-    
 
     
     func reverseGeocodeCoordinate(coordinate: CLLocationCoordinate2D) {
-        
-        
- 
-        SwiftLocation.shared.reverseCoordinates(Service.GoogleMaps, coordinates: coordinate, onSuccess: { (place) -> Void in
+         SwiftLocation.shared.reverseCoordinates(Service.GoogleMaps, coordinates: coordinate, onSuccess: { (place) -> Void in
             self.addressLabel.unlock()
 
             guard let city = place?.locality, let street = place?.thoroughfare, let home = place?.subThoroughfare else {

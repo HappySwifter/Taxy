@@ -26,6 +26,10 @@ class MoreOrderInfoVC: UITableViewController {
     @IBOutlet weak var driverRaitingView: UIView!
     @IBOutlet weak var noRaitingLabel: UILabel!
 
+    // passenger
+    @IBOutlet weak var passName: UILabel!
+    @IBOutlet weak var passPhone: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +70,8 @@ class MoreOrderInfoVC: UITableViewController {
             raitingView.value =  CGFloat.init(raiting)
             raitingView.spacing = 1
             raitingView.tintColor = UIColor.greenColor()
-            raitingView.backgroundColor = .grayColor()
+            raitingView.userInteractionEnabled = false
+//            raitingView.backgroundColor = .grayColor()
             driverRaitingView.addSubview(raitingView)
         } else {
             noRaitingLabel.hidden = false
@@ -74,8 +79,30 @@ class MoreOrderInfoVC: UITableViewController {
         }
         
         driverName.text = driverInfo.name ?? ""
-        driverPhoto.image = driverInfo.image ?? UIImage(named: "placeholderImage.jpg")
-        driverCarPhoto.image = driverInfo.carPhoto ?? UIImage(named: "car-placeholder-eservice.png")
+        driverPhoto.backgroundColor = .whiteColor()
+        driverCarPhoto.backgroundColor = .whiteColor()
+
+        
+        if let image = driverInfo.image {
+            driverPhoto.image = image
+            driverPhoto.contentMode = .ScaleAspectFit
+
+        } else {
+            driverPhoto.image = UIImage(named: "icon_menu_name.png")
+            driverPhoto.image? = (driverPhoto.image?.imageWithRenderingMode(.AlwaysTemplate))!
+            driverPhoto.tintColor = UIColor.grayColor()
+        }
+        
+        if let carPhoto = driverInfo.carPhoto {
+            driverCarPhoto.image = carPhoto
+            driverPhoto.contentMode = .ScaleAspectFit
+
+        } else {
+            driverCarPhoto.image = UIImage(named: "ic_service_small_regular.png")
+            driverCarPhoto.image? = (driverCarPhoto.image?.imageWithRenderingMode(.AlwaysTemplate))!
+            driverCarPhoto.tintColor = UIColor.grayColor()
+        }
+        
         driverCarDesc.text = Helper().getDriverCarInfo(driverInfo)
         if let phone = driverInfo.phoneNumber where phone.characters.count == 10 {
             driverPhone.text = "+7\(phone)"
@@ -83,7 +110,14 @@ class MoreOrderInfoVC: UITableViewController {
             driverPhone.text = ""
         }
         
-
+        
+        // passenger
+        passName.text = order.passengerInfo.name ?? ""
+        if let phone = order.passengerInfo.phoneNumber where phone.characters.count >= 10 {
+            passPhone.text = "+7\(phone)"
+        } else {
+            passPhone.text = ""
+        }
     }
     
 }

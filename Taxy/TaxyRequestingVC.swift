@@ -50,7 +50,10 @@ final class TaxyRequestingVC: UIViewController {
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         timer?.invalidate()
+        Loading.stop()
     }
+    
+
     
     func createOrder() {
         Helper().showLoading("Создание заказа")
@@ -64,7 +67,18 @@ final class TaxyRequestingVC: UIViewController {
             case .Response(let orderID):
                 self?.orderInfo.orderID = orderID
                 self?.cancelRequestButton.enabled = true
-                self?.radarView.startAnimation()
+//                self?.radarView.startAnimation()
+                self?.radarView.hidden = true
+                self?.view.backgroundColor = UIColor.whiteColor()//(patternImage: UIImage(named: "loaging_image.jpg")!)
+//                let blur = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
+//                blur.frame = (self?.view.bounds)!
+//                blur.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+//                self?.view.addSubview(blur)
+                
+                self?.view.addSubview(Loading.indicator)
+                Loading.start()
+                
+                
                 if ((self?.timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self!, selector: "monitorOrderStatus", userInfo: nil, repeats: true)) != nil) {
                     self?.timer!.fire()
                 }
