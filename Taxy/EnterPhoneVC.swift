@@ -31,6 +31,9 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "phoneFieldChanged:", name: "phoneNotification", object: nil)
+        
         title = "Добро пожаловать!"
         tableView.separatorStyle = .None
         disableMenu()
@@ -39,6 +42,18 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
         updateView()
         //goAhead()
         
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func phoneFieldChanged(notif: NSNotification) {
+        guard notif.name == "phoneNotification", let phoneStr = notif.object as? String else {
+            return
+        }
+        loginInfo.phone = phoneStr
+        updateView()
     }
     
     
@@ -116,9 +131,12 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
                 $0.text = "Не пришло СМС?"
             }.onSelected { [weak self] _ in
                 if let phone = self?.loginInfo.phone {
-                    Popup.instanse.showQuestion(phone, message: "Отправить СМС заново?", otherButtons: ["Отмена"]).handler { selectedIndex in
-                        if selectedIndex == 0 {
-                            Networking.instanse.getSms(self?.loginInfo) { [weak self] result in
+                    
+                    let numberPhone = phone.componentsSeparatedByCharactersInSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet).joinWithSeparator("")
+                    
+                    Popup.instanse.showQuestion(phone, message: "Отправить СМС заново?", otherButtons: ["Отправить"], cancelButtonTitle: "Отмена").handler { selectedIndex in
+                        if selectedIndex == 1 {
+                            Networking.instanse.getSms(numberPhone) { [weak self] result in
                                 switch result {
                                 case .Error(let error):
                                     Popup.instanse.showError("", message: error)
@@ -158,17 +176,18 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
         let getSmsButtonRow = LabelRowFormer<CenterLabelCell>()
             .onSelected { [weak self] _ in
                 
+                guard let phone = self?.loginInfo.phone else {
+                    return
+                }
+                let numberPhone = phone.componentsSeparatedByCharactersInSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet).joinWithSeparator("")
+                
                 if self?.former.firstSectionFormer === self?.phoneSection {
-                    
-                    if let phone1 = self?.loginInfo.phone {
-                        let numberPhone = phone1.componentsSeparatedByCharactersInSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet).joinWithSeparator("")
-                        
-                        
+
                         self?.view.endEditing(true)
-                        Popup.instanse.showQuestion(numberPhone, message: "Отправить СМС на указанный номер?", otherButtons: ["Отправить"], cancelButtonTitle: "Отмена").handler { [weak self] selectedIndex in
+                        Popup.instanse.showQuestion(phone, message: "Отправить СМС на указанный номер?", otherButtons: ["Отправить"], cancelButtonTitle: "Отмена").handler { [weak self] selectedIndex in
                             if selectedIndex == 1 {
                                 Helper().showLoading(nil)
-                                Networking().getSms(self?.loginInfo) { [weak self] result in
+                                Networking().getSms(numberPhone) { [weak self] result in
                                     Helper().hideLoading()
                                     switch result {
                                     case .Error(let error):
@@ -180,11 +199,13 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
                                     }
                                 }
                             }
-                        }
                     }
                 } else {
                     Helper().showLoading()
-                    Networking().checkPincode(self?.loginInfo) { [weak self] result in
+                    
+                    guard let pinCode = self?.loginInfo.pincode else { return }
+                    
+                    Networking().checkPincode(numberPhone, pinCode: pinCode) { [weak self] result in
                         Helper().hideLoading()
 
                         switch result {

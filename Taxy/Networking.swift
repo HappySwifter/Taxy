@@ -40,12 +40,12 @@ final class Networking {
     let serviceString = "service/"
     
     
-    func getSms (loginInfo: Login?, completion: Result<String, String> -> Void)  {
-        guard let phone = loginInfo?.phone else {
-            debugPrint("\(__FUNCTION__)")
-            completion(Result.Error("Ошибка"))
-            return
-        }
+    func getSms (phone: String, completion: Result<String, String> -> Void)  {
+//        guard let phone = loginInfo?.phone else {
+//            debugPrint("\(__FUNCTION__)")
+//            completion(Result.Error("Ошибка"))
+//            return
+//        }
         let parameters = [
             "phone": phone
         ]
@@ -62,16 +62,16 @@ final class Networking {
     }
     
     
-    func checkPincode (loginInfo: Login?, completion: Result<String, String>  -> Void) {
+    func checkPincode (phone: String, pinCode: String, completion: Result<String, String>  -> Void) {
         
-        guard let phone = loginInfo?.phone, pincode = loginInfo?.pincode else {
-            debugPrint("\(__FUNCTION__)")
-            completion(Result.Error("Ошибка"))
-            return
-        }
+//        guard let pincode = loginInfo?.pincode else {
+//            debugPrint("\(__FUNCTION__)")
+//            completion(Result.Error("Ошибка"))
+//            return
+//        }
         let parameters = [
             "phone": phone,
-            "code" : pincode
+            "code" : pinCode
         ]
         🙏(.POST, url: mainUrl + userString + ServerMethods.VerifyCode.rawValue, params: parameters) { result in
             
