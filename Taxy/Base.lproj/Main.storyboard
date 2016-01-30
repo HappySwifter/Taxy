@@ -467,6 +467,9 @@
                                     <constraint firstAttribute="height" constant="58" id="adF-lI-uWV"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="phoneicontest.png"/>
+                                <connections>
+                                    <action selector="callButtonTouched" destination="vfg-sV-LRu" eventType="touchUpInside" id="FtM-ml-Pld"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

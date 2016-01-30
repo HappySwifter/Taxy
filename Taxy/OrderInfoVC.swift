@@ -247,6 +247,18 @@ final class OrderInfoVC: UIViewController, SegueHandlerType {
         
     }
     
+    @IBAction func callButtonTouched() {
+        let phone: String?
+        if UserProfile.sharedInstance.type == .Passenger {
+            phone = order.driverInfo.phoneNumber
+        } else {
+            phone = order.passengerInfo.phoneNumber
+        }
+        guard let phoneNumber = phone where phoneNumber.characters.count == 10 else { return }
+        let finalPhone = "tel://+7" + phoneNumber
+         UIApplication.sharedApplication().openURL(NSURL(string: finalPhone)!)
+    }
+    
     @IBAction func showInfoTouched() {
         let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         let vc = storyBoard.instantiateViewControllerWithIdentifier(STID.MoreOrderInfoSTID.rawValue) as! MoreOrderInfoVC
