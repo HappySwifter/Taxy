@@ -2,7 +2,7 @@ import UIKit
 import Former
 import HCSStarRatingView
 
-final class RaitingCell: UITableViewCell, RaitingFormableRow {
+final class RaitingCell: UITableViewCell {
     
     @IBOutlet weak var raitingView: HCSStarRatingView!
     @IBOutlet weak var infoLabel: UILabel!

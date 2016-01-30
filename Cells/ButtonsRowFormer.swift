@@ -10,12 +10,7 @@ import UIKit
 import Former
 
 public protocol ButtonsFormableRow: FormableRow {
-    
-//    func formButton1() -> UIButton
-//    func formButton2() -> UIButton
     func formButtons() -> [UIButton]
-
-    //    func formTitleLabel() -> UILabel?
 }
 
 public final class ButtonsRowFormer<T: UITableViewCell where T: ButtonsFormableRow>

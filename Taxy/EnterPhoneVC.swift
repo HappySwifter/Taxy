@@ -17,7 +17,7 @@ enum RowType: Int {
 }
 
 
-final class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Public
     
@@ -63,17 +63,17 @@ final class LoginViewController: UIViewController {
                 $0.text = "Введите номер телефона"
         }
         
-        let phoneRow = TextFieldRowFormer<FormTextFieldCell>() {
-            $0.textField.textColor = .formerSubColor()
-            $0.textField.font = .light_Med()
-            $0.textField.keyboardType = .DecimalPad
-            }.configure {
-                $0.placeholder = "Номер телефона"
-                $0.text = self.loginInfo.phone
-            }.onTextChanged { [weak self] in
+        
+        let phoneRow = PhoneRowFormer<PhoneCell>(instantiateType: .Nib(nibName: "PhoneCell")) {
+            $0.phoneTextField.keyboardType = .DecimalPad
+            }
+            .onTextChanged { [weak self] in
                 self?.loginInfo.phone = $0
                 self?.updateView()
         }
+
+        
+        
         return SectionFormer(rowFormer: phoneRow).set(headerViewFormer: descriptionHeader)
     }()
     
@@ -160,17 +160,19 @@ final class LoginViewController: UIViewController {
                 
                 if self?.former.firstSectionFormer === self?.phoneSection {
                     
-                    if let phone = self?.loginInfo.phone {
+                    if let phone1 = self?.loginInfo.phone {
+                        let numberPhone = phone1.componentsSeparatedByCharactersInSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet).joinWithSeparator("")
+                        
+                        
                         self?.view.endEditing(true)
-                        Popup.instanse.showQuestion(phone, message: "Отправить СМС на указанный номер?", otherButtons: ["Отмена"]).handler { [weak self] selectedIndex in
-                            if selectedIndex == 0 {
+                        Popup.instanse.showQuestion(numberPhone, message: "Отправить СМС на указанный номер?", otherButtons: ["Отправить"], cancelButtonTitle: "Отмена").handler { [weak self] selectedIndex in
+                            if selectedIndex == 1 {
                                 Helper().showLoading(nil)
                                 Networking().getSms(self?.loginInfo) { [weak self] result in
                                     Helper().hideLoading()
                                     switch result {
                                     case .Error(let error):
                                         Popup.instanse.showError("", message: error)
-                                        // TODO hide loading
                                     case .Response(_):
 //                                        self?.loginInfo.id = data
                                         self?.switchInfomationSection(.Pincode)
@@ -256,4 +258,7 @@ final class LoginViewController: UIViewController {
     private func goAhead() -> Void {
         instantiateSTID(STID.MySettingsSTID)
     }
+    
+    
+    
 }
