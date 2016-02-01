@@ -143,12 +143,16 @@ final class Networking {
         parameters[UserFields.WithChildChair.rawValue] = String(userProfile.withChildChair)
 
 
-
-        if let image = userProfile.image {
-            if let base64 = image.toBase64() {
-                parameters[UserFields.Image.rawValue] = base64
-            }
+        if let image = userProfile.image, base64 = image.toBase64() {
+            parameters[UserFields.Image.rawValue] = base64
         }
+        if let carPhoto = userProfile.carPhoto, let base64 = carPhoto.toBase64() {
+            parameters[UserFields.CarPhoto.rawValue] = base64
+        }
+        if let pravaPhoto = userProfile.pravaPhoto, let base64 = pravaPhoto.toBase64() {
+            parameters[UserFields.DriverLicense.rawValue] = base64
+        }
+        
         🙏(.POST, url: mainUrl + userString + ServerMethods.UpdateProfile.rawValue, params: parameters) { result in
             
             

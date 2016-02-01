@@ -135,7 +135,11 @@ extension MyOrders {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 210
+        if orders.count > 0 {
+            return 132
+        } else {
+            return 210
+        }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -173,8 +177,8 @@ extension MyOrders {
 
 
 class passengerOrderCell: UITableViewCell {
-    @IBOutlet weak var userIdLabel: UILabel!
-    @IBOutlet weak var idLabel: UILabel!
+//    @IBOutlet weak var userIdLabel: UILabel!
+//    @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var driverNameLabel: UILabel!
     @IBOutlet weak var statusView: UIView!
@@ -213,13 +217,13 @@ class passengerOrderCell: UITableViewCell {
         orderDetailsLabel.text = orderDetailsText
         
    
-        if let userId = order.userID {
-            userIdLabel.text = "user ID: " + userId
-        }
+//        if let userId = order.userID {
+//            userIdLabel.text = "user ID: " + userId
+//        }
         
-        if let orderId = order.orderID {
-            idLabel.text = "order ID: " + orderId
-        }
+//        if let orderId = order.orderID {
+//            idLabel.text = "order ID: " + orderId
+//        }
         if let createTime = order.createdAt {
             createTimeLabel.text = createTime.stringWithHumanizedTimeDifference(.SuffixAgo, withFullString: false)
         }

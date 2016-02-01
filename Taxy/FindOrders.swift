@@ -9,6 +9,7 @@
 import Foundation
 import BTNavigationDropdownMenu
 import CNPPopupController
+import DrawerController
 
 final class FindOrders: UITableViewController, NoOrdersCellDelegate {
     
@@ -23,6 +24,7 @@ final class FindOrders: UITableViewController, NoOrdersCellDelegate {
         let refresh = UIRefreshControl()
         refresh.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
         tableView.addSubview(refresh)
+        setupMenuButtons()
         
         let items = OrderType.value().map { element in element.title() }
         let menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: items.first!, items: items)
@@ -55,6 +57,15 @@ final class FindOrders: UITableViewController, NoOrdersCellDelegate {
     
     deinit {
         debugPrint("\(__FUNCTION__) in \(__FILE__)")
+    }
+    
+    func setupMenuButtons() {
+        let leftDrawerButton = DrawerBarButtonItem(target: self, action: "leftDrawerButtonPress:")
+        self.navigationItem.setLeftBarButtonItem(leftDrawerButton, animated: false)
+    }
+    
+    func leftDrawerButtonPress(sender: AnyObject?) {
+        self.evo_drawerController?.toggleDrawerSide(.Left, animated: true, completion: nil)
     }
     
     func refresh(control: UIRefreshControl) {
@@ -151,7 +162,11 @@ extension FindOrders {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 210
+        if orders.count > 0 {
+            return 160
+        } else {
+            return 210
+        }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -248,9 +263,8 @@ extension FindOrders {
 
 
 class driverOrderCell: UITableViewCell {
-    @IBOutlet weak var idLabel: UILabel!
-    @IBOutlet weak var passengerIdLabel: UILabel!
-    @IBOutlet weak var passengerPhoneLabel: UILabel!
+//    @IBOutlet weak var idLabel: UILabel!
+//    @IBOutlet weak var passengerIdLabel: UILabel!
     @IBOutlet weak var passengerNameLabel: UILabel!
     @IBOutlet weak var fromPlaceLabel: UILabel!
     @IBOutlet weak var toPlaceLabel: UILabel!
@@ -270,12 +284,12 @@ class driverOrderCell: UITableViewCell {
         if let toPlace = order.toPlace {
             toPlaceLabel.text = toPlace
         }
-        if let userId = order.userID {
-            passengerIdLabel.text = "user ID: " + userId
-        }
-        if let orderId = order.orderID {
-            idLabel.text = "order ID: " + orderId
-        }
+//        if let userId = order.userID {
+//            passengerIdLabel.text = "user ID: " + userId
+//        }
+//        if let orderId = order.orderID {
+//            idLabel.text = "order ID: " + orderId
+//        }
         if let createTime = order.createdAt {
             createTimeLabel.text = createTime.stringWithHumanizedTimeDifference(.SuffixAgo, withFullString: false)
         }

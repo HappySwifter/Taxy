@@ -69,9 +69,8 @@ class MoreOrderInfoVC: UITableViewController {
             raitingView.allowsHalfStars = true
             raitingView.value =  CGFloat.init(raiting)
             raitingView.spacing = 1
-            raitingView.tintColor = UIColor.greenColor()
+            raitingView.tintColor = .mainOrangeColor()
             raitingView.userInteractionEnabled = false
-//            raitingView.backgroundColor = .grayColor()
             driverRaitingView.addSubview(raitingView)
         } else {
             noRaitingLabel.hidden = false

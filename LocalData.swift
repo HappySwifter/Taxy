@@ -59,6 +59,7 @@ class LocalData {
         UserProfile.sharedInstance.carColor = nil
         UserProfile.sharedInstance.carModel = nil
         UserProfile.sharedInstance.carNumber = nil
+        UserProfile.sharedInstance.raiting = nil
 
 
     }

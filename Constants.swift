@@ -83,9 +83,7 @@ struct errorDecription {
     func getErrorName(code: Int) -> String {
         switch code {
         case 200:
-            return "Нет ошибок"
-        case 500:
-            return "Ошибка сервера"
+            return "По идее все хорошо, но раз вы увидели это собщение, значит что-то пошло не так, как планировалось"
         case 405:
             return "Неверный СМС-код"
         case 406:
@@ -93,7 +91,7 @@ struct errorDecription {
         case 404:
             return "Пользователь не найден"
         case 500:
-            return "Ошибка сервера"
+            return "Ошибка сервера. Попробуйте позже"
         case 501:
             return "Неверный формат телефона"
         case 502:
@@ -118,6 +116,8 @@ struct errorDecription {
             return "Заказ уже принят"
         case 512:
            return "Сообщение уже отправлено, запросите новое позже"
+        case 516:
+            return "Учетная запись еще не активирована"
         default:
             return "Неопознанная ошибка"
         }

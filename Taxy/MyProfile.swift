@@ -185,7 +185,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
             $0.textField.enabled = false
             }.configure {
                 if let balance = UserProfile.sharedInstance.balance {
-                    $0.text = String(balance)
+                    $0.text = String(balance) + " руб"
                 }
         }
 
@@ -231,6 +231,7 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
             } else {
                 $0.raitingView.hidden = true
                 $0.infoLabel.hidden = false
+                $0.infoLabel.textColor = UIColor.formerSubColor()
             }
         }
 
@@ -250,7 +251,13 @@ final class MyProfileVC: FormViewController, SegueHandlerType {
             .set(headerViewFormer: createHeader(" "))
         let imageSection = SectionFormer(rowFormer: imageRow)
             .set(headerViewFormer: createHeader("Фотография профиля"))
-        let aboutSection = SectionFormer(rowFormer: nameRow, cityRow, phoneRow, balanceRow, updateBalanceRow, userIDRow, raitingRow)
+        let aboutSection = SectionFormer(rowFormer: nameRow,
+            cityRow,
+            phoneRow,
+            balanceRow,
+//            updateBalanceRow,
+//            userIDRow,
+            raitingRow)
             .set(headerViewFormer: createHeader("Обо мне"))
         
         former.append(sectionFormer: userTypeSection, imageSection, aboutSection, moreSection)

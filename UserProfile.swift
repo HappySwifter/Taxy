@@ -58,6 +58,9 @@ class UserProfile {
         if let carImageString = userInfo[UserFields.CarPhoto.rawValue]?.string {
             profile.carPhoto = carImageString.toImage()
         }
+        if let pravaImageString = userInfo[UserFields.DriverLicense.rawValue]?.string {
+            profile.pravaPhoto = pravaImageString.toImage()
+        }
         if let cities = LocalData.instanse.getCities() {
             let cityID = userInfo[UserFields.City.rawValue]?.int
             let city = cities.filter{ $0.code == cityID }.first
@@ -75,8 +78,6 @@ class UserProfile {
                 debugPrint("cant determine driver state in \(__FUNCTION__) : \(__FILE__)")
             }
         }
-        
-        
         
         profile.name = userInfo[UserFields.FirstName.rawValue]?.string
         profile.userID = userInfo[UserFields.Id.rawValue]?.string
@@ -104,5 +105,5 @@ class UserProfile {
 }
 
 enum UserFields: String {
-    case Id, FirstName, City, UserType, Image, PhoneNumber, Balance, CarPhoto, WithChildChair, Longitude, Latitude, LocationUpdatedAt, DriverState, CarModel, CarNumber, CarColor, AvgRate
+    case Id, FirstName, City, UserType, Image, PhoneNumber, Balance, CarPhoto, WithChildChair, Longitude, Latitude, LocationUpdatedAt, DriverState, CarModel, CarNumber, CarColor, AvgRate, DriverLicense
 }

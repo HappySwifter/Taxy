@@ -78,7 +78,9 @@ final class DriverRegistrationVC: FormViewController {
         TextFieldRowFormer<FormTextFieldCell> {
             $0.textField.inputAccessoryView = self?.formerInputAccessoryView
             $0.titleLabel.text = "Марка"
+            $0.titleLabel.font = .bold_Med()
             $0.textField.textColor = .formerSubColor()
+            $0.textField.placeholder = "Марка вашей машины"
             }.configure {
                 $0.text = UserProfile.sharedInstance.carModel
             }
@@ -91,6 +93,8 @@ final class DriverRegistrationVC: FormViewController {
         TextFieldRowFormer<FormTextFieldCell> {
             $0.textField.inputAccessoryView = self?.formerInputAccessoryView
             $0.titleLabel.text = "Номер"
+            $0.textField.placeholder = "Номер вашей машины"
+            $0.titleLabel.font = .bold_Med()
             $0.textField.textColor = .formerSubColor()
             }.configure {
                 $0.text = UserProfile.sharedInstance.carNumber
@@ -104,6 +108,8 @@ final class DriverRegistrationVC: FormViewController {
         TextFieldRowFormer<FormTextFieldCell> {
             $0.textField.inputAccessoryView = self?.formerInputAccessoryView
             $0.titleLabel.text = "Цвет"
+            $0.textField.placeholder = "Цвет вашей машины"
+            $0.titleLabel.font = .bold_Med()
             $0.textField.textColor = .formerSubColor()
             }.configure {
                 $0.text = UserProfile.sharedInstance.carColor

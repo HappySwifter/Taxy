@@ -11,12 +11,6 @@ final class RaitingCell: UITableViewCell {
         super.awakeFromNib()
         infoLabel.textColor = .mainOrangeColor()
         infoLabel.font = .light_Med()
-        
-//        raitingView.backgroundColor = .whiteColor()
-        raitingView.tintColor = UIColor.greenColor()
+        raitingView.tintColor = .mainOrangeColor()
     }
-    
-
-    
-    func updateWithRowFormer(rowFormer: RowFormer) {}
 }
