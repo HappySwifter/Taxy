@@ -52,13 +52,15 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
         guard notif.name == "phoneNotification", let phoneStr = notif.object as? String else {
             return
         }
-        loginInfo.phone = phoneStr
+        phone = phoneStr
         updateView()
     }
     
     
     // MARK: Private
-    private var loginInfo = Login()
+//    private var loginInfo = Login()
+    var phone = ""
+    var pincode = ""
     private lazy var former: Former = Former(tableView: self.tableView)
     private var getSmsButtonRow: LabelRowFormer<CenterLabelCell>?
     
@@ -82,10 +84,10 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
         let phoneRow = PhoneRowFormer<PhoneCell>(instantiateType: .Nib(nibName: "PhoneCell")) {
             $0.phoneTextField.keyboardType = .DecimalPad
             }
-            .onTextChanged { [weak self] in
-                self?.loginInfo.phone = $0
-                self?.updateView()
-        }
+//            .onTextChanged { [weak self] in
+//                self?.loginInfo.phone = $0
+//                self?.updateView()
+//        }
 
         
         
@@ -113,7 +115,7 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
             }.configure {
                 $0.placeholder = "Введите код"
             }.onTextChanged { [weak self] in
-                self?.loginInfo.pincode = $0
+                self?.pincode = $0
                 self?.updateView()
         }
         
@@ -130,23 +132,22 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
             }.configure {
                 $0.text = "Не пришло СМС?"
             }.onSelected { [weak self] _ in
-                if let phone = self?.loginInfo.phone {
-                    
-                    let numberPhone = phone.componentsSeparatedByCharactersInSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet).joinWithSeparator("")
-                    
-                    Popup.instanse.showQuestion(phone, message: "Отправить СМС заново?", otherButtons: ["Отправить"], cancelButtonTitle: "Отмена").handler { selectedIndex in
-                        if selectedIndex == 1 {
-                            Networking.instanse.getSms(numberPhone) { [weak self] result in
-                                switch result {
-                                case .Error(let error):
-                                    Popup.instanse.showError("", message: error)
-//                                case .Response(let data):
-//                                    self?.loginInfo.id = data
-                                default:
-                                    break
-                                }
-                                
+                
+                guard let phone = self?.phone where self?.phone.characters.count > 0  else {
+                    return
+                }
+                let numberPhone = phone.componentsSeparatedByCharactersInSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet).joinWithSeparator("")
+                
+                Popup.instanse.showQuestion(phone, message: "Отправить СМС заново?", otherButtons: ["Отправить"], cancelButtonTitle: "Отмена").handler { selectedIndex in
+                    if selectedIndex == 1 {
+                        Networking.instanse.getSms(numberPhone) { [weak self] result in
+                            switch result {
+                            case .Error(let error):
+                                Popup.instanse.showError("", message: error)
+                            default:
+                                break
                             }
+                            
                         }
                     }
                 }
@@ -176,7 +177,7 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
         let getSmsButtonRow = LabelRowFormer<CenterLabelCell>()
             .onSelected { [weak self] _ in
                 
-                guard let phone = self?.loginInfo.phone else {
+                guard let phone = self?.phone else {
                     return
                 }
                 let numberPhone = phone.componentsSeparatedByCharactersInSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet).joinWithSeparator("")
@@ -203,7 +204,7 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
                 } else {
                     Helper().showLoading()
                     
-                    guard let pinCode = self?.loginInfo.pincode else { return }
+                    guard let pinCode = self?.pincode else { return }
                     
                     Networking().checkPincode(numberPhone, pinCode: pinCode) { [weak self] result in
                         Helper().hideLoading()

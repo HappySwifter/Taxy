@@ -56,9 +56,7 @@ final class MyOrders: UITableViewController, SegueHandlerType, NoOrdersCellDeleg
     
     
     func loadOrders() {
-//        Helper().showLoading("Загрузка заказов")
         Networking.instanse.getOrders(0) { [weak self] result in
-//            Helper().hideLoading()
             switch result {
             case .Error(let error):
                 Popup.instanse.showError("", message: error)
@@ -69,23 +67,6 @@ final class MyOrders: UITableViewController, SegueHandlerType, NoOrdersCellDeleg
         }
     }
     
-//    func acceptOrder(order: Order) {
-//        guard let orderID = order.orderID else { return }
-//        Helper().showLoading("Принимаю заказ")
-//        Networking.instanse.acceptOrder(orderID) { [weak self] result in
-//            Helper().hideLoading()
-//            switch result {
-//            case .Error(let error):
-//                Popup.instanse.showError("", message: error)
-//                Helper().hideLoading()
-//            case .Response(let data):
-//                print(data)
-//                if data == 1 {
-//                    self?.performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: order)
-//                }
-//            }
-//        }
-//    }
     
     func setupMenuButtons() {
         let leftDrawerButton = DrawerBarButtonItem(target: self, action: "leftDrawerButtonPress:")
@@ -99,9 +80,10 @@ final class MyOrders: UITableViewController, SegueHandlerType, NoOrdersCellDeleg
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifierForSegue(segue) {
         case .ShowOrderDetailsSegue:
-            if let contr = segue.destinationViewController as? OrderInfoVC, order = sender as? Order {
-                contr.order = order
-            }
+            guard let row = sender as? Int, let contr = segue.destinationViewController as? OrderInfoVC else {
+                debugPrint("\(__FUNCTION__) - error")
+                return }
+            contr.order = orders[row]
         }
     }
 }
@@ -149,16 +131,13 @@ extension MyOrders {
         switch UserProfile.sharedInstance.type {
         case .Passenger:
             if order.orderStatus == 1 {
-                performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: order)
+                performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: indexPath.row)
             }
         case .Driver:
             if order.orderStatus == 1 && order.driverInfo.userID == UserProfile.sharedInstance.userID {
                 // заказ принят и принят этим водителем
-                performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: order)
+                performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: indexPath.row)
             }
-//            else if order.orderStatus == 0 {
-//                acceptOrder(order)
-//            }
         }
     }
     

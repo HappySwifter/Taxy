@@ -8,7 +8,7 @@
 import SwiftyJSON
 
 
-class Order {
+struct Order {
     var userID: String?
     var fromPlace: String?
     var toPlace: String?
@@ -56,7 +56,7 @@ extension Order {
         
         
         func parseDict(orderInfo: JSON) -> Order {
-            let order = Order()
+            var order = Order()
             
             if let fromPlace = orderInfo[OrderFields.FromAddress.rawValue].string {
                 order.fromPlace = fromPlace
