@@ -211,7 +211,7 @@ extension MyOrders {
 class passengerOrderCell: UITableViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var driverNameLabel: UILabel!
-    @IBOutlet weak var statusView: UIView!
+    @IBOutlet weak var statusImageView: UIImageView!
     @IBOutlet weak var orderDetailsLabel: UILabel!
     @IBOutlet weak var createTimeLabel: UILabel!
     
@@ -229,12 +229,8 @@ class passengerOrderCell: UITableViewCell {
             }
         }
         
-        statusView.layer.cornerRadius = statusView.frame.size.width / 2
-        if order.orderStatus == 1 {
-            statusView.backgroundColor = UIColor.greenColor()
-        } else {
-            statusView.backgroundColor = UIColor.redColor()
-        }
+
+
         
         
         var orderDetailsText = ""
@@ -257,6 +253,24 @@ class passengerOrderCell: UITableViewCell {
         if let createTime = order.createdAt {
             createTimeLabel.text = createTime.stringWithHumanizedTimeDifference(.SuffixAgo, withFullString: false)
         }
+        
+        
+        if let status = order.orderStatus {
+            switch status {
+            case 0:
+                statusImageView.image = UIImage(named: "searching.jpg")
+            case 1:
+                statusImageView.image = UIImage(named: "accepted.jpg")
+            case 2:
+                statusImageView.image = UIImage(named: "done.jpg")
+            case 3:
+                statusImageView.image = UIImage(named: "canceled.jpg")
+            default:
+                break
+            }
+        }
+
+        
     }
     
 }
