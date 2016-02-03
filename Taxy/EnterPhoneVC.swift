@@ -187,7 +187,7 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
                         self?.view.endEditing(true)
                         Popup.instanse.showQuestion(phone, message: "Отправить СМС на указанный номер?", otherButtons: ["Отправить"], cancelButtonTitle: "Отмена").handler { [weak self] selectedIndex in
                             if selectedIndex == 1 {
-                                Helper().showLoading(nil)
+                                Helper().showLoading("Отправляем СМС")
                                 Networking().getSms(numberPhone) { [weak self] result in
                                     Helper().hideLoading()
                                     switch result {

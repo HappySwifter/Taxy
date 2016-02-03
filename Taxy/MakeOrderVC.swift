@@ -19,7 +19,7 @@ final class MakeOrderVC: FormViewController {
     var fromRow:TextViewRowFormer<FormTextViewCell>?
     var toRow:TextViewRowFormer<FormTextViewCell>?
     var priceRow:TextFieldRowFormer<ProfileFieldCell>?
-
+    
     var orderInfo = Order()
     
     private lazy var informationSection: SectionFormer = {
@@ -68,9 +68,6 @@ final class MakeOrderVC: FormViewController {
     func setupMenuButtons() {
         let leftDrawerButton = DrawerBarButtonItem(target: self, action: "leftDrawerButtonPress:")
         self.navigationItem.setLeftBarButtonItem(leftDrawerButton, animated: true)
-        
-//        let doneButton = UIBarButtonItem(title: "Создать заказ", style: .Plain, target: self, action: "orderTouched")
-//        self.navigationItem.setRightBarButtonItem(doneButton, animated: false)
     }
     
     func leftDrawerButtonPress(sender: AnyObject?) {
@@ -210,7 +207,7 @@ final class MakeOrderVC: FormViewController {
         }
         
         
-
+        
         let makeOrderButtonRow = LabelRowFormer<CenterLabelCell>() {
             $0.backgroundColor = .mainOrangeColor()
             $0.titleLabel.textColor = .whiteColor()
@@ -220,12 +217,13 @@ final class MakeOrderVC: FormViewController {
             }
             .onSelected { [weak self] _ in
                 self?.former.deselect(true)
-                let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-                if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.TaxyRequestingSTID.rawValue) as? TaxyRequestingVC, let info = self?.orderInfo {
-                    contr.orderInfo = info
-                    self?.navigationController?.pushViewController(contr, animated: true)
-                    
-                }
+                self?.createOrder()
+                //                let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+                //                if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.TaxyRequestingSTID.rawValue) as? TaxyRequestingVC, let info = self?.orderInfo {
+                //                    contr.orderInfo = info
+                //                    self?.navigationController?.pushViewController(contr, animated: true)
+                //
+                //                }
         }
         
         
@@ -275,21 +273,25 @@ final class MakeOrderVC: FormViewController {
     }
     
     
-    func orderTouched() {
-//        let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-//        if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.TaxyRequestingSTID.rawValue) as? TaxyRequestingVC {
-//            contr.orderInfo = orderInfo
-//            self.navigationController?.pushViewController(contr, animated: true)
-//        }
-    }
-    
     
     private func switchInfomationSection() {
         if orderInfo.moreInformation {
             former.insertUpdate(sectionFormer: informationSection, toSection: former.numberOfSections - 1, rowAnimation: .Top)
-//            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: informationSection.numberOfRows - 1, inSection: former.numberOfSections - 1), atScrollPosition: .Bottom, animated: true)
         } else {
             former.removeUpdate(sectionFormer: informationSection, rowAnimation: .Top)
+        }
+    }
+    
+    private func createOrder() {
+        Helper().showLoading("Создание заказа")
+        Networking.instanse.createOrder(orderInfo) { [weak self]  result in
+            Helper().hideLoading()
+            switch result {
+            case .Error(let error):
+                Popup.instanse.showError("Не удалось создать заказ", message: error)
+            case .Response(let orderID):
+                self?.instantiateSTID(STID.MyOrdersSTID)
+            }
         }
     }
     

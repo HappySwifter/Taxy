@@ -13,7 +13,7 @@ import MXParallaxHeader
 
 final class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchDelegate {
     @IBOutlet weak var tableView: UITableView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Дорожное такси"
@@ -29,7 +29,7 @@ final class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.Bottom
         
         self.evo_drawerController?.setMaximumLeftDrawerWidth(CGRectGetWidth(UIScreen.mainScreen().bounds) - 70, animated: false, completion: nil)
-
+        
     }
     
     func switchChanged(index: Int) {
@@ -60,11 +60,11 @@ final class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         debugPrint("\(__FUNCTION__)")
     }
     
-//    override func contentSizeDidChange(size: String) {
-//        self.tableView.reloadData()
-//    }
+    //    override func contentSizeDidChange(size: String) {
+    //        self.tableView.reloadData()
+    //    }
     
-   
+    
     
     private func isPassenger() -> Bool {
         return UserProfile.sharedInstance.type == .Passenger
@@ -83,6 +83,32 @@ final class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate
             ]
         }
     }
+    
+    func makeFastOrder() {
+        Helper().getAddres({ [weak self] (addres, location) -> Void in
+            
+            var orderInfo = Order()
+            
+            orderInfo.fromPlace = addres
+            orderInfo.fromPlaceCoordinates = location
+            orderInfo.toPlace = "Быстрый заказ"
+            orderInfo.price = 0
+            
+            Helper().showLoading("Создание заказа")
+            Networking.instanse.createOrder(orderInfo) { [weak self]  result in
+                Helper().hideLoading()
+                switch result {
+                case .Error(let error):
+                    Popup.instanse.showError("Не удалось создать заказ", message: error)
+                case .Response(_):
+                    self?.instantiateSTID(STID.MyOrdersSTID)
+                }
+            }
+            }, failure: { error in
+                Popup.instanse.showError("Ошибка создания быстрого заказа", message: error)
+        })
+    }
+    
 }
 
 
@@ -163,7 +189,7 @@ extension MenuVC {
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         cell.backgroundColor = .clearColor()
         cell.contentView.backgroundColor = .clearColor()
-//        cell.backgroundView?.backgroundColor = .clearColor()
+        //        cell.backgroundView?.backgroundColor = .clearColor()
     }
     
     
@@ -188,17 +214,14 @@ extension MenuVC {
             
         case 1:
             if isPassenger() {
-                let makeOrderVC = storyBoard.instantiateViewControllerWithIdentifier(STID.MakeOrderSTID.rawValue) as! MakeOrderVC
-                let nav = NavigationContr(rootViewController: makeOrderVC)
-                
-                if indexPath.row != 0 {
-                    makeOrderVC.orderInfo.orderType = OrderType.value()[indexPath.row - 1]
+                if indexPath.row == 0 {
+                    makeFastOrder()
                 } else {
-                    // fast order. We're pushing to taxyRequestingVC
-                    let taxyRequestingVC = storyBoard.instantiateViewControllerWithIdentifier(STID.TaxyRequestingSTID.rawValue)
-                    nav.viewControllers.insert(taxyRequestingVC, atIndex: nav.viewControllers.count)
+                    let makeOrderVC = storyBoard.instantiateViewControllerWithIdentifier(STID.MakeOrderSTID.rawValue) as! MakeOrderVC
+                    let nav = NavigationContr(rootViewController: makeOrderVC)
+                    makeOrderVC.orderInfo.orderType = OrderType.value()[indexPath.row - 1]
+                    evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
                 }
-                evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
             } else {
                 instantiateSTID(STID.FindOrdersSTID)
             }

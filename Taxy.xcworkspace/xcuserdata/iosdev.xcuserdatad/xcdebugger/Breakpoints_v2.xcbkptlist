@@ -44,7 +44,7 @@
                   moduleName = "Taxy"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/iosdev/Desktop/project1/Helper.swift"
-                  timestampString = "475864364.227908"
+                  timestampString = "476171510.509004"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "62"
@@ -59,7 +59,7 @@
                   moduleName = "Taxy"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/iosdev/Desktop/project1/Helper.swift"
-                  timestampString = "475864364.228173"
+                  timestampString = "476171510.509273"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "62"
@@ -98,22 +98,6 @@
             startingLineNumber = "172"
             endingLineNumber = "172"
             landmarkName = "sendCoords()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Taxy/EnterPhoneVC.swift"
-            timestampString = "475864144.688367"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "179"
-            endingLineNumber = "179"
-            landmarkName = "configure()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

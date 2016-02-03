@@ -17,7 +17,7 @@ final class MyOrders: UITableViewController, SegueHandlerType, NoOrdersCellDeleg
     
     var orders = [Order]()
     var timer: NSTimer?
-
+    
     enum SegueIdentifier: String {
         case ShowOrderDetailsSegue
     }
@@ -29,7 +29,7 @@ final class MyOrders: UITableViewController, SegueHandlerType, NoOrdersCellDeleg
         tableView.addSubview(refresh)
         setupMenuButtons()
         self.title = "Мои заказы"
-
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -47,7 +47,7 @@ final class MyOrders: UITableViewController, SegueHandlerType, NoOrdersCellDeleg
     deinit {
         debugPrint("\(__FUNCTION__): \(__FILE__)")
     }
-
+    
     
     func refresh(control: UIRefreshControl) {
         control.endRefreshing()
@@ -56,7 +56,9 @@ final class MyOrders: UITableViewController, SegueHandlerType, NoOrdersCellDeleg
     
     
     func loadOrders() {
+        //        Helper().showLoading("Загрузка заказов")
         Networking.instanse.getOrders(0) { [weak self] result in
+            //            Helper().hideLoading()
             switch result {
             case .Error(let error):
                 Popup.instanse.showError("", message: error)
@@ -67,6 +69,55 @@ final class MyOrders: UITableViewController, SegueHandlerType, NoOrdersCellDeleg
         }
     }
     
+    
+    
+    // NEW ////////////////////////////////
+    func cancelOrder(forCell cell: passengerOrderCell) {
+        guard let row = tableView.indexPathForCell(cell)?.row else {
+            return
+        }
+        Helper().showLoading("Отменяю заказ")
+        Networking.instanse.cancelOrder(orders[row]) { result in
+            Helper().hideLoading()
+            switch result {
+            case .Error(let error):
+                Popup.instanse.showError("Внимание!", message: error)
+            case .Response(_):
+                Popup.instanse.showInfo("Внимание", message: "Ваш заказ отменен")
+                break
+            }
+        }
+    }
+    
+    func monitorOrderStatus() {
+        Networking.instanse.checkOrder(Order()) { [weak self] result in
+            switch result {
+            case .Error(let error):
+                Popup.instanse.showError("", message: error)
+            case .Response(let orders):
+                guard let order = orders.first, let orderStatus = order.orderStatus else { return }
+                switch orderStatus {
+                case 1:
+                    
+                    let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+                    let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.MyOrdersSTID.rawValue)
+                    let nav = NavigationContr(rootViewController: contr)
+                    
+                    let orderInfoVC = storyBoard.instantiateViewControllerWithIdentifier(STID.OrderInfoSTID.rawValue) as! OrderInfoVC
+                    orderInfoVC.order = order
+                    nav.viewControllers.insert(orderInfoVC, atIndex: nav.viewControllers.count)
+                    
+                    self?.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
+                case 3:
+                    Popup.instanse.showInfo("Внимание", message: "Ваш заказ отменен")
+                default:
+                    break
+                }
+            }
+        }
+    }
+    
+    /////////////////////////////
     
     func setupMenuButtons() {
         let leftDrawerButton = DrawerBarButtonItem(target: self, action: "leftDrawerButtonPress:")
@@ -80,10 +131,9 @@ final class MyOrders: UITableViewController, SegueHandlerType, NoOrdersCellDeleg
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifierForSegue(segue) {
         case .ShowOrderDetailsSegue:
-            guard let row = sender as? Int, let contr = segue.destinationViewController as? OrderInfoVC else {
-                debugPrint("\(__FUNCTION__) - error")
-                return }
-            contr.order = orders[row]
+            if let contr = segue.destinationViewController as? OrderInfoVC, order = sender as? Order {
+                contr.order = order
+            }
         }
     }
 }
@@ -138,6 +188,9 @@ extension MyOrders {
                 // заказ принят и принят этим водителем
                 performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: indexPath.row)
             }
+            //            else if order.orderStatus == 0 {
+            //                acceptOrder(order)
+            //            }
         }
     }
     
@@ -156,14 +209,12 @@ extension MyOrders {
 
 
 class passengerOrderCell: UITableViewCell {
-//    @IBOutlet weak var userIdLabel: UILabel!
-//    @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var driverNameLabel: UILabel!
     @IBOutlet weak var statusView: UIView!
     @IBOutlet weak var orderDetailsLabel: UILabel!
     @IBOutlet weak var createTimeLabel: UILabel!
-
+    
     func configureViewWithOrder(order: Order) {
         if let price = order.price {
             priceLabel.text = String(price) + "р"
@@ -185,7 +236,7 @@ class passengerOrderCell: UITableViewCell {
             statusView.backgroundColor = UIColor.redColor()
         }
         
-   
+        
         var orderDetailsText = ""
         if let fromPlace = order.fromPlace {
             orderDetailsText += fromPlace
@@ -195,14 +246,14 @@ class passengerOrderCell: UITableViewCell {
         }
         orderDetailsLabel.text = orderDetailsText
         
-   
-//        if let userId = order.userID {
-//            userIdLabel.text = "user ID: " + userId
-//        }
         
-//        if let orderId = order.orderID {
-//            idLabel.text = "order ID: " + orderId
-//        }
+        //        if let userId = order.userID {
+        //            userIdLabel.text = "user ID: " + userId
+        //        }
+        
+        //        if let orderId = order.orderID {
+        //            idLabel.text = "order ID: " + orderId
+        //        }
         if let createTime = order.createdAt {
             createTimeLabel.text = createTime.stringWithHumanizedTimeDifference(.SuffixAgo, withFullString: false)
         }
