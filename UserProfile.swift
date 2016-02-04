@@ -24,9 +24,9 @@ enum DriverState: Int {
 }
 
 
-struct UserProfile {
+class UserProfile {
     
-    static var sharedInstance = UserProfile()
+    static let sharedInstance = UserProfile()
     
     var image: UIImage?
     var name: String?
@@ -50,7 +50,7 @@ struct UserProfile {
     var raiting: Int?
 
     func getModelFromDict(userInfo: [String: JSON], shared: Bool) -> UserProfile {
-        var profile = shared ? UserProfile.sharedInstance : UserProfile()
+        let profile = shared ? UserProfile.sharedInstance : UserProfile()
         
         if let imageString = userInfo[UserFields.Image.rawValue]?.string {
             profile.image = imageString.toImage()

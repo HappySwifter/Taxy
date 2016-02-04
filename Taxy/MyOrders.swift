@@ -194,6 +194,25 @@ extension MyOrders {
         }
     }
     
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let more = UITableViewRowAction(style: .Normal, title: "Отменить заказ") { action, index in
+            print("more button tapped")
+        }
+        more.backgroundColor = UIColor.mainOrangeColor()
+        
+        return [more]
+    }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    }
+    
+    
+    
     func noOrdersCellButtonTouched() {
         if UserProfile.sharedInstance.type == .Passenger {
             instantiateSTID(STID.MakeOrderSTID)
