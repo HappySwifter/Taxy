@@ -23,7 +23,7 @@ struct Order {
     var driverInfo = UserProfile()
     var passengerInfo = UserProfile()
 
-    var orderStatus: Int?
+    var orderStatus: Int? // 0 - opened, 1 - accepted, 2 - closed, 3 - canceled, 4 - pending
     var createdAt: NSDate?
 }
 

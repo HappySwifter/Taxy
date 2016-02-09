@@ -85,25 +85,15 @@ final class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     }
     
     func makeFastOrder() {
-        Helper().getAddres({ [weak self] (addres, location) -> Void in
+        Helper().getAddres({ [weak self] addres, location in
             
             var orderInfo = Order()
-            
             orderInfo.fromPlace = addres
             orderInfo.fromPlaceCoordinates = location
             orderInfo.toPlace = "Быстрый заказ"
             orderInfo.price = 0
+            self?.createOrder(orderInfo)
             
-            Helper().showLoading("Создание заказа")
-            Networking.instanse.createOrder(orderInfo) { [weak self]  result in
-                Helper().hideLoading()
-                switch result {
-                case .Error(let error):
-                    Popup.instanse.showError("Не удалось создать заказ", message: error)
-                case .Response(_):
-                    self?.instantiateSTID(STID.MyOrdersSTID)
-                }
-            }
             }, failure: { error in
                 Popup.instanse.showError("Ошибка создания быстрого заказа", message: error)
         })

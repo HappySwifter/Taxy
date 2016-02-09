@@ -530,21 +530,18 @@ final class Networking {
                 debugPrint("🙏 \(response.result), \(response.request!.URL!), \((params))")
                 switch response.result {
                 case .Success:
-                    if let value = response.result.value {
-                        let json = JSON(value)
-                        if let errorCode = json[Status].int {
-                            if errorCode == 200 {
-                                completion(Result.Response(json[Data]))
-                            } else {
-//                                if errorCode == 404 {
-//                                    LocalData.instanse.deleteUserID()
-//                                    NSNotificationCenter.defaultCenter().postNotificationName("showLoagingVCNotification", object: nil)
-//                                    return
-//                                }
-                                let errorDesc = errorDecription().getErrorName(errorCode)
-                                completion(Result.Error(errorDesc))
-                            }
-                        }
+                    let Status = "Status"
+                    let Data = "Data"
+                    
+                    guard let value = response.result.value else { return }
+                    let json = JSON(value)
+                    guard let errorCode = json[Status].int else { return }
+                    
+                    if errorCode == 200 || errorCode == 500 {
+                        completion(Result.Response(json[Data]))
+                    } else {
+                        let errorDesc = errorDecription().getErrorName(errorCode)
+                        completion(Result.Error(errorDesc))
                     }
                 case .Failure(let error):
                     completion(Result.Error(error.localizedDescription))

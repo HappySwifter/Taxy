@@ -15,6 +15,9 @@ import SVProgressHUD
 struct Helper {
     
     
+
+    
+    
     func getDriverCarInfo(driverInfo: UserProfile) -> String {
         var string = String()
         if let carModel = driverInfo.carModel {
@@ -203,6 +206,21 @@ extension UIFont {
 }
 
 extension UIViewController {
+    
+    func createOrder(order: Order) {
+        Helper().showLoading("Создание заказа")
+        Networking.instanse.createOrder(order) { [weak self]  result in
+            Helper().hideLoading()
+            switch result {
+            case .Error(let error):
+                Popup.instanse.showError("Не удалось создать заказ", message: error)
+            case .Response(_):
+                self?.instantiateSTID(STID.MyOrdersSTID)
+            }
+        }
+    }
+    
+    
     func instantiateSTID(id: STID) {
         let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         let centerViewController = storyBoard.instantiateViewControllerWithIdentifier(id.rawValue)
@@ -210,10 +228,6 @@ extension UIViewController {
         self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
     }
 
-//    func instantiateVC(contr: UIViewController) {
-//        let nav = NavigationContr(rootViewController: contr)
-//        self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
-//    }
     
     func enableMenu() {
         let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())

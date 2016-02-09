@@ -8,8 +8,7 @@
 
 import Foundation
 
-let Status = "Status"
-let Data = "Data"
+
 
 let mainUrl = "http://yakuttaxi.azurewebsites.net/"
 

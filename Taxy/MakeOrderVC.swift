@@ -217,13 +217,8 @@ final class MakeOrderVC: FormViewController {
             }
             .onSelected { [weak self] _ in
                 self?.former.deselect(true)
-                self?.createOrder()
-                //                let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-                //                if let contr = storyBoard.instantiateViewControllerWithIdentifier(STID.TaxyRequestingSTID.rawValue) as? TaxyRequestingVC, let info = self?.orderInfo {
-                //                    contr.orderInfo = info
-                //                    self?.navigationController?.pushViewController(contr, animated: true)
-                //
-                //                }
+                guard let order = self?.orderInfo else {return}
+                self?.createOrder(order)
         }
         
         
@@ -282,17 +277,17 @@ final class MakeOrderVC: FormViewController {
         }
     }
     
-    private func createOrder() {
-        Helper().showLoading("Создание заказа")
-        Networking.instanse.createOrder(orderInfo) { [weak self]  result in
-            Helper().hideLoading()
-            switch result {
-            case .Error(let error):
-                Popup.instanse.showError("Не удалось создать заказ", message: error)
-            case .Response(let orderID):
-                self?.instantiateSTID(STID.MyOrdersSTID)
-            }
-        }
-    }
+//    private func createOrder(order: Order = Order()) {
+//        Helper().showLoading("Создание заказа")
+//        Networking.instanse.createOrder(order) { [weak self]  result in
+//            Helper().hideLoading()
+//            switch result {
+//            case .Error(let error):
+//                Popup.instanse.showError("Не удалось создать заказ", message: error)
+//            case .Response(let orderID):
+//                self?.instantiateSTID(STID.MyOrdersSTID)
+//            }
+//        }
+//    }
     
 }

@@ -73,20 +73,7 @@ final class MyOrders: UITableViewController, SegueHandlerType, NoOrdersCellDeleg
     
     // NEW ////////////////////////////////
     func cancelOrder(forCell cell: passengerOrderCell) {
-        guard let row = tableView.indexPathForCell(cell)?.row else {
-            return
-        }
-        Helper().showLoading("Отменяю заказ")
-        Networking.instanse.cancelOrder(orders[row]) { result in
-            Helper().hideLoading()
-            switch result {
-            case .Error(let error):
-                Popup.instanse.showError("Внимание!", message: error)
-            case .Response(_):
-                Popup.instanse.showInfo("Внимание", message: "Ваш заказ отменен")
-                break
-            }
-        }
+        
     }
     
     func monitorOrderStatus() {
@@ -182,22 +169,41 @@ extension MyOrders {
         case .Passenger:
             if order.orderStatus == 1 {
                 performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: indexPath.row)
+            } else if order.orderStatus == 0 {
+                Popup.instanse.showInfo("Внимание", message: "Ищем водителя")
+            } else if order.orderStatus == 3 {
+                Popup.instanse.showInfo("Внимание", message: "Заказ отменен. Хотите повторить?").handler { [weak self] index in
+                    if let order = self?.orders[indexPath.row] {
+                        self?.createOrder(order)
+                    }
+                }
             }
         case .Driver:
             if order.orderStatus == 1 && order.driverInfo.userID == UserProfile.sharedInstance.userID {
                 // заказ принят и принят этим водителем
                 performSegueWithIdentifier(.ShowOrderDetailsSegue, sender: indexPath.row)
             }
-            //            else if order.orderStatus == 0 {
-            //                acceptOrder(order)
-            //            }
         }
     }
     
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let more = UITableViewRowAction(style: .Normal, title: "Отменить заказ") { action, index in
-            print("more button tapped")
+        let more = UITableViewRowAction(style: .Normal, title: "Отменить заказ") { [weak self] action, index in
+            guard let order = self?.orders[indexPath.row] else {
+                return
+            }
+            Helper().showLoading("Отменяю заказ")
+            Networking.instanse.cancelOrder(order) { result in
+                Helper().hideLoading()
+                switch result {
+                case .Error(let error):
+                    Popup.instanse.showError("Внимание!", message: error)
+                case .Response(_):
+                    Popup.instanse.showInfo("Внимание", message: "Ваш заказ отменен")
+                    self?.tableView.reloadData()
+                    break
+                }
+            }
         }
         more.backgroundColor = UIColor.mainOrangeColor()
         
@@ -260,15 +266,7 @@ class passengerOrderCell: UITableViewCell {
             orderDetailsText += "\n" + toPlace
         }
         orderDetailsLabel.text = orderDetailsText
-        
-        
-        //        if let userId = order.userID {
-        //            userIdLabel.text = "user ID: " + userId
-        //        }
-        
-        //        if let orderId = order.orderID {
-        //            idLabel.text = "order ID: " + orderId
-        //        }
+   
         if let createTime = order.createdAt {
             createTimeLabel.text = createTime.stringWithHumanizedTimeDifference(.SuffixAgo, withFullString: false)
         }
