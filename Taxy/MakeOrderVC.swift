@@ -24,7 +24,7 @@ final class MakeOrderVC: FormViewController {
     
     private lazy var informationSection: SectionFormer = {
         let childChairRow = SwitchRowFormer<FormSwitchCell>() {
-            $0.titleLabel.text = "Детское кресло?"
+            $0.titleLabel.text = "Детское кресло"
             $0.titleLabel.textColor = .formerColor()
             $0.titleLabel.font = UIFont.bold_Med()
             $0.switchButton.onTintColor = .formerSubColor()
@@ -33,20 +33,32 @@ final class MakeOrderVC: FormViewController {
             }.onSwitchChanged { [weak self] in
                 self?.orderInfo.isChildChair = $0
         }
-        /////////// comment ////////////
-        let commentRow = TextViewRowFormer<FormTextViewCell>() { [weak self] in
-            $0.textView.textColor = .formerSubColor()
-            $0.textView.font = UIFont.light_Small()
-            $0.textView.inputAccessoryView = self?.formerInputAccessoryView
-            }.configure {
-                $0.placeholder = "Ваш комментарий к заказу"
-            }.onTextChanged {
-                self.orderInfo.comment = $0
-        }
-        ////////////////////////////////
         
-        return SectionFormer(rowFormer:commentRow, childChairRow)
+        let animalRow = SwitchRowFormer<FormSwitchCell>() {
+            $0.titleLabel.text = "Животные"
+            $0.titleLabel.textColor = .formerColor()
+            $0.titleLabel.font = UIFont.bold_Med()
+            $0.switchButton.onTintColor = .formerSubColor()
+            }.configure {
+                $0.switchWhenSelected = true
+            }.onSwitchChanged { [weak self] in
+                self?.orderInfo.isAnimals = $0
+        }
+        
+        let bagsRow = SwitchRowFormer<FormSwitchCell>() {
+            $0.titleLabel.text = "Багаж"
+            $0.titleLabel.textColor = .formerColor()
+            $0.titleLabel.font = UIFont.bold_Med()
+            $0.switchButton.onTintColor = .formerSubColor()
+            }.configure {
+                $0.switchWhenSelected = true
+            }.onSwitchChanged { [weak self] in
+                self?.orderInfo.isBags = $0
+        }
+        
+        return SectionFormer(rowFormer: childChairRow, animalRow, bagsRow)
     }()
+    
     
     
     override func viewDidLoad() {
@@ -188,6 +200,18 @@ final class MakeOrderVC: FormViewController {
         //////////////////////////////
         
         
+        /////////// comment ////////////
+        let commentRow = TextViewRowFormer<FormTextViewCell>() { [weak self] in
+            $0.textView.textColor = .formerSubColor()
+            $0.textView.font = UIFont.light_Small()
+            $0.textView.inputAccessoryView = self?.formerInputAccessoryView
+            }.configure {
+                $0.placeholder = "Ваш комментарий к заказу"
+            }.onTextChanged {
+                self.orderInfo.comment = $0
+        }
+        ////////////////////////////////
+
         
         
         
@@ -218,6 +242,12 @@ final class MakeOrderVC: FormViewController {
             .onSelected { [weak self] _ in
                 self?.former.deselect(true)
                 guard let order = self?.orderInfo else {return}
+                if order.isAnimals {
+                    order.comment? += "С животными \n"
+                }
+                if order.isBags {
+                    order.comment? += "С багажом"
+                }
                 self?.createOrder(order)
         }
         
@@ -238,10 +268,12 @@ final class MakeOrderVC: FormViewController {
         let fromSection = SectionFormer(rowFormer: fromRow, buttons2Row)
         let toSection = SectionFormer(rowFormer: toRow, findOnMapRow)
         let priceSection = SectionFormer(rowFormer: priceRow)
+        let commentSection = SectionFormer(rowFormer: commentRow)
+
         let moreSection = SectionFormer(rowFormer: moreRow)
         let buttonSection = SectionFormer(rowFormer: makeOrderButtonRow)
         
-        former.append(sectionFormer:titleSection, fromSection, toSection, priceSection, moreSection, buttonSection)
+        former.append(sectionFormer:titleSection, fromSection, toSection, priceSection, commentSection, moreSection, buttonSection)
             .onCellSelected { [weak self] _ in
                 self?.formerInputAccessoryView.update()
         }
@@ -277,17 +309,6 @@ final class MakeOrderVC: FormViewController {
         }
     }
     
-//    private func createOrder(order: Order = Order()) {
-//        Helper().showLoading("Создание заказа")
-//        Networking.instanse.createOrder(order) { [weak self]  result in
-//            Helper().hideLoading()
-//            switch result {
-//            case .Error(let error):
-//                Popup.instanse.showError("Не удалось создать заказ", message: error)
-//            case .Response(let orderID):
-//                self?.instantiateSTID(STID.MyOrdersSTID)
-//            }
-//        }
-//    }
+
     
 }

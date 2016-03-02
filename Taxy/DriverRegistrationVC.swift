@@ -59,19 +59,19 @@ final class DriverRegistrationVC: FormViewController {
     }()
 
     
-    private lazy var carRow: LabelRowFormer<ProfileImageCell> = {
-        LabelRowFormer<ProfileImageCell>(instantiateType: .Nib(nibName: "ProfileImageCell")) {
-            $0.iconView.image = UserProfile.sharedInstance.carPhoto
-            }
-            .configure {
-                $0.text = "Фото машины"
-                $0.rowHeight = 60
-            }.onSelected { [weak self] _ in
-                self?.selectedRow = 1
-                self?.former.deselect(true)
-                self?.presentImagePicker()
-        }
-    }()
+//    private lazy var carRow: LabelRowFormer<ProfileImageCell> = {
+//        LabelRowFormer<ProfileImageCell>(instantiateType: .Nib(nibName: "ProfileImageCell")) {
+//            $0.iconView.image = UserProfile.sharedInstance.carPhoto
+//            }
+//            .configure {
+//                $0.text = "Фото машины"
+//                $0.rowHeight = 60
+//            }.onSelected { [weak self] _ in
+//                self?.selectedRow = 1
+//                self?.former.deselect(true)
+//                self?.presentImagePicker()
+//        }
+//    }()
     
     
     private lazy var carModelRow: TextFieldRowFormer<FormTextFieldCell> = { [weak self] _ in
@@ -158,7 +158,7 @@ final class DriverRegistrationVC: FormViewController {
                 UserProfile.sharedInstance.withChildChair = $0
         }
         
-        let rows = [pravaRow, carRow, ]
+        let rows = [pravaRow ]
 
         
         let section = SectionFormer(rowFormers: rows)
@@ -199,11 +199,11 @@ extension DriverRegistrationVC: UIImagePickerControllerDelegate, UINavigationCon
                 $0.iconView.image = resizedImage
             }
             
-        case 1:
-            carRow.cellUpdate {
-                UserProfile.sharedInstance.carPhoto = resizedImage
-                $0.iconView.image = resizedImage
-            }
+//        case 1:
+//            carRow.cellUpdate {
+//                UserProfile.sharedInstance.carPhoto = resizedImage
+//                $0.iconView.image = resizedImage
+//            }
             
         default:
             break

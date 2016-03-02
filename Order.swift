@@ -8,7 +8,7 @@
 import SwiftyJSON
 
 
-struct Order {
+class Order {
     var userID: String?
     var fromPlace: String?
     var toPlace: String?
@@ -17,6 +17,8 @@ struct Order {
     var price: Int?
     var isCab = false
     var isChildChair = false
+    var isAnimals = false
+    var isBags = false
     var moreInformation = false
     var fromPlaceCoordinates: CLLocationCoordinate2D?
     var orderID: String?
