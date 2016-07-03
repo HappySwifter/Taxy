@@ -14,18 +14,18 @@ import HCSStarRatingView
 
 
 protocol Rateble: CNPPopupControllerDelegate {
-    func presentRate()
+    func presentRate(type: String)
 }
 
 extension Rateble where Self:UIViewController {
-    func presentRate() {
+    func presentRate(type: String) {
         var popupController = CNPPopupController()
 
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = NSLineBreakMode.ByWordWrapping
         paragraphStyle.alignment = NSTextAlignment.Center
         
-        let title = NSAttributedString(string: "Вы можете оценить водителя", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(24), NSParagraphStyleAttributeName: paragraphStyle])
+        let title = NSAttributedString(string: "Вы можете оценить " + type, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(24), NSParagraphStyleAttributeName: paragraphStyle])
         
         let button = CNPPopupButton.init(frame: CGRectMake(0, 0, 200, 60))
         button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)

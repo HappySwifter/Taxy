@@ -211,7 +211,7 @@
 		6A3D4E2D1C29761F008AB2ED /* SegueHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueHandler.swift; sourceTree = "<group>"; };
 		6A570ABE1C467E490054C82A /* NSDate+HumanizedTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+HumanizedTime.h"; sourceTree = "<group>"; };
 		6A570ABF1C467E490054C82A /* NSDate+HumanizedTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+HumanizedTime.m"; sourceTree = "<group>"; };
-		6A624B2D1C06E52C00404B2D /* Taxy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Taxy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A624B2D1C06E52C00404B2D /* ushift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ushift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A624B301C06E52C00404B2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Taxy/AppDelegate.swift; sourceTree = "<group>"; };
 		6A624B351C06E52C00404B2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6A624B381C06E52C00404B2D /* Taxy.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Taxy.xcdatamodel; sourceTree = "<group>"; };
@@ -474,7 +474,7 @@
 		6A624B2E1C06E52C00404B2D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6A624B2D1C06E52C00404B2D /* Taxy.app */,
+				6A624B2D1C06E52C00404B2D /* ushift.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -530,9 +530,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6A624B2C1C06E52C00404B2D /* Taxy */ = {
+		6A624B2C1C06E52C00404B2D /* ushift */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6A624B581C06E52C00404B2D /* Build configuration list for PBXNativeTarget "Taxy" */;
+			buildConfigurationList = 6A624B581C06E52C00404B2D /* Build configuration list for PBXNativeTarget "ushift" */;
 			buildPhases = (
 				0762DDA81D88615360596AAF /* Check Pods Manifest.lock */,
 				6A624B291C06E52C00404B2D /* Sources */,
@@ -546,9 +546,9 @@
 			);
 			dependencies = (
 			);
-			name = Taxy;
+			name = ushift;
 			productName = Taxy;
-			productReference = 6A624B2D1C06E52C00404B2D /* Taxy.app */;
+			productReference = 6A624B2D1C06E52C00404B2D /* ushift.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -570,7 +570,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6A624B281C06E52C00404B2D /* Build configuration list for PBXProject "Taxy" */;
+			buildConfigurationList = 6A624B281C06E52C00404B2D /* Build configuration list for PBXProject "ushift" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -583,7 +583,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6A624B2C1C06E52C00404B2D /* Taxy */,
+				6A624B2C1C06E52C00404B2D /* ushift */,
 			);
 		};
 /* End PBXProject section */
@@ -795,6 +795,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -877,16 +878,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Artem Valiev (S6K8NBWNJN)";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Taxy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.elteh.Taxy;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.artemvaliev.ushift;
+				PRODUCT_NAME = ushift;
+				PROVISIONING_PROFILE = "7d04142f-1dae-4111-a4b1-4fa283fd8870";
 				SWIFT_OBJC_BRIDGING_HEADER = "Taxy-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -899,16 +902,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Artem Valiev (S6K8NBWNJN)";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Taxy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.elteh.Taxy;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.artemvaliev.ushift;
+				PRODUCT_NAME = ushift;
+				PROVISIONING_PROFILE = "7d04142f-1dae-4111-a4b1-4fa283fd8870";
 				SWIFT_OBJC_BRIDGING_HEADER = "Taxy-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -917,7 +922,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6A624B281C06E52C00404B2D /* Build configuration list for PBXProject "Taxy" */ = {
+		6A624B281C06E52C00404B2D /* Build configuration list for PBXProject "ushift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6A624B561C06E52C00404B2D /* Debug */,
@@ -926,7 +931,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6A624B581C06E52C00404B2D /* Build configuration list for PBXNativeTarget "Taxy" */ = {
+		6A624B581C06E52C00404B2D /* Build configuration list for PBXNativeTarget "ushift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6A624B591C06E52C00404B2D /* Debug */,

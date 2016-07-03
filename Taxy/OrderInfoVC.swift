@@ -143,9 +143,11 @@ final class OrderInfoVC: UIViewController, SegueHandlerType {
             timer?.invalidate()
             Popup.instanse.showSuccess("", message: "Заказ выполнен").handler { [weak self] _ in
                 if UserProfile.sharedInstance.type == .Passenger {
-                    self?.presentRate()
-                    return
+                    self?.presentRate("водителя")
+                } else {
+                    self?.presentRate("пассажира")                    
                 }
+                return
             }
         }
         
@@ -236,9 +238,9 @@ final class OrderInfoVC: UIViewController, SegueHandlerType {
                         Popup.instanse.showError("Внимание!", message: error)
                     case .Response(_):
                         if UserProfile.sharedInstance.type == .Passenger {
-                            self?.presentRate()
+                            self?.presentRate("водителя")
                         } else {
-                            self?.dismissMe()
+                            self?.presentRate("пассажира")
                         }
                     }
                 }
